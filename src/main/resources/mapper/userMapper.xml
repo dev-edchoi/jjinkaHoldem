@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+    <insert id="save" parameterType="user">
+        insert into user(userName, phoneNumber, userPwd, pwdUpdate, registDate)
+        values (#{userName}, #{phoneNumber}, '1111', '0', NOW())
+    </insert>
+
+    <select id="findAll" resultType="user">
+        select * from user order by userNo desc
+    </select>
+
+    <select id="findByUserNo" parameterType="Long" resultType="user">
+        select * from user where userNo=#{userNo}
+    </select>
+
+    <update id="update" parameterType="user">
+        update user set userPoint = #{userPoint} where userNo = #{userNo}
+    </update>
+
+    <update id="delete" parameterType="user">
+        delete from user where userNo=#{userNo}
+    </update>
+
+    <select id="findByMemberPhoneNo" parameterType="String" resultType="user">
+        select * from user where phoneNumber=#{phoneNumber}
+    </select>
+
+
+</mapper>
