@@ -1,6 +1,8 @@
 package com.jjinka.jjinkaHoldem.controller;
 
 import com.jjinka.jjinkaHoldem.dto.UserDTO;
+import com.jjinka.jjinkaHoldem.dto.UserPointDTO;
+import com.jjinka.jjinkaHoldem.service.UserPointService;
 import com.jjinka.jjinkaHoldem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -16,6 +19,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserPointService userPointService;
 
     @GetMapping("/userRegister")
     public String saveForm() {
@@ -59,7 +63,13 @@ public class UserController {
     @GetMapping
     public String findByUserNo(@RequestParam("userNo") Long userNo, Model model){
         UserDTO userDTO = userService.findByUserNo(userNo);
+        List<UserPointDTO> userPointDTOS = userPointService.userPointAll(userNo);
+
+        System.out.println(userPointDTOS);
+
         model.addAttribute("userList", userDTO);
+        model.addAttribute("userPoint", userPointDTOS);
+
         return "userDetail";
     }
 

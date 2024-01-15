@@ -4,5 +4,6 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.jjinka.jjinkaHoldem.dto.UserDTO" alias="user"/>
+        <typeAlias type="com.jjinka.jjinkaHoldem.dto.UserPointDTO" alias="userPoint"/>
     </typeAliases>
 </configuration>
