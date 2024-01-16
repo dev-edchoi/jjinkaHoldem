@@ -108,7 +108,7 @@ public class UserController {
     @PostMapping("/userUpdatePoint")
     public String userUpdatePoint(@ModelAttribute UserDTO userDTO, @RequestParam("userPoint") String userPoint){
         System.out.println(userDTO.getUserNo() + " : " + userPoint);
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String,Object> map = new HashMap<>();
             map.put("userNo", userDTO.getUserNo());
             map.put("userPoint", (long) Integer.parseInt(userPoint));
         userService.updatePoint(map);
