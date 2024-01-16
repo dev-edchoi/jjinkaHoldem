@@ -29,6 +29,10 @@ public class UserService {
         return userRepository.findByUserNo(userNo);
     }
 
+    public List<UserDTO> findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
     public void delete(Long userNo) {
         userRepository.delete(userNo);
     }
@@ -52,4 +56,6 @@ public class UserService {
     public void updatePoint(Map<String, Object> map) {
         userRepository.updatePoint(map);
     }
+
+
 }

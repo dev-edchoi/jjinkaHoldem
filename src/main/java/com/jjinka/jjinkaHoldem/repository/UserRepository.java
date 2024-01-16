@@ -26,6 +26,10 @@ public class UserRepository {
         return sqlSessionTemplate.selectOne("User.findByUserNo", userNo);
     }
 
+    public List<UserDTO> findByUserName(String userName) {
+        return sqlSessionTemplate.selectList("User.findByUserName", userName);
+    }
+
     public void delete(Long userNo) {
         sqlSessionTemplate.delete("User.delete",userNo);
     }
@@ -41,4 +45,6 @@ public class UserRepository {
     public void updatePoint(Map<String, Object> map) {
         sqlSessionTemplate.update("User.updatePoint", map);
     }
+
+
 }

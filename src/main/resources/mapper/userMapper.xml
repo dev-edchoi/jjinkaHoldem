@@ -16,6 +16,10 @@
         select * from user where userNo=#{userNo}
     </select>
 
+    <select id="findByUserName" parameterType="String" resultType="user">
+        select * from user where userName like '%${userName}%'
+    </select>
+
     <update id="update" parameterType="user">
         update user set userPoint = #{userPoint} where userNo = #{userNo}
     </update>

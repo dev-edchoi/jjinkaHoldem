@@ -27,24 +27,32 @@
 <table>
     <tr>
         <th>게임 번호</th>
-        <td>1</td>
+        <td>${gameList.gameNo}</td>
     </tr>
     <tr>
         <th>테이블 번호</th>
-        <td>3</td>
+        <td>${gameList.tableNo}</td>
     </tr>
     <tr>
-        <th>참여자 수</th>
-        <td>5</td>
+        <th>보상 비율</th>
+        <td>${gameList.rewardRate}</td>
     </tr>
     <tr>
         <th>리워드 포인트</th>
-        <td>150000</td>
+        <td>${gameList.makeDate}</td>
     </tr>
 </table>
 <br><br>
 <H1>참여 유저</H1>
 <br><br>
+<div>
+    <label for="searchUser"> 유저 검색 :
+        <input type="text" id="searchUser" name="userName" onblur="userSearch()"/>
+    </label>
+</div>
+<input type="submit" class="btn" id="btnSearchUser" value="회원 검색" onclick="userSearch()"/>
+<div id="search-list">
+</div>
 <div>
     <table>
         <tr>
@@ -67,6 +75,39 @@
 </div>
 </body>
 <script>
+    const userSearch = () => {
+        const userName = document.getElementById("searchUser").value;
+        console.log("검색할 이름 : ", userName);
+        $.ajax({
+            type: "post",
+            url: "/user/findByUserName",
+            data: {
+                "userName": userName
+            },
+            success: function (res) {
+                console.log("res : " + res);
+                let output = "<table>";
+                    output += "<tr><th>번호</th>";
+                    output += "<th>이름</th>";
+                    output += "<th>전화번호</th>";
+                    output += "<th>게임 참가</th>";
+
+                for(let i in res){
+                    output += "<tr>";
+                    output += "<td>"+res[i].userNo+"</td>";
+                    output += "<td>"+res[i].userName+"</td>";
+                    output += "<td>"+res[i].phoneNumber+"</td>";
+                    output += "<td><a href='/user?userNo=" + res[i].userNo + "'>참가</a></td>";
+                    output += "</tr>";
+                }
+                    output += "</table>";
+                    document.getElementById('search-list').innerHTML = output;
+            },
+            error: function (err) {
+                console.log("에러발생", err);
+            }
+        });
+    }
 
 </script>
 </html>

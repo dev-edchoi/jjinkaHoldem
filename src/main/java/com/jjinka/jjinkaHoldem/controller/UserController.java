@@ -74,6 +74,13 @@ public class UserController {
         return "userDetail";
     }
 
+    @PostMapping("/findByUserName")
+    public @ResponseBody List<UserDTO> findByUserName(@RequestParam("userName") String userName){
+        System.out.println("userName : " + userName);
+        System.out.println("result : " + userService.findByUserName(userName));
+        return userService.findByUserName(userName);
+    }
+
     @GetMapping("/delete")
     public String delete(@RequestParam("userNo") Long userNo){
         userService.delete(userNo);
@@ -114,5 +121,6 @@ public class UserController {
     public @ResponseBody String phoneNumberChk(@RequestParam("phoneNumber") String phoneNumber){
         return userService.phoneNoCheck(phoneNumber);
     }
+
 }
 
