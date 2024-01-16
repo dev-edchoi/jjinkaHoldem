@@ -20,6 +20,12 @@
         update user set userPoint = #{userPoint} where userNo = #{userNo}
     </update>
 
+    <update id="updatePoint" parameterType="map">
+        UPDATE user
+            SET userPoint = ((SELECT user.userPoint WHERE user.userNo=#{userNo}) + #{userPoint})
+        WHERE userNo = #{userNo}
+    </update>
+
     <update id="delete" parameterType="user">
         delete from user where userNo=#{userNo}
     </update>

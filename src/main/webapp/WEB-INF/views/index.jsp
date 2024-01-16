@@ -40,7 +40,7 @@
         </div>
         <div class="conB_container">
             <div class="conB_small_container">
-                <div class="conB_icon" onclick="location.href='gameInfo.do'">
+                <div class="conB_icon" onclick="location.href='game/gameList'">
                     <i class="fas fa-cogs icon"></i>
                 </div>
                 <div class="conB_content">

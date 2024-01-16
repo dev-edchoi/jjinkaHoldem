@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Game">
+    <select id="findAll" resultType="game">
+        select * from gameInfo order by gameNo desc;
+    </select>
+
+    <insert id="makeGame" parameterType="game">
+        insert into gameInfo(tableNo, rewardRate, makeDate)
+        values (#{tableNo}, #{rewardRate}, NOW())
+    </insert>
+
+    <select id="findByGameNo" parameterType="Long" resultType="game">
+        select * from gameInfo where gameNo=#{gameNo}
+    </select>
+</mapper>

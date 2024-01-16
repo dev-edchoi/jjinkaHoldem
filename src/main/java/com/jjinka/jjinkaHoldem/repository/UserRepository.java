@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -35,5 +36,9 @@ public class UserRepository {
 
     public UserDTO findByMemberPhoneNo(String phoneNumber) {
         return sqlSessionTemplate.selectOne("User.findByMemberPhoneNo", phoneNumber);
+    }
+
+    public void updatePoint(Map<String, Object> map) {
+        sqlSessionTemplate.update("User.updatePoint", map);
     }
 }

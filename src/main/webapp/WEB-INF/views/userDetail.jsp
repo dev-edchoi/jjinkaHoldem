@@ -42,12 +42,18 @@
         <td>${userList.userPoint}</td>
     </tr>
 </table>
-<label for="userPoint">포인트 수정</label><input name="userPoint" id="userPoint" type="number" value="0"/>
-<input type="button" class="btn" id="confirm" value=확인 onclick="updatePoint(value)"/>
-<input type="button" class="btn" id="minus3M" value="-30000" onclick="updatePoint(value)"/>
-<input type="button" class="btn" id="plus3M" value="+30000" onclick="updatePoint(value)"/>
-<input type="button" class="btn" id="minus5M" value="-50000" onclick="updatePoint(value)"/>
-<input type="button" class="btn" id="plus5M" value="+50000" onclick="updatePoint(value)"/>
+<form action="/user/userUpdatePoint" method="post" name="userPointUpdate">
+    <input type="hidden" name="userNo" value="${userList.userNo}">
+    <label for="userPoint">포인트 수정 : <input name="userPoint" id="userPoint" type="number" value="0" readonly style="border:none"/></label>
+
+    <input type="button" class="btn" id="minus3M" value="-30000" onclick="updatePoint(value)"/>
+    <input type="button" class="btn" id="plus3M" value="+30000" onclick="updatePoint(value)"/>
+    <input type="button" class="btn" id="minus5M" value="-50000" onclick="updatePoint(value)"/>
+    <input type="button" class="btn" id="plus5M" value="+50000" onclick="updatePoint(value)"/>
+    <input type="number" class="btn" id="point" value="0" onblur="updatePoint(value)"/>
+
+    <input type="button" class="btn" id="userPointUpdate" value=확인 onclick="userUpdatePoint()"/>
+</form>
 <div>
     <table>
         <tr>
@@ -72,14 +78,21 @@
     const updatePoint = (point) => {
         console.log(parseInt(point));
         let userPoint = document.getElementById("userPoint").value;
-        console.log("get ID :" + userPoint);
+        console.log(${userList.userPoint});
         if(userPoint === "0"){
             userPoint = 0;
         } else {
             userPoint = parseInt(userPoint);
         }
             userPoint += parseInt(point);
+
         document.getElementById("userPoint").value = userPoint;
     }
+
+    const userUpdatePoint = () => {
+        alert(document.getElementById("userPoint").value);
+        document.userPointUpdate.submit();
+    }
+
 </script>
 </html>

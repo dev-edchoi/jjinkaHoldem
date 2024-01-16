@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -48,4 +49,7 @@ public class UserService {
         }
     }
 
+    public void updatePoint(Map<String, Object> map) {
+        userRepository.updatePoint(map);
+    }
 }

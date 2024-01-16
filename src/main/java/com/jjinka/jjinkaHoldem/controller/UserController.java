@@ -10,8 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -95,6 +96,18 @@ public class UserController {
         } else {
             return "index";
         }
+    }
+
+    @PostMapping("/userUpdatePoint")
+    public String userUpdatePoint(@ModelAttribute UserDTO userDTO, @RequestParam("userPoint") String userPoint){
+        System.out.println(userDTO.getUserNo() + " : " + userPoint);
+        Map<String,Object> map = new HashMap<String,Object>();
+            map.put("userNo", userDTO.getUserNo());
+            map.put("userPoint", (long) Integer.parseInt(userPoint));
+        userService.updatePoint(map);
+        userPointService.insertPointLog(map);
+
+        return "redirect:/user?userNo=" + userDTO.getUserNo();
     }
 
     @PostMapping("/phoneNumberChk")

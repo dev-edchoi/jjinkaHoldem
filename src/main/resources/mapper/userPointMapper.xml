@@ -8,4 +8,8 @@
         select * from userPoint where userNo=#{userNo} order by date desc
     </select>
 
+    <insert id="insertPointLog" parameterType="map">
+        insert into userpoint(userNo, point)
+        values (#{userNo}, #{userPoint})
+    </insert>
 </mapper>

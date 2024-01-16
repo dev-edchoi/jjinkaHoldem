@@ -34,7 +34,7 @@
         <th>삭제</th>
     </tr>
     <c:forEach items="${userList}" var="user">
-        <tr>
+        <tr onclick="location.href='/user?userNo=${user.userNo}'">
             <td>${user.userNo}</td>
             <td>
                 <a href="/user?userNo=${user.userNo}">${user.phoneNumber}</a>

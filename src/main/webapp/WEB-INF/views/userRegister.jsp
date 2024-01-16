@@ -53,7 +53,6 @@
                 }
             },
             error: function (err) {
-
                 console.log("에러발생", err);
             }
         });
