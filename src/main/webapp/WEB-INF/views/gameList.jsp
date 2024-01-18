@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>회원 목록</title>
+    <title>게임 목록</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
@@ -23,33 +23,37 @@
         </div>
     </div>
 </header>
-<button onclick="makeGame()">게임 생성</button>
-<br><br>
-<table>
-    <tr>
-        <th>Game No.</th>
-        <th>테이블 번호</th>
-        <th>보상 비율</th>
-        <th>게임 현황</th>
-        <th>게임 시작 날짜</th>
-    </tr>
-    <c:forEach items="${gameList}" var="game">
-        <tr onclick="location.href='/game?gameNo=${game.gameNo}'">
-            <td>${game.gameNo}</td>
-            <td>${game.tableNo}</td>
-            <td>${game.rewardRate}</td>
-            <c:choose>
-                <c:when test="${game.isEnd == 0}">
-                    <td><button onclick="">게임 종료</button></td>
-                </c:when>
-                <c:otherwise>
-                    <td>게임 종료</td>
-                </c:otherwise>
-            </c:choose>
-            <td>${game.makeDate}</td>
+<div>
+    <button onclick="makeGame()" class="defaultBtn">게임 생성</button>
+    <br><br>
+    <table>
+        <tr>
+            <th>Game No.</th>
+            <th>테이블 번호</th>
+            <th>보상 비율</th>
+            <th>게임 현황</th>
+            <th>게임 시작 날짜</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${gameList}" var="game">
+            <tr onclick="location.href='/game?gameNo=${game.gameNo}'">
+                <td>${game.gameNo}</td>
+                <td>${game.tableNo}</td>
+                <td>${game.rewardRate}</td>
+                <c:choose>
+                    <c:when test="${game.isEnd == 0}">
+                        <td>
+                            <button onclick="">게임 종료</button>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>게임 종료</td>
+                    </c:otherwise>
+                </c:choose>
+                <td>${game.makeDate}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 </body>
 <script>
     const makeGame = () => {

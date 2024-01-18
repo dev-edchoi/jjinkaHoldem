@@ -44,7 +44,7 @@
 </table>
 <form action="/user/userUpdatePoint" method="post" name="userPointUpdate">
     <input type="hidden" name="userNo" value="${userList.userNo}">
-    <label for="userPoint">포인트 수정 : <input name="userPoint" id="userPoint" type="number" value="0" readonly style="border:none"/></label>
+    <label for="userPoint">포인트 수정 : <input name="userPoint" id="userPoint" type="number" value="0" readonly style="border:none; outline:none;"/></label>
 
     <input type="button" class="btn" id="minus3M" value="-30000" onclick="updatePoint(value)"/>
     <input type="button" class="btn" id="plus3M" value="+30000" onclick="updatePoint(value)"/>

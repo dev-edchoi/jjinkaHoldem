@@ -2,61 +2,55 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald);
 
 /* 기본 설정: 페이지 전체 */
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    height: 100%;
-}
-
 header {
     background-color: rgba(235, 223, 200, 1);
+    margin: 0 0 20px 0;
 }
 
 .header_container {
-    display: flex;
-    align-items: center;
     height : 5%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .logo_container {
-    display: block;
-    margin: 30px 10px;
     font-family: "Oswald", sans-serif;
-}
-
-.logo_container:before {
-    content: "";
-    border-top: 1px solid white;
-    position: absolute;
-    width: 300%;
-    top: 35%;
-    left: -100%;
-    z-index: -999;
-}
-
-.logo_container:after {
-    content: "";
-    border-bottom: 1px solid white;
-    position: absolute;
-    width: 300%;
-    bottom: 35%;
-    left: -100%;
-    z-index: -999;
-}
-
-.logo_container a {
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 500;
     text-decoration: none;
     text-align: center;
-    color: rgba(0,0,0,1);
+    display: block;
 }
 
-.main_container{
-    height: 100%;
+.logo_container a{
+    text-decoration: none;
+    color: rgba(0,0,0,1);
+    margin : 10px 0 30px
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+}
+
+.defaultBtn {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    max-width: 180px;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    float: right;
+    color: rgba(30, 22, 54, 0.6);
+    box-shadow: rgba(30, 22, 54, 0.4) 0 0 0 2px inset;
+}
+
+.label-wrapper {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    margin: 20px;
 }

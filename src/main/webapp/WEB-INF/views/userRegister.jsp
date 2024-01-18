@@ -23,7 +23,8 @@
     <div class="textForm">
         <input name="userName" type="text" class="name" placeholder="이름" maxlength="11">
     </div>
-    <input type="submit" class="btn" id="userRegister" disabled="true" value="회원 등록"/>
+    <input type="submit" class="btn" id="userRegister" disabled value="회원 등록"/>
+    <label for="cancelRegister"><input class="btn" id="cancelRegister" value="등록 취소" onclick="location.href='/'" style="text-align:center"/></label>
 </form>
 </body>
 <script>

@@ -11,6 +11,7 @@
     <title>JJinkaPub</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <header>
@@ -20,32 +21,34 @@
         </div>
     </div>
 </header>
+<div class="wrapper">
+    <form action="/game/makeGame" method="post" class="makeGame" style="margin-bottom: 100px">
+        <div>
+            <label class="label-wrapper"> 테이블 번호 :
+                <select name="tableNo">
+                    <option value="0">=== 선택 ===</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label class="label-wrapper" for="gameFee"> 참가 비용 :
+                <input type="text" id="gameFee" name="gameFee"/>
+            </label>
+        </div>
+        <div style="margin-bottom: 30px">
+            <label class="label-wrapper" for="rewardRate"> 상금 비율 :
+                <input type="text" id="rewardRate" name="rewardRate"/>
+            </label>
+        </div>
+        <input type="submit" class="defaultBtn" id="makeGame" value="게임 만들기" />
+    </form>
 
-<form action="/game/makeGame" method="post" class="makeGame">
-    <div>
-        <label> 테이블 번호 :
-            <select name="tableNo" >
-                <option value="0">=== 선택 ===</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </label>
-    </div>
-    <div>
-        <label for="rewardRate"> 상금 비율 :
-            <input type="text" id="gameFee" name="gameFee"/>
-        </label>
-    </div>
-    <div>
-        <label for="rewardRate"> 상금 비율 :
-            <input type="text" id="rewardRate" name="rewardRate"/>
-        </label>
-    </div>
-    <input type="submit" class="btn" id="userRegister" value="게임 만들기"/>
-</form>
+</div>
 </body>
 <script>
 

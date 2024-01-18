@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,5 +27,21 @@ public class GameRepository {
 
     public List<GameJoinerDTO> findJoinerList(Long gameNo) {
         return sqlSessionTemplate.selectList("Game.findJoinerList", gameNo);
+    }
+
+    public int gamerJoin(Map<String, Object> map) {
+        return sqlSessionTemplate.insert("Game.gamerJoin", map);
+    }
+
+    public GameJoinerDTO chkJoiner(Map<String, Object> map) {
+        return sqlSessionTemplate.selectOne("Game.chkJoiner", map);
+    }
+
+    public void userGameSet(Map<String, Object> map) {
+        sqlSessionTemplate.update("Game.userGameSet", map);
+    }
+
+    public void oneMoreGameCnt(Map<String, Object> map) {
+        sqlSessionTemplate.update("Game.oneMoreGameCnt", map);
     }
 }

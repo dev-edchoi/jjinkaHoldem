@@ -119,6 +119,5 @@ public class UserController {
     public @ResponseBody String phoneNumberChk(@RequestParam("phoneNumber") String phoneNumber){
         return userService.phoneNoCheck(phoneNumber);
     }
-
 }
 

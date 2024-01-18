@@ -17,6 +17,23 @@
     </select>
 
     <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
-        select * from gameJoiner where gameNo=#{gameNo}
+        select * from gameJoiner where gameNo=#{gameNo} AND InGame = 0
     </select>
+
+    <insert id="gamerJoin" parameterType="map">
+        insert into gamejoiner(gameNo, userNo, userName, gameTime)
+        values (#{gameNo}, #{userNo}, #{userName}, 1)
+    </insert>
+
+    <select id="chkJoiner" parameterType="map" resultType="gameJoiner">
+        select * from gamejoiner WHERE userNo=#{userNo} AND gameNo=#{gameNo} AND inGame=0;
+    </select>
+
+    <update id="userGameSet" parameterType="map">
+        update gamejoiner set inGame=1 WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+    </update>
+
+    <update id="oneMoreGameCnt" parameterType="map">
+        UPDATE gamejoiner SET gameTime = gameTime + 1 WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+    </update>
 </mapper>

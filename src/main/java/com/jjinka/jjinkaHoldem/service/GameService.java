@@ -2,11 +2,13 @@ package com.jjinka.jjinkaHoldem.service;
 
 import com.jjinka.jjinkaHoldem.dto.GameDTO;
 import com.jjinka.jjinkaHoldem.dto.GameJoinerDTO;
+import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +30,27 @@ public class GameService {
 
     public List<GameJoinerDTO> findJoinerList(Long gameNo) {
         return gameRepository.findJoinerList(gameNo);
+    }
+
+    public void gamerJoin(Map<String, Object> map) {
+        gameRepository.gamerJoin(map);
+    }
+
+    public String chkJoiner(Map<String, Object> map) {
+        GameJoinerDTO gameJoinerDTO =  gameRepository.chkJoiner(map);
+
+        if(gameJoinerDTO == null){
+            return "ok";
+        } else {
+            return "no";
+        }
+    }
+
+    public void userGameSet(Map<String, Object> map) {
+        gameRepository.userGameSet(map);
+    }
+
+    public void oneMoreGameCnt(Map<String, Object> map) {
+        gameRepository.oneMoreGameCnt(map);
     }
 }
