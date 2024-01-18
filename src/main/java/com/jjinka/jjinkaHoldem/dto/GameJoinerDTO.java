@@ -9,11 +9,10 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @ToString
-public class GameDTO {
+public class GameJoinerDTO {
     private Long gameNo;
-    private Long tableNo;
-    private Long gameFee;
-    private Long rewardRate;
-    private Long isEnd;
-    private Timestamp makeDate;
+    private Long userNo;
+    private String userName;
+    private Long gameTime;
+    private Timestamp joinTime;
 }

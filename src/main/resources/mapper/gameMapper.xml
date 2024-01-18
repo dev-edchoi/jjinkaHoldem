@@ -8,11 +8,15 @@
     </select>
 
     <insert id="makeGame" parameterType="game">
-        insert into gameInfo(tableNo, rewardRate, makeDate)
-        values (#{tableNo}, #{rewardRate}, NOW())
+        insert into gameInfo(tableNo, gameFee, rewardRate, makeDate)
+        values (#{tableNo},#{gameFee}, #{rewardRate}, NOW())
     </insert>
 
     <select id="findByGameNo" parameterType="Long" resultType="game">
         select * from gameInfo where gameNo=#{gameNo}
+    </select>
+
+    <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
+        select * from gameJoiner where gameNo=#{gameNo}
     </select>
 </mapper>

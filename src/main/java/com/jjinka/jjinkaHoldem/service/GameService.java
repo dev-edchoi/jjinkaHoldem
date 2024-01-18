@@ -1,6 +1,7 @@
 package com.jjinka.jjinkaHoldem.service;
 
 import com.jjinka.jjinkaHoldem.dto.GameDTO;
+import com.jjinka.jjinkaHoldem.dto.GameJoinerDTO;
 import com.jjinka.jjinkaHoldem.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,7 @@ public class GameService {
     }
 
 
+    public List<GameJoinerDTO> findJoinerList(Long gameNo) {
+        return gameRepository.findJoinerList(gameNo);
+    }
 }

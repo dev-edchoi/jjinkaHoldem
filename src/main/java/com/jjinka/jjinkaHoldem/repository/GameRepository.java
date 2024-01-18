@@ -1,6 +1,7 @@
 package com.jjinka.jjinkaHoldem.repository;
 
 import com.jjinka.jjinkaHoldem.dto.GameDTO;
+import com.jjinka.jjinkaHoldem.dto.GameJoinerDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,7 @@ public class GameRepository {
         return sqlSessionTemplate.selectOne("Game.findByGameNo", gameNo);
     }
 
-
+    public List<GameJoinerDTO> findJoinerList(Long gameNo) {
+        return sqlSessionTemplate.selectList("Game.findJoinerList", gameNo);
+    }
 }

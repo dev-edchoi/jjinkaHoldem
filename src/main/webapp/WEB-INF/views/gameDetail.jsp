@@ -34,6 +34,10 @@
         <td>${gameList.tableNo}</td>
     </tr>
     <tr>
+        <th>테이블 번호</th>
+        <td>${gameList.gameFee}</td>
+    </tr>
+    <tr>
         <th>보상 비율</th>
         <td>${gameList.rewardRate}</td>
     </tr>
@@ -56,28 +60,26 @@
 <div>
     <table>
         <tr>
-            <th>유저</th>
-            <th>포인트</th>
+            <th>회원 번호</th>
+            <th>참가자 이름</th>
+            <th>참여 횟수</th>
+            <th>참여 시간</th>
         </tr>
-        <tr>
-            <td>유저1</td>
-            <td>30000</td>
-        </tr>
-        <tr>
-            <td>유저2</td>
-            <td>30000</td>
-        </tr>
-        <tr>
-            <td>유저3</td>
-            <td>30000</td>
-        </tr>
+        <c:forEach items="${gameJoiner}" var="joiner">
+            <tr>
+                <td>${joiner.userNo}</td>
+                <td>${joiner.userName}</td>
+                <td>${joiner.gameTime}</td>
+                <td>${joiner.joinTime}</td>
+            </tr>
+        </c:forEach>
     </table>
 </div>
 </body>
 <script>
     const userSearch = () => {
         const userName = document.getElementById("searchUser").value;
-        console.log("검색할 이름 : ", userName);
+
         $.ajax({
             type: "post",
             url: "/user/findByUserName",
@@ -85,7 +87,6 @@
                 "userName": userName
             },
             success: function (res) {
-                console.log("res : " + res);
                 let output = "<table>";
                     output += "<tr><th>번호</th>";
                     output += "<th>이름</th>";
@@ -97,14 +98,32 @@
                     output += "<td>"+res[i].userNo+"</td>";
                     output += "<td>"+res[i].userName+"</td>";
                     output += "<td>"+res[i].phoneNumber+"</td>";
-                    output += "<td><a href='/user?userNo=" + res[i].userNo + "'>참가</a></td>";
+                    //output += "<td><a href='/user?userNo=" + res[i].userNo + "'>참가</a></td>";
+                    output += "<td><button onclick='gamerJoin(" + res[i].userNo + ")'>"+ "게임 참가" + "</button></td>";
                     output += "</tr>";
                 }
                     output += "</table>";
                     document.getElementById('search-list').innerHTML = output;
             },
             error: function (err) {
-                console.log("에러발생", err);
+                console.log("에러 발생", err);
+            }
+        });
+    }
+
+    const gamerJoin = (userNo) => {
+        console.log(userNo);
+        $.ajax({
+            type: "post",
+            url: "/user/findByUserName",
+            data: {
+                "userNo": userNo
+            },
+            success: function (res) {
+
+            },
+            error: function (err) {
+                console.log("에러 발생", err);
             }
         });
     }

@@ -36,6 +36,11 @@
     </div>
     <div>
         <label for="rewardRate"> 상금 비율 :
+            <input type="text" id="gameFee" name="gameFee"/>
+        </label>
+    </div>
+    <div>
+        <label for="rewardRate"> 상금 비율 :
             <input type="text" id="rewardRate" name="rewardRate"/>
         </label>
     </div>

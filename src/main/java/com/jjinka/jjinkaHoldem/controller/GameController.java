@@ -1,6 +1,7 @@
 package com.jjinka.jjinkaHoldem.controller;
 
 import com.jjinka.jjinkaHoldem.dto.GameDTO;
+import com.jjinka.jjinkaHoldem.dto.GameJoinerDTO;
 import org.springframework.ui.Model;
 import com.jjinka.jjinkaHoldem.service.GameService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,10 @@ public class GameController {
     @GetMapping
     public String findByGameNo(@RequestParam("gameNo") Long gameNo, Model model){
         GameDTO gameDTO = gameService.findByGameNo(gameNo);
+        List<GameJoinerDTO> gameJoinerDTOS = gameService.findJoinerList(gameNo);
+        
         model.addAttribute("gameList", gameDTO);
+        model.addAttribute("gameJoiner", gameJoinerDTOS);
 
         return "gameDetail";
     }

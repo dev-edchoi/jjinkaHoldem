@@ -76,8 +76,6 @@ public class UserController {
 
     @PostMapping("/findByUserName")
     public @ResponseBody List<UserDTO> findByUserName(@RequestParam("userName") String userName){
-        System.out.println("userName : " + userName);
-        System.out.println("result : " + userService.findByUserName(userName));
         return userService.findByUserName(userName);
     }
 
