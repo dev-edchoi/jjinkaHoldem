@@ -44,4 +44,12 @@ public class GameRepository {
     public void oneMoreGameCnt(Map<String, Object> map) {
         sqlSessionTemplate.update("Game.oneMoreGameCnt", map);
     }
+
+    public GameDTO chkInGame(String tableNo) {
+        return sqlSessionTemplate.selectOne("Game.chkInGame", tableNo);
+    }
+
+    public int gameSet(Long gameNo) {
+        return sqlSessionTemplate.update("Game.gameSet", gameNo);
+    }
 }

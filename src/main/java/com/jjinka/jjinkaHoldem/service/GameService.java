@@ -53,4 +53,20 @@ public class GameService {
     public void oneMoreGameCnt(Map<String, Object> map) {
         gameRepository.oneMoreGameCnt(map);
     }
+
+    public String chkInGame(String tableNo) {
+        GameDTO gameDTO = gameRepository.chkInGame(tableNo);
+
+        if(gameDTO == null){
+            return "ok";
+        } else {
+            return "no";
+        }
+    }
+
+    public boolean gameSet(Long gameNo) {
+        int result = gameRepository.gameSet(gameNo);
+
+        return result > 0;
+    }
 }

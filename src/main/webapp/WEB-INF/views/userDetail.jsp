@@ -76,9 +76,7 @@
     }
 
     const updatePoint = (point) => {
-        console.log(parseInt(point));
         let userPoint = document.getElementById("userPoint").value;
-        console.log(${userList.userPoint});
         if(userPoint === "0"){
             userPoint = 0;
         } else {
@@ -90,7 +88,6 @@
     }
 
     const userUpdatePoint = () => {
-        alert(document.getElementById("userPoint").value);
         document.userPointUpdate.submit();
     }
 

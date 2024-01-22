@@ -36,4 +36,12 @@
     <update id="oneMoreGameCnt" parameterType="map">
         UPDATE gamejoiner SET gameTime = gameTime + 1 WHERE userNo=#{userNo} AND gameNo=#{gameNo}
     </update>
+
+    <select id="chkInGame" parameterType="String" resultType="game">
+        SELECT * FROM gameinfo WHERE tableNo=#{tableNo} AND isEnd=0;
+    </select>
+
+    <update id="gameSet" parameterType="Long">
+        update gameinfo set isEnd=1 WHERE gameNo=#{gameNo}
+    </update>
 </mapper>

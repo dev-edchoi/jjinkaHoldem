@@ -37,6 +37,4 @@
     <select id="findByMemberPhoneNo" parameterType="String" resultType="user">
         select * from user where phoneNumber=#{phoneNumber}
     </select>
-
-
 </mapper>

@@ -54,7 +54,6 @@
 </body>
 <script>
     const deleteMember = (userNo) => {
-        console.log(userNo);
         location.href = "/user/delete?userNo="+userNo;
     }
 </script>

@@ -23,34 +23,37 @@
         </div>
     </div>
 </header>
-<div>
-    <button onclick="updateFn()">수정</button>
-    <table>
-        <tr>
-            <th>게임 번호</th>
-            <td>${gameList.gameNo}</td>
-        </tr>
-        <tr>
-            <th>테이블 번호</th>
-            <td>${gameList.tableNo}</td>
-        </tr>
-        <tr>
-            <th>참가 비용</th>
-            <td>${gameList.gameFee}</td>
-        </tr>
-        <tr>
-            <th>보상 비율</th>
-            <td>${gameList.rewardRate}</td>
-        </tr>
-        <tr>
-            <th>리워드 포인트</th>
-            <td>${gameList.makeDate}</td>
-        </tr>
-        <tr>
-            <th>게임 생성 시각</th>
-            <td>${gameList.makeDate}</td>
-        </tr>
-    </table>
+<div style="margin-top: 20px">
+    <button onclick="location.href='game/gameList'" class="defaultBtn">게임 목록</button>
+    <button onclick="updateFn()" class="defaultBtn">게임 정보 수정</button>
+    <div style="margin-top: 20px">
+        <table>
+            <tr>
+                <th>게임 번호</th>
+                <td>${gameList.gameNo}</td>
+            </tr>
+            <tr>
+                <th>테이블 번호</th>
+                <td>${gameList.tableNo}</td>
+            </tr>
+            <tr>
+                <th>참가 비용</th>
+                <td>${gameList.gameFee}</td>
+            </tr>
+            <tr>
+                <th>보상 비율</th>
+                <td>${gameList.rewardRate}</td>
+            </tr>
+            <tr>
+                <th>리워드 포인트</th>
+                <td>${gameList.makeDate}</td>
+            </tr>
+            <tr>
+                <th>게임 생성 시각</th>
+                <td>${gameList.makeDate}</td>
+            </tr>
+        </table>
+    </div>
     <div>
         <label for="searchUser"> 유저 검색 :
             <input type="text" id="searchUser" name="userName" onblur="userSearch()"/>
@@ -59,14 +62,12 @@
     </div>
     <div id="searchList">
     </div>
-    <br>
-    <H1>참여 유저</H1><br>
-    <div>
+    <H1>참여 유저</H1>
+    <div style="margin: 10px 0 10px 0">
         <label for="totalGamerCnt">총 참여 수 : <input type="number" id="totalGamerCnt" readonly
                                                    style="border:none; outline:none;"></label>
     </div>
-
-    <div>
+    <div style="margin: 10px 0 15px 0">
         <label for="totalReward">총 참여 수 : <input type="number" id="totalReward" readonly
                                                  style="border:none; outline:none;"></label>
     </div>
@@ -110,10 +111,10 @@
             },
             success: function (res) {
                 let output = "<table>";
-                output += "<tr><th>번호</th>";
-                output += "<th>이름</th>";
-                output += "<th>전화번호</th>";
-                output += "<th>게임 참가</th>";
+                    output += "<tr><th>번호</th>";
+                    output += "<th>이름</th>";
+                    output += "<th>전화번호</th>";
+                    output += "<th>게임 참가</th>";
 
                 for (let i in res) {
                     output += "<tr>";
@@ -221,12 +222,12 @@
 
     const reloadGamerList = (res) => {
         let gamerList = "<table id='gamerTable'>";
-        gamerList += "<tr><th>회원 번호</th>";
-        gamerList += "<th>참가자 이름</th>";
-        gamerList += "<th>참여 횟수</th>";
-        gamerList += "<th>추가 참여</th>";
-        gamerList += "<th>게임 종료</th>";
-        gamerList += "<th>참여 시간</th>";
+            gamerList += "<tr><th>회원 번호</th>";
+            gamerList += "<th>참가자 이름</th>";
+            gamerList += "<th>참여 횟수</th>";
+            gamerList += "<th>추가 참여</th>";
+            gamerList += "<th>게임 종료</th>";
+            gamerList += "<th>참여 시간</th>";
         for (let i in res) {
             gamerList += "<tr>";
             gamerList += "<td>" + res[i].userNo + "</td>";

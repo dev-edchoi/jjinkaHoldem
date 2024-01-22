@@ -20,7 +20,6 @@ import java.util.Map;
 public class GameController {
     private final GameService gameService;
     private final UserService userService;
-
     @GetMapping("/gameList")
     public String gameList(Model model) {
         List<GameDTO> gameDTOList = gameService.findAll();
@@ -42,7 +41,6 @@ public class GameController {
             return "/makeGame";
         }
     }
-
     @GetMapping
     public String findByGameNo(@RequestParam("gameNo") Long gameNo, Model model){
         GameDTO gameDTO = gameService.findByGameNo(gameNo);
@@ -53,7 +51,6 @@ public class GameController {
 
         return "gameDetail";
     }
-
     @PostMapping("/gamerJoin")
     public  @ResponseBody List<GameJoinerDTO> gamerJoin(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
         UserDTO userDTO =userService.findByUserNo(userNo);
@@ -64,10 +61,9 @@ public class GameController {
         map.put("userName", userDTO.getUserName());
 
         gameService.gamerJoin(map);
-        System.out.println(gameService.findJoinerList(gameNo));
+
         return gameService.findJoinerList(gameNo);
     }
-
     @PostMapping("/userGameSet")
     public  @ResponseBody List<GameJoinerDTO> userGameSet(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
         Map<String,Object> map = new HashMap<>();
@@ -78,7 +74,6 @@ public class GameController {
 
         return gameService.findJoinerList(gameNo);
     }
-
     @PostMapping("/oneMoreGameCnt")
     public  @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
         Map<String,Object> map = new HashMap<>();
@@ -89,7 +84,6 @@ public class GameController {
 
         return gameService.findJoinerList(gameNo);
     }
-
     @PostMapping("/chkJoiner")
     public @ResponseBody String chkJoiner(@RequestParam("userNo") Long userNo,@RequestParam("gameNo") Long gameNo){
         Map<String,Object> map = new HashMap<>();
@@ -97,5 +91,20 @@ public class GameController {
         map.put("gameNo", gameNo);
 
         return gameService.chkJoiner(map);
+    }
+    @PostMapping("/chkInGame")
+    public @ResponseBody String chkInGame(@RequestParam("tableNo") String tableNo){
+        return gameService.chkInGame(tableNo);
+    }
+
+    @PostMapping("/gameSet")
+    public  String gameSet(@RequestParam("gameNo") Long gameNo){
+        boolean saveResult = gameService.gameSet(gameNo);
+        System.out.println("saveResult : " + saveResult);
+        if (saveResult) {
+            return "redirect:/game/gameList";
+        } else {
+            return "/makeGame";
+        }
     }
 }

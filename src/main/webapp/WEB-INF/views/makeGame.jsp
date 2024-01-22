@@ -22,10 +22,10 @@
     </div>
 </header>
 <div class="wrapper">
-    <form action="/game/makeGame" method="post" class="makeGame" style="margin-bottom: 100px">
-        <div>
+    <form action="/game/makeGame" method="post" class="makeGame" name="makeGameForm" style="margin-bottom: 100px">
+        <div style="margin: 20px">
             <label class="label-wrapper"> 테이블 번호 :
-                <select name="tableNo">
+                <select id="tableNo" name="tableNo" class="defaultSelector">
                     <option value="0">=== 선택 ===</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -35,22 +35,51 @@
                 </select>
             </label>
         </div>
-        <div>
-            <label class="label-wrapper" for="gameFee"> 참가 비용 :
-                <input type="text" id="gameFee" name="gameFee"/>
+        <div style="margin: 20px">
+            <label class="label-wrapper" for="gameFee"> 참가 비용   :
+                <input type="number" id="gameFee" name="gameFee" class="defaultInput"/>
             </label>
         </div>
-        <div style="margin-bottom: 30px">
-            <label class="label-wrapper" for="rewardRate"> 상금 비율 :
-                <input type="text" id="rewardRate" name="rewardRate"/>
+        <div style="margin: 10px 10px 30px 10px">
+            <label class="label-wrapper" for="rewardRate"> 상금 비율    :
+                <input type="number" id="rewardRate" name="rewardRate" class="defaultInput"/>
             </label>
         </div>
-        <input type="submit" class="defaultBtn" id="makeGame" value="게임 만들기" />
+        <input type="button" class="defaultBtn" id="makeGame" value="게임 만들기" onclick="fnMakeGame()"/>
     </form>
-
 </div>
 </body>
 <script>
+    const fnMakeGame = () => {
+        let sTableNo = document.getElementById("tableNo").value;
+        console.log("테이블 번호 : " + sTableNo);
+        if(sTableNo === "0"){
+            alert("테이블 번호를 선택 해 주세요.");
+            return false;
+        } else {
+            fnChkGame(sTableNo);
+        }
+    }
 
+    const fnChkGame = (tableNo) => {
+        $.ajax({
+            type: "post",
+            url: "/game/chkInGame",
+            data: {
+                "tableNo": tableNo
+            },
+            success: function (res) {
+                if(res === "ok"){
+                    document.makeGameForm.submit();
+                } else {
+                    alert("해당 테이블은 게임 중 입니다.")
+                }
+            },
+            error: function (err) {
+                console.log("에러 발생", err);
+                return false;
+            }
+        });
+    }
 </script>
 </html>
