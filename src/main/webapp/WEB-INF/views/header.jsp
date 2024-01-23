@@ -10,7 +10,7 @@
 <head>
     <style>
         .header {
-            background-color: #795548; /* 헤더 배경색 */
+            background-color: #d2b48c;
             text-align: center;
             height: fit-content;
         }
