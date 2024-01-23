@@ -11,41 +11,30 @@
     <title>JJinkaPub</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/makeGame.css">
 </head>
 <body>
-<header>
-    <div class="header_container">
-        <div class="logo_container">
-            <a href="/">jjinka-Pub</a>
-        </div>
-    </div>
-</header>
-<div class="wrapper">
-    <form action="/game/makeGame" method="post" class="makeGame" name="makeGameForm" style="margin-bottom: 100px">
-        <div style="margin: 20px">
-            <label class="label-wrapper"> 테이블 번호 :
-                <select id="tableNo" name="tableNo" class="defaultSelector">
-                    <option value="0">=== 선택 ===</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </label>
-        </div>
-        <div style="margin: 20px">
-            <label class="label-wrapper" for="gameFee"> 참가 비용   :
-                <input type="number" id="gameFee" name="gameFee" class="defaultInput"/>
-            </label>
-        </div>
-        <div style="margin: 10px 10px 30px 10px">
-            <label class="label-wrapper" for="rewardRate"> 상금 비율    :
-                <input type="number" id="rewardRate" name="rewardRate" class="defaultInput"/>
-            </label>
-        </div>
-        <input type="button" class="defaultBtn" id="makeGame" value="게임 만들기" onclick="fnMakeGame()"/>
+<div class="container">
+    <h2 style="text-align: center; color: #4e342e;">게임 정보 입력</h2>
+    <form action="/game/makeGame" method="post" class="makeGame" name="makeGameForm">
+        <label for="tableNo">테이블 번호:</label>
+        <select id="tableNo" name="tableNo" required>
+            <option value="0">=== 선택 ===</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <label for="gameFee">참가 비용:</label>
+        <input type="number" id="gameFee" name="gameFee" placeholder="참가 비용을 입력하세요" required>
+
+        <label for="rewardRate">상금 비율:</label>
+        <input type="number" id="rewardRate" name="rewardRate" placeholder="상금 비율을 입력하세요" required>
+
+        <input type="button" value="게임 만들기" onclick="fnMakeGame()">
+        <input type="button" value="취소" onclick="listFn()">
     </form>
 </div>
 </body>
@@ -80,6 +69,10 @@
                 return false;
             }
         });
+    }
+
+    const listFn = () => {
+        location.href = "/game/gameList";
     }
 </script>
 </html>

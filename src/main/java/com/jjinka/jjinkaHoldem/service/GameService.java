@@ -2,11 +2,13 @@ package com.jjinka.jjinkaHoldem.service;
 
 import com.jjinka.jjinkaHoldem.dto.GameDTO;
 import com.jjinka.jjinkaHoldem.dto.GameJoinerDTO;
+import com.jjinka.jjinkaHoldem.dto.PageDTO;
 import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +18,41 @@ public class GameService {
 
     private final GameRepository gameRepository;
 
+    /*
     public List<GameDTO> findAll() {
         return gameRepository.findAll();
+    }
+    */
+    int pageLimit = 10; // 한 페이지당 보여줄 글 갯수
+    int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
+
+    public List<GameDTO> gameList(int page) {
+        int pagingStart = (page - 1) * pageLimit;
+
+        Map<String, Integer> pagingParams = new HashMap<>();
+        pagingParams.put("start", pagingStart);
+        pagingParams.put("limit", pageLimit);
+
+        return gameRepository.gameList(pagingParams);
+    }
+
+    public PageDTO pagingParam(int page) {
+        int boardCount = gameRepository.gameCount();
+        int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = startPage + blockLimit - 1;
+
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setPage(page);
+        pageDTO.setMaxPage(maxPage);
+        pageDTO.setStartPage(startPage);
+        pageDTO.setEndPage(endPage);
+
+        return pageDTO;
     }
     public int makeGame(GameDTO gameDTO) {
         return gameRepository.makeGame(gameDTO);
@@ -69,4 +104,6 @@ public class GameService {
 
         return result > 0;
     }
+
+
 }

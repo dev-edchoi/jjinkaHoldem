@@ -27,16 +27,12 @@
 
 <body>
 <header>
-    <div class="header_container">
-        <div class="logo_container">
-            <a href="/">jjinka-Pub</a>
-        </div>
-    </div>
+    <jsp:include page="header.jsp"></jsp:include>
 </header>
 <div class="main_container">
     <div class="conB">
         <div class="conB_title">
-            <h3>About</h3>
+            <h3>Task</h3>
         </div>
         <div class="conB_container">
             <div class="conB_small_container">

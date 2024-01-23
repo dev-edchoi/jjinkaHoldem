@@ -2,6 +2,7 @@ package com.jjinka.jjinkaHoldem.controller;
 
 import com.jjinka.jjinkaHoldem.dto.GameDTO;
 import com.jjinka.jjinkaHoldem.dto.GameJoinerDTO;
+import com.jjinka.jjinkaHoldem.dto.PageDTO;
 import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.service.UserService;
 import org.springframework.ui.Model;
@@ -20,10 +21,22 @@ import java.util.Map;
 public class GameController {
     private final GameService gameService;
     private final UserService userService;
+    /*
     @GetMapping("/gameList")
     public String gameList(Model model) {
         List<GameDTO> gameDTOList = gameService.findAll();
         model.addAttribute("gameList", gameDTOList);
+
+        return "gameList";
+    }
+    */
+    @GetMapping("/gameList")
+    public String gameList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+        List<GameDTO> gameDTOList = gameService.gameList(page);
+        PageDTO pageDTO = gameService.pagingParam(page);
+
+        model.addAttribute("gameList", gameDTOList);
+        model.addAttribute("paging", pageDTO);
 
         return "gameList";
     }
@@ -42,12 +55,13 @@ public class GameController {
         }
     }
     @GetMapping
-    public String findByGameNo(@RequestParam("gameNo") Long gameNo, Model model){
+    public String findByGameNo(@RequestParam("gameNo") Long gameNo,@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model){
         GameDTO gameDTO = gameService.findByGameNo(gameNo);
         List<GameJoinerDTO> gameJoinerDTOS = gameService.findJoinerList(gameNo);
 
         model.addAttribute("gameList", gameDTO);
         model.addAttribute("gameJoiner", gameJoinerDTOS);
+        model.addAttribute("page", page);
 
         return "gameDetail";
     }

@@ -7,6 +7,17 @@ header {
     margin: 0 0 20px 0;
 }
 
+/* Chrome, Safari, Edge, Opera */
+form input::-webkit-outer-spin-button,
+form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin : 0;
+}
+/* Firefox */
+form input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 .header_container {
     height : 5%;
 }
@@ -36,15 +47,40 @@ header {
 .defaultBtn {
     font-family: Arial, sans-serif;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
-    max-width: 180px;
     text-decoration: none;
-    border-radius: 4px;
-    padding: 10px 15px;
     float: right;
-    color: rgba(30, 22, 54, 0.6);
-    box-shadow: rgba(30, 22, 54, 0.4) 0 0 0 2px inset;
+
+    background-color: #795548; /* 브라운 계열의 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.defaultBtn:hover {
+    background-color: #4e342e; /* 버튼에 호버 효과 시 배경색 변경 */
+}
+
+.defaultSmallBtn {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+
+    background-color: #795548; /* 브라운 계열의 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.defaultSmallBtn:hover {
+    background-color: #4e342e; /* 버튼에 호버 효과 시 배경색 변경 */
 }
 
 .label-wrapper .defaultInput{
@@ -76,3 +112,5 @@ header {
     width: 300px;
     height: 130px;
 }
+
+

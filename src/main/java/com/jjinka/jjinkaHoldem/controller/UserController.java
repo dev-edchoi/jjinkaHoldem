@@ -1,5 +1,6 @@
 package com.jjinka.jjinkaHoldem.controller;
 
+import com.jjinka.jjinkaHoldem.dto.PageDTO;
 import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.dto.UserPointDTO;
 import com.jjinka.jjinkaHoldem.service.UserPointService;
@@ -37,7 +38,6 @@ public class UserController {
             return "userRegister";
         }
     }
-
     @GetMapping("/login")
     public String loginForm(){
         return "login";
@@ -54,44 +54,51 @@ public class UserController {
             return "login";
         }
     }
-
+    /*
     @GetMapping("/")
     public String findAll(Model model) {
         List<UserDTO> userDTOList = userService.findAll();
         model.addAttribute("userList", userDTOList);
         return "userList";
     }
+    */
+    @GetMapping("/")
+    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page){
+        List<UserDTO> userDTOList = userService.userList(page);
+        PageDTO pageDTO = userService.pagingParam(page);
+
+        model.addAttribute("userList", userDTOList);
+        model.addAttribute("paging", pageDTO);
+
+        return "userList";
+    }
+
     @GetMapping
-    public String findByUserNo(@RequestParam("userNo") Long userNo, Model model){
+    public String findByUserNo(@RequestParam("userNo") Long userNo,@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model){
         UserDTO userDTO = userService.findByUserNo(userNo);
         List<UserPointDTO> userPointDTOS = userPointService.userPointAll(userNo);
 
-        System.out.println(userPointDTOS);
-
         model.addAttribute("userList", userDTO);
         model.addAttribute("userPoint", userPointDTOS);
+        model.addAttribute("page", page);
 
         return "userDetail";
     }
-
     @PostMapping("/findByUserName")
     public @ResponseBody List<UserDTO> findByUserName(@RequestParam("userName") String userName){
         return userService.findByUserName(userName);
     }
-
     @GetMapping("/delete")
     public String delete(@RequestParam("userNo") Long userNo){
         userService.delete(userNo);
         return "redirect:/user/";
     }
-
     @GetMapping("/userUpdate")
     public String userUpdate(@RequestParam("userNo") Long userNo, Model model){
         UserDTO userDTO = userService.findByUserNo(userNo);
         model.addAttribute("user", userDTO);
         return "userUpdate";
     }
-
     //수정 처리
     @PostMapping("/userUpdate")
     public String userUpdate(@ModelAttribute UserDTO userDTO){
@@ -102,10 +109,8 @@ public class UserController {
             return "index";
         }
     }
-
     @PostMapping("/userUpdatePoint")
     public String userUpdatePoint(@ModelAttribute UserDTO userDTO, @RequestParam("userPoint") String userPoint){
-        System.out.println(userDTO.getUserNo() + " : " + userPoint);
         Map<String,Object> map = new HashMap<>();
             map.put("userNo", userDTO.getUserNo());
             map.put("userPoint", (long) Integer.parseInt(userPoint));
@@ -114,7 +119,6 @@ public class UserController {
 
         return "redirect:/user?userNo=" + userDTO.getUserNo();
     }
-
     @PostMapping("/phoneNumberChk")
     public @ResponseBody String phoneNumberChk(@RequestParam("phoneNumber") String phoneNumber){
         return userService.phoneNoCheck(phoneNumber);

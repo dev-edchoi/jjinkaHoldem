@@ -17,6 +17,13 @@ public class GameRepository {
     public List<GameDTO> findAll() {
         return sqlSessionTemplate.selectList("Game.findAll");
     }
+
+    public List<GameDTO> gameList(Map<String, Integer> pagingParams) {
+        return sqlSessionTemplate.selectList("Game.gameList", pagingParams);
+    }
+    public int gameCount() {
+        return sqlSessionTemplate.selectOne("Game.gameCount");
+    }
     public int makeGame(GameDTO gameDTO) {
         return sqlSessionTemplate.insert("Game.makeGame", gameDTO);
     }
@@ -52,4 +59,6 @@ public class GameRepository {
     public int gameSet(Long gameNo) {
         return sqlSessionTemplate.update("Game.gameSet", gameNo);
     }
+
+
 }

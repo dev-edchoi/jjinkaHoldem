@@ -17,17 +17,13 @@
 </head>
 <body>
 <header>
-    <div class="header_container">
-        <div class="logo_container">
-            <a href="/">jjinka-Pub</a>
-        </div>
-    </div>
+    <jsp:include page="header.jsp"></jsp:include>
 </header>
 <div style="margin-top: 20px">
-    <button onclick="location.href='game/gameList'" class="defaultBtn">게임 목록</button>
+    <button onclick="listFn()" class="defaultBtn">게임 목록</button>
     <button onclick="updateFn()" class="defaultBtn">게임 정보 수정</button>
     <div style="margin-top: 20px">
-        <table>
+        <table class="brown-table">
             <tr>
                 <th>게임 번호</th>
                 <td>${gameList.gameNo}</td>
@@ -266,5 +262,10 @@
     window.addEventListener('DOMContentLoaded', function () {
         calcSum();
     });
+
+    const listFn = () => {
+        const page = '${page}';
+        location.href = "/game/gameList?page=" + page;
+    }
 </script>
 </html>

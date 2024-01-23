@@ -14,7 +14,7 @@
 <header>
     <div class="header_container">
         <div class="logo_container">
-            <a href="/">jjinka-Pub</a>
+            <a href="/">ALPHA</a>
         </div>
     </div>
 </header>

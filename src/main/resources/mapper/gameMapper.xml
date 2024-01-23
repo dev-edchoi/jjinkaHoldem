@@ -7,6 +7,14 @@
         select * from gameInfo order by gameNo desc;
     </select>
 
+    <select id="gameList" parameterType="java.util.HashMap" resultType="game">
+        select * from gameInfo order by gameNo desc LIMIT #{limit} OFFSET #{start}
+    </select>
+
+    <select id="gameCount" resultType="Integer">
+        select count(gameNo) from gameInfo
+    </select>
+
     <insert id="makeGame" parameterType="game">
         insert into gameInfo(tableNo, gameFee, rewardRate, makeDate)
         values (#{tableNo},#{gameFee}, #{rewardRate}, NOW())

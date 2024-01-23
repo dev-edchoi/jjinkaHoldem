@@ -8,8 +8,12 @@
         values (#{userName}, #{phoneNumber}, '1111', '0', NOW())
     </insert>
 
-    <select id="findAll" resultType="user">
-        select * from user order by userNo desc
+    <select id="userList" parameterType="java.util.HashMap" resultType="user">
+        select * from user order by userNo desc LIMIT #{limit} OFFSET #{start}
+    </select>
+
+    <select id="userCount" resultType="Integer">
+        select count(userNo) from user
     </select>
 
     <select id="findByUserNo" parameterType="Long" resultType="user">
