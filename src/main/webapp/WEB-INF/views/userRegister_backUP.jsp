@@ -8,24 +8,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>ALPHA</title>
+    <title>JJinkaPub</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/makeGame.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userRegister.css">
 </head>
 <body>
-<div class="container">
-    <h2 style="text-align: center; color: #4e342e;">회원 정보 입력</h2>
-    <form action="/user/save" method="post" class="joinForm" name="joinForm">
-        <label for="phoneNumber">전화 번호:</label>
-        <input type="number" id="phoneNumber" name="phoneNumber" class="cellphoneNo" placeholder="전화 번호" maxlength="11" required oninput="handleOnInput(this, 11)" onblur="numberCheck()">
-        <p id="check-result"></p>
-        <label for="userName">회원 이름:</label>
-        <input type="text" id="userName" name="userName" placeholder="회원 이름" >
-        <input type="button" value="회원 등록" onclick="numberCheck()">
-        <input type="button" value="등록 취소" onclick="location.href='/'">
-    </form>
-</div>
+<form action="/user/save" method="post" class="joinForm">
+    <h2>회원 등록</h2>
+    <div class="textForm">
+        <input name="phoneNumber" id="phoneNumber" type="number" class="cellphoneNo" placeholder="전화번호" oninput="handleOnInput(this, 11)" onblur="numberCheck()">
+    </div>
+    <p id="check-result"></p>
+    <div class="textForm">
+        <input name="userName" type="text" class="name" placeholder="이름" maxlength="11">
+    </div>
+    <input type="submit" class="btn" id="userRegister" disabled value="회원 등록"/>
+    <label for="cancelRegister"><input class="btn" id="cancelRegister" value="등록 취소" onclick="location.href='/'" style="text-align:center"/></label>
+</form>
 </body>
 <script>
     // 이메일 입력값을 가져오고,
@@ -47,6 +47,7 @@
                 if (res === "ok") {
                     checkResult.style.color = "green";
                     checkResult.innerHTML = "사용 가능 한 번호";
+                    document.getElementById("userRegister").disabled = false;
                 } else {
                     checkResult.style.color = "red";
                     checkResult.innerHTML = "이미 사용 중인 번호";
