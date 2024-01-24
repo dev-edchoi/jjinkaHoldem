@@ -85,6 +85,10 @@ public class GameService {
         gameRepository.userGameSet(map);
     }
 
+    public void reGameIn(Map<String, Object> map) {
+        gameRepository.reGameIn(map);
+    }
+
     public void oneMoreGameCnt(Map<String, Object> map) {
         gameRepository.oneMoreGameCnt(map);
     }
@@ -105,5 +109,7 @@ public class GameService {
         return result > 0;
     }
 
-
+    public void setReward(Map<String, Object> map) {
+        gameRepository.setReward(map);
+    }
 }

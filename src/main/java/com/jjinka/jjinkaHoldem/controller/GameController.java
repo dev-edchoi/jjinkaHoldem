@@ -63,8 +63,24 @@ public class GameController {
         model.addAttribute("gameJoiner", gameJoinerDTOS);
         model.addAttribute("page", page);
 
+        System.out.println(gameJoinerDTOS);
         return "gameDetail";
     }
+
+    @PostMapping("/setReward")
+    public @ResponseBody GameDTO setReward(@RequestParam("gameNo") Long gameNo,@RequestParam("totalGameFee") Long totalGameFee, @RequestParam("gameReward") Long gameReward, Model model){
+        Map<String,Object> map = new HashMap<>();
+        map.put("gameNo", gameNo);
+        map.put("totalGameFee", totalGameFee);
+        map.put("gameReward", gameReward);
+
+        gameService.setReward(map);
+
+        GameDTO gameDTO = gameService.findByGameNo(gameNo);
+        model.addAttribute("gameList", gameDTO);
+        return gameDTO;
+    }
+
     @PostMapping("/gamerJoin")
     public  @ResponseBody List<GameJoinerDTO> gamerJoin(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
         UserDTO userDTO =userService.findByUserNo(userNo);
@@ -88,6 +104,21 @@ public class GameController {
 
         return gameService.findJoinerList(gameNo);
     }
+
+    @PostMapping("/reGameIn")
+    public  @ResponseBody List<GameJoinerDTO> reGameIn(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
+        UserDTO userDTO =userService.findByUserNo(userNo);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("gameNo", gameNo);
+        map.put("userNo", userDTO.getUserNo());
+        map.put("userName", userDTO.getUserName());
+
+        gameService.reGameIn(map);
+
+        return gameService.findJoinerList(gameNo);
+    }
+
     @PostMapping("/oneMoreGameCnt")
     public  @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
         Map<String,Object> map = new HashMap<>();
@@ -114,7 +145,7 @@ public class GameController {
     @PostMapping("/gameSet")
     public  String gameSet(@RequestParam("gameNo") Long gameNo){
         boolean saveResult = gameService.gameSet(gameNo);
-        System.out.println("saveResult : " + saveResult);
+
         if (saveResult) {
             return "redirect:/game/gameList";
         } else {

@@ -20,8 +20,8 @@
 </header>
 
 <div class="buttons-container">
-    <button class="button">게임 목록</button>
-    <button class="button">게임 정보 수정</button>
+    <button class="button" onclick="listFn()">게임 목록</button>
+    <button class="button" onclick="updateFn()">게임 정보 수정</button>
 </div>
 
 <div class="container">
@@ -41,8 +41,16 @@
                 <td>${gameList.gameFee}</td>
             </tr>
             <tr>
+                <th>총 참여 비용</th>
+                <td id="totalGameFee">${gameList.totalGameFee}</td>
+            </tr>
+            <tr>
                 <th>보상 비율</th>
                 <td>${gameList.rewardRate}</td>
+            </tr>
+            <tr>
+                <th>상금</th>
+                <td id="gameReward">${gameList.gameReward}</td>
             </tr>
             <tr>
                 <th>게임 생성 시각</th>
@@ -54,69 +62,18 @@
         <h2>Member Search</h2>
         <label for="searchUser"> 유저 검색 :</label>
         <input type="text" id="searchUser" name="userName" placeholder="Enter member name" onblur="userSearch()"/>
-        <button class="button">회원 검색</button>
-        <input type="button" class="button" id="btnSearchUser" value="회원 검색" onclick="userSearch()"/>
-
+        <button class="table-button" id="btnSearchUser" onclick="userSearch()">회원 검색</button>
         <!-- Display search results here -->
-        <div class="search-results">
+        <div class="search-results" id="search-list">
             <!-- Results will be displayed dynamically here -->
-            <table class="brown-table">
-            <tr>
-                <th>회원 번호</th>
-                <th>참가자 이름</th>
-                <th>참여 횟수</th>
-                <th>추가 참여</th>
-                <th>게임 종료</th>
-                <th>참여 시간</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>asdf</td>
-                <td>112312</td>
-                <td>
-                    <button>추가 참여</button>
-                </td>
-                <td>
-                    <button>게임 종료</button>
-                </td>
-                <td>12312312</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>asdf</td>
-                <td>112312</td>
-                <td>
-                    <button class="table-button">추가 참여</button>
-                </td>
-                <td>
-                    <button class="table-button">게임 종료</button>
-                </td>
-                <td>12312312</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>asdf</td>
-                <td>112312</td>
-                <td>
-                    <button class="table-button">추가 참여</button>
-                </td>
-                <td>
-                    <button class="table-button">게임 종료</button>
-                </td>
-                <td>12312312</td>
-            </tr>
-            </table>
         </div>
     </div>
 </div>
-
-<div style="margin: 10px 0 10px 0">
-    <label for="totalGamerCnt">총 참여 수 : <input type="number" id="totalGamerCnt" readonly
-                                               style="border:none; outline:none;"></label>
-    <label for="totalReward">총 참여 수 : <input type="number" id="totalReward" readonly
-                                             style="border:none; outline:none;"></label>
-</div>
 <H3>참여 유저</H3>
+<div style="margin: 10px 0 10px 0; float: right">
+    <label for="totalGamerCnt">총 참여 횟수 : </label>
+    <input type="number" id="totalGamerCnt" readonly>
+</div>
 <div>
     <table id='gamerTable' class="brown-table">
         <tr>
@@ -126,19 +83,31 @@
             <th>추가 참여</th>
             <th>게임 종료</th>
             <th>참여 시간</th>
+            <th>종료 시간</th>
         </tr>
         <c:forEach items="${gameJoiner}" var="joiner">
             <tr>
                 <td>${joiner.userNo}</td>
                 <td>${joiner.userName}</td>
                 <td>${joiner.gameTime}</td>
-                <td>
-                    <button onclick="oneMoreGameCnt('${joiner.userNo}')">추가 참여</button>
-                </td>
-                <td>
-                    <button onclick="gameSet('${joiner.userNo}')">게임 종료</button>
-                </td>
+                <c:choose>
+                    <c:when test="${joiner.inGame == 0}">
+                        <td>
+                            <button class="table-button" onclick="oneMoreGameCnt('${joiner.userNo}')">추가 참여</button>
+                        </td>
+                        <td>
+                            <button class="table-button" onclick="gameSet('${joiner.userNo}')">게임 종료</button>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>
+                            <button class="table-button" onclick="reGameIn('${joiner.userNo}')">다시 참여하기</button>
+                        </td>
+                        <td>참여 종료 됐습니다.</td>
+                    </c:otherwise>
+                </c:choose>
                 <td>${joiner.joinTime}</td>
+                <td>${joiner.finishTime}</td>
             </tr>
         </c:forEach>
     </table>
@@ -155,11 +124,11 @@
                 "userName": userName
             },
             success: function (res) {
-                let output = "<table>";
-                output += "<tr><th>번호</th>";
-                output += "<th>이름</th>";
-                output += "<th>전화번호</th>";
-                output += "<th>게임 참가</th>";
+                let output = "<table class='brown-table'>";
+                    output += "<tr><th>번호</th>";
+                    output += "<th>이름</th>";
+                    output += "<th>전화번호</th>";
+                    output += "<th>게임 참가</th>";
 
                 for (let i in res) {
                     output += "<tr>";
@@ -167,11 +136,11 @@
                     output += "<td>" + res[i].userName + "</td>";
                     output += "<td>" + res[i].phoneNumber + "</td>";
                     //output += "<td><a href='/user?userNo=" + res[i].userNo + "'>참가</a></td>";
-                    output += "<td><button onclick='ChkJoiner(" + res[i].userNo + ")'>" + "게임 참가" + "</button></td>";
+                    output += "<td><button class='table-button' onclick='ChkJoiner(" + res[i].userNo + ")'>" + "게임 참가" + "</button></td>";
                     output += "</tr>";
                 }
                 output += "</table>";
-                document.getElementById('searchList').innerHTML = output;
+                document.getElementById('search-list').innerHTML = output;
             },
             error: function (err) {
                 console.log("에러 발생", err);
@@ -212,7 +181,7 @@
             },
             success: function (res) {
                 reloadGamerList(res);
-                document.getElementById('searchList').innerHTML = "";
+                document.getElementById('search-list').innerHTML = "";
                 document.getElementById('searchUser').value = "";
             },
             error: function (err) {
@@ -265,26 +234,57 @@
         }
     }
 
+    const reGameIn = (userNo) =>{
+        if (confirm("다시 참여하겠습니까?")) {
+            let gameNumber = '${gameList.gameNo}';
+            $.ajax({
+                type: "post",
+                url: "/game/reGameIn",
+                data: {
+                    "userNo": userNo,
+                    "gameNo": gameNumber
+                },
+                success: function (res) {
+                    reloadGamerList(res);
+                },
+                error: function (err) {
+                    console.log("에러 발생", err);
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
     const reloadGamerList = (res) => {
         let gamerList = "<table id='gamerTable'>";
-        gamerList += "<tr><th>회원 번호</th>";
-        gamerList += "<th>참가자 이름</th>";
-        gamerList += "<th>참여 횟수</th>";
-        gamerList += "<th>추가 참여</th>";
-        gamerList += "<th>게임 종료</th>";
-        gamerList += "<th>참여 시간</th>";
+            gamerList += "<tr><th>회원 번호</th>";
+            gamerList += "<th>참가자 이름</th>";
+            gamerList += "<th>참여 횟수</th>";
+            gamerList += "<th>추가 참여</th>";
+            gamerList += "<th>게임 종료</th>";
+            gamerList += "<th>참여 시간</th>";
+            gamerList += "<th>종료 시간</th>";
         for (let i in res) {
             gamerList += "<tr>";
             gamerList += "<td>" + res[i].userNo + "</td>";
             gamerList += "<td>" + res[i].userName + "</td>";
             gamerList += "<td class='gameTimeCnt'>" + res[i].gameTime + "</td>";
-            gamerList += "<td><button onclick='oneMoreGameCnt(" + res[i].userNo + ")'>" + "추가 참여" + "</button></td>";
-            gamerList += "<td><button onclick='gameSet(" + res[i].userNo + ")'>" + "게임 종료" + "</button></td>";
+            if(parseInt(res[i].inGame) === 0){
+                gamerList += "<td><button class='table-button' onclick='oneMoreGameCnt(" + res[i].userNo + ")'>" + "추가 참여" + "</button></td>";
+                gamerList += "<td><button class='table-button' onclick='gameSet(" + res[i].userNo + ")'>" + "게임 종료" + "</button></td>";
+            } else {
+                gamerList += "<td><button class='table-button' onclick='reGameIn(" + res[i].userNo + ")'>" + "다시 참여하기" + "</button></td>";
+                gamerList += "<td>참여 종료 됐습니다.</td>";
+
+            }
             gamerList += "<td>" + res[i].joinTime + "</td>";
+            if(res[i].finishTime === undefined || res[i].finishTime === null) res[i].finishTime ="";
+            gamerList += "<td>" + res[i].finishTime + "</td>";
             gamerList += "</tr>";
         }
-        gamerList += "</table>";
-        document.getElementById('gamerList').innerHTML = gamerList;
+            gamerList += "</table>";
+        document.getElementById('gamerTable').innerHTML = gamerList;
         calcSum();
     }
 
@@ -295,17 +295,37 @@
             sum += parseInt(table.rows[i].cells[2].innerHTML);
         }
         document.getElementById('totalGamerCnt').value = sum;       // 합계 출력
+
         calcReward();
     }
 
     calcReward = () => {
-        const gamerCnt = document.getElementById('totalGamerCnt').value;
-        const gameFee = ${gameList.gameFee};
-        const rewardRate = ${gameList.rewardRate};
+        let gameNumber = '${gameList.gameNo}';
+        let gamerCnt = document.getElementById('totalGamerCnt').value;
+        let gameFee = ${gameList.gameFee};
+        let rewardRate = ${gameList.rewardRate};
 
         let gameReward = (gamerCnt * gameFee) * (rewardRate / 100);
-        gameReward = Math.ceil(gameReward);
-        document.getElementById('totalReward').value = gameReward;
+            gameReward = Math.ceil(gameReward);
+        let totalGameFee = parseInt(gamerCnt * gameFee);
+
+        $.ajax({
+            type: "post",
+            url: "/game/setReward",
+            data: {
+                "gameNo": gameNumber,
+                "totalGameFee": totalGameFee,
+                "gameReward" : gameReward,
+            },
+            success: function (res) {
+                document.getElementById('totalGameFee').innerHTML = res.totalGameFee;
+                document.getElementById('gameReward').innerHTML = res.gameReward;
+            },
+            error: function (err) {
+                console.log("에러 발생", err);
+            }
+        });
+
     }
 
     window.addEventListener('DOMContentLoaded', function () {

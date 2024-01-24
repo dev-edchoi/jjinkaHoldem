@@ -13,7 +13,9 @@ public class GameDTO {
     private Long gameNo;
     private Long tableNo;
     private Long gameFee;
+    private Long totalGameFee;
     private Long rewardRate;
+    private Long gameReward;
     private Long isEnd;
     private Timestamp makeDate;
 }

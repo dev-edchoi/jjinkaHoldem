@@ -25,7 +25,7 @@
     </select>
 
     <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
-        select * from gameJoiner where gameNo=#{gameNo} AND InGame = 0
+        select * from gameJoiner where gameNo=#{gameNo} ORDER BY inGame	asc
     </select>
 
     <insert id="gamerJoin" parameterType="map">
@@ -38,7 +38,11 @@
     </select>
 
     <update id="userGameSet" parameterType="map">
-        update gamejoiner set inGame=1 WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+        update gamejoiner set inGame=1, finishTime=NOW() WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+    </update>
+
+    <update id="reGameIn" parameterType="map">
+        update gamejoiner set inGame=0, gameTime = gameTime + 1, finishTime=null WHERE userNo=#{userNo} AND gameNo=#{gameNo}
     </update>
 
     <update id="oneMoreGameCnt" parameterType="map">
@@ -51,5 +55,9 @@
 
     <update id="gameSet" parameterType="Long">
         update gameinfo set isEnd=1 WHERE gameNo=#{gameNo}
+    </update>
+
+    <update id="setReward" parameterType="Long">
+        UPDATE gameinfo SET totalGameFee = #{totalGameFee}, gameReward = #{gameReward} WHERE gameNo=#{gameNo}
     </update>
 </mapper>

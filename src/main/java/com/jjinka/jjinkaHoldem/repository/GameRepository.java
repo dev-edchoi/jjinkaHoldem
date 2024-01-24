@@ -48,6 +48,10 @@ public class GameRepository {
         sqlSessionTemplate.update("Game.userGameSet", map);
     }
 
+    public void reGameIn(Map<String, Object> map) {
+        sqlSessionTemplate.update("Game.reGameIn", map);
+    }
+
     public void oneMoreGameCnt(Map<String, Object> map) {
         sqlSessionTemplate.update("Game.oneMoreGameCnt", map);
     }
@@ -60,5 +64,7 @@ public class GameRepository {
         return sqlSessionTemplate.update("Game.gameSet", gameNo);
     }
 
-
+    public void setReward(Map<String, Object> map) {
+        sqlSessionTemplate.update("Game.setReward", map);
+    }
 }

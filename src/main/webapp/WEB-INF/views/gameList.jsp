@@ -13,21 +13,26 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/table.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/paging.css">
 </head>
 <body>
 <header>
     <jsp:include page="header.jsp"></jsp:include>
 </header>
-<div style="margin-top: 20px">
-    <button onclick="makeGame()" class="defaultBtn">게임 생성</button>
+<div>
+    <div class="buttons-container">
+        <button onclick="makeGame()" class="button">게임 생성</button>
+    </div>
+
     <div style="margin-top: 20px">
-        <table>
+        <table class="brown-table">
             <tr>
                 <th>Game No.</th>
                 <th>테이블 번호</th>
+                <th>게임 참가 비용</th>
+                <th>총 게임 비용</th>
                 <th>보상 비율</th>
+                <th>상금</th>
                 <th>게임 현황</th>
                 <th>게임 시작 날짜</th>
             </tr>
@@ -35,15 +40,18 @@
                 <tr>
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameNo}</td>
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.tableNo}</td>
+                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameFee}</td>
+                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.totalGameFee}</td>
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.rewardRate}</td>
+                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameReward}</td>
                     <c:choose>
                         <c:when test="${game.isEnd == 0}">
                             <td>
-                                <button onclick="fnGameSet('${game.gameNo}')">게임 종료</button>
+                                <button class="table-button" onclick="fnGameSet('${game.gameNo}')">게임 종료</button>
                             </td>
                         </c:when>
                         <c:otherwise>
-                            <td>게임 종료</td>
+                            <td>게임이 종료됐습니다.</td>
                         </c:otherwise>
                     </c:choose>
                     <td>${game.makeDate}</td>
