@@ -9,16 +9,10 @@ public class HomeController {
     public String index() {
         return "index";
     }
-    @GetMapping("/test")
-    public String test() {
-        return "test";
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
-    @GetMapping("/test2")
-    public String test2() {
-        return "test2";
-    }
-    @GetMapping("/test3")
-    public String test3() {
-        return "test3";
-    }
+
 }

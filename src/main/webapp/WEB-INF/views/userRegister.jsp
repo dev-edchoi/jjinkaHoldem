@@ -22,12 +22,28 @@
         <p id="check-result"></p>
         <label for="userName">회원 이름:</label>
         <input type="text" id="userName" name="userName" placeholder="회원 이름" >
-        <input type="button" value="회원 등록" onclick="numberCheck()">
+        <input type="button" value="회원 등록" onclick="userRegist()">
         <input type="button" value="등록 취소" onclick="location.href='/'">
     </form>
 </div>
 </body>
 <script>
+    const userRegist =() => {
+        let phoneNumber = document.getElementById("phoneNumber").value;
+        let userName = document.getElementById("userName").value;
+
+        if(phoneNumber.length < 11){
+            alert("휴대폰 번호는 11자리를 입력해주세요..");
+            return false;
+        }
+
+        if(!phoneNumber || !userName){
+            alert("정보를 입력해주세요.");
+            return false;
+        } else {
+            document.joinForm.submit();
+        }
+    }
     // 이메일 입력값을 가져오고,
     // 입력값을 서버로 전송하고 똑같은 이메일이 있는지 체크한 후
     // 사용 가능 여부를 이메일 입력창 아래에 표시
@@ -35,7 +51,7 @@
         let phoneNumber = document.getElementById("phoneNumber").value;
             phoneNumber = phoneNumber.toString();
         const checkResult = document.getElementById("check-result");
-        console.log("입력한 이메일 : ", phoneNumber);
+
         $.ajax({
             // 요청방식: post, url: "email-check", 데이터: 이메일
             type: "post",

@@ -7,5 +7,6 @@
         <typeAlias type="com.jjinka.jjinkaHoldem.dto.UserPointDTO" alias="userPoint"/>
         <typeAlias type="com.jjinka.jjinkaHoldem.dto.GameDTO" alias="game"/>
         <typeAlias type="com.jjinka.jjinkaHoldem.dto.GameJoinerDTO" alias="gameJoiner"/>
+        <typeAlias type="com.jjinka.jjinkaHoldem.dto.AdminLoginDTO" alias="admin"/>
     </typeAliases>
 </configuration>

@@ -13,60 +13,52 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/table.css">
 </head>
 <body>
 <header>
-    <div class="header_container">
-        <div class="logo_container">
-            <a href="/">ALPHA</a>
-        </div>
-    </div>
+    <jsp:include page="header.jsp"></jsp:include>
 </header>
-<div>
-    <button class="defaultBtn" onclick="updateFn()">유정 정보 수정</button>
-    <button class="defaultBtn" onclick="listFn()">유저 목록</button>
+<div class="buttons-container">
+    <button class="button" onclick="updateFn()">유정 정보 수정</button>
+    <button class="button" onclick="listFn()">유저 목록</button>
 </div>
-<div>
-    <table class="brown-table">
-        <tr>
-            <th>유저 번호</th>
-            <td>${userList.userNo}</td>
-        </tr>
-        <tr>
-            <th>유저 이름</th>
-            <td>${userList.userName}</td>
-        </tr>
-        <tr>
-            <th>전화번호</th>
-            <td>${userList.phoneNumber}</td>
-        </tr>
-        <tr>
-            <th>잔여 포인트</th>
-            <td>${userList.userPoint}</td>
-        </tr>
-    </table>
+<div class="container">
+    <div class="game-info">
+        <table class="brown-table">
+            <tr>
+                <th>유저 번호</th>
+                <td>${userList.userNo}</td>
+            </tr>
+            <tr>
+                <th>유저 이름</th>
+                <td>${userList.userName}</td>
+            </tr>
+            <tr>
+                <th>전화번호</th>
+                <td>${userList.phoneNumber}</td>
+            </tr>
+            <tr>
+                <th>잔여 포인트</th>
+                <td>${userList.userPoint}</td>
+            </tr>
+        </table>
+    </div>
 </div>
 <form action="/user/userUpdatePoint" method="post" name="userPointUpdate">
-    <div style="margin-top: 10px">
-        <input type="hidden" name="userNo" value="${userList.userNo}">
-        <label for="userPoint" style="font-size: 12px; font-family: Oswald, sans-serif;">
-            포인트 수정 : <input name="userPoint" id="userPoint" type="number" value="0" readonly
-                            class="defaultSmallBtn" style="border:none; outline:none;"/>
-        </label>
-    </div>
-    <div style="margin-top: 10px">
-        <input type="number" class="defaultSmallBtn" id="point" value="0" onblur="updatePoint(value)"
-               placeholder="금액을 입력해주세요."/>
-        <input type="button" class="defaultSmallBtn" id="userPointUpdate" value=확인 onclick="userUpdatePoint()"/>
-        <input type="button" class="defaultSmallBtn" id="minus3M" value="-30000" onclick="updatePoint(value)"/>
-        <input type="button" class="defaultSmallBtn" id="plus3M" value="+30000" onclick="updatePoint(value)"/>
-        <input type="button" class="defaultSmallBtn" id="minus5M" value="-50000" onclick="updatePoint(value)"/>
-        <input type="button" class="defaultSmallBtn" id="plus5M" value="+50000" onclick="updatePoint(value)"/>
+    <input type="hidden" name="userNo" value="${userList.userNo}">
+    <div class="buttons-container">
+        <label for="userPoint" style="font-size: 16px; margin-top: 4px"> 포인트 수정 :</label>
+        <input name="userPoint" id="userPoint" type="number" value="0" style="width: 150px;" readonly/>
+        <button type="button" class="button" id="userPointUpdate" onclick="userUpdatePoint()" style="margin-right: 20px">확인</button>
+        <input type="number" id="point" value="0" onblur="updatePoint(value)" style="width: 150px" />
+        <button type="button" class="button" id="minus3M" value="-30000" onclick="updatePoint(value)">-30,000</button>
+        <button type="button" class="button" id="plus3M" value="+30000" onclick="updatePoint(value)">+30,000</button>
+        <button type="button" class="button" id="minus5M" value="-50000" onclick="updatePoint(value)">-50,000</button>
+        <button type="button" class="button" id="plus5M" value="+50000" onclick="updatePoint(value)">+50,000</button>
     </div>
 </form>
 <div>
-    <table>
+    <table class="brown-table">
         <thead>
         <tr>
             <th>변동 금액</th>

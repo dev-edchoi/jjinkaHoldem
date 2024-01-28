@@ -9,7 +9,7 @@
     </select>
 
     <insert id="insertPointLog" parameterType="map">
-        insert into userpoint(userNo, point)
+        insert into userPoint(userNo, point)
         values (#{userNo}, #{userPoint})
     </insert>
 </mapper>

@@ -29,35 +29,35 @@
     </select>
 
     <insert id="gamerJoin" parameterType="map">
-        insert into gamejoiner(gameNo, userNo, userName, gameTime)
+        insert into gameJoiner(gameNo, userNo, userName, gameTime)
         values (#{gameNo}, #{userNo}, #{userName}, 1)
     </insert>
 
     <select id="chkJoiner" parameterType="map" resultType="gameJoiner">
-        select * from gamejoiner WHERE userNo=#{userNo} AND gameNo=#{gameNo} AND inGame=0;
+        select * from gameJoiner WHERE userNo=#{userNo} AND gameNo=#{gameNo} AND inGame=0;
     </select>
 
     <update id="userGameSet" parameterType="map">
-        update gamejoiner set inGame=1, finishTime=NOW() WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+        update gameJoiner set inGame=1, finishTime=NOW() WHERE userNo=#{userNo} AND gameNo=#{gameNo}
     </update>
 
     <update id="reGameIn" parameterType="map">
-        update gamejoiner set inGame=0, gameTime = gameTime + 1, finishTime=null WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+        update gameJoiner set inGame=0, gameTime = gameTime + 1, finishTime=null WHERE userNo=#{userNo} AND gameNo=#{gameNo}
     </update>
 
     <update id="oneMoreGameCnt" parameterType="map">
-        UPDATE gamejoiner SET gameTime = gameTime + 1 WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+        UPDATE gameJoiner SET gameTime = gameTime + 1 WHERE userNo=#{userNo} AND gameNo=#{gameNo}
     </update>
 
     <select id="chkInGame" parameterType="String" resultType="game">
-        SELECT * FROM gameinfo WHERE tableNo=#{tableNo} AND isEnd=0;
+        SELECT * FROM gameInfo WHERE tableNo=#{tableNo} AND isEnd=0;
     </select>
 
     <update id="gameSet" parameterType="Long">
-        update gameinfo set isEnd=1 WHERE gameNo=#{gameNo}
+        update gameInfo set isEnd=1 WHERE gameNo=#{gameNo}
     </update>
 
     <update id="setReward" parameterType="Long">
-        UPDATE gameinfo SET totalGameFee = #{totalGameFee}, gameReward = #{gameReward} WHERE gameNo=#{gameNo}
+        UPDATE gameInfo SET totalGameFee = #{totalGameFee}, gameReward = #{gameReward} WHERE gameNo=#{gameNo}
     </update>
 </mapper>
