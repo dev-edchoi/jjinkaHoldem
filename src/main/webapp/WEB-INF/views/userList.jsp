@@ -13,43 +13,46 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/table.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/paging.css">
 </head>
 <body>
 <header>
     <jsp:include page="header.jsp"></jsp:include>
 </header>
-<table>
-    <thead>
-        <tr>
-            <th>No.</th>
-            <th>회원 전화번호</th>
-            <th>회원 이름</th>
-            <th>잔여 포인트</th>
-            <th>가입 일자</th>
-            <th>조회</th>
-            <th>삭제</th>
-        </tr>
-    </thead>
-    <c:forEach items="${userList}" var="user">
-        <tr>
-            <td>${user.userNo}</td>
-            <td>
-                <a href="/user?userNo=${user.userNo}&page=${paging.page}">${user.phoneNumber}</a>
-            </td>
-            <td>${user.userName}</td>
-            <td><c:out value="${user.userPoint}">0</c:out></td>
-            <td>${user.registDate}</td>
-            <td>
-                <a href="/user?userNo=${user.userNo}&page=${paging.page}">조회</a>
-            </td>
-            <td>
-                <button onclick="deleteMember('${user.userNo}','${user.userName}')">회원 삭제</button>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
+<div>
+    <div class="buttons-container">
+        <button onclick="location.href='/'" class="button">메인 화면</button>
+    </div>
+    <div style="margin-top: 20px">
+        <table class="brown-table">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>회원 전화번호</th>
+                <th>회원 이름</th>
+                <th>잔여 포인트</th>
+                <th>가입 일자</th>
+                <th>조회</th>
+            </tr>
+            </thead>
+            <c:forEach items="${userList}" var="user">
+                <tr>
+                    <td>${user.userNo}</td>
+                    <td>
+                        <a href="/user?userNo=${user.userNo}&page=${paging.page}">${user.phoneNumber}</a>
+                    </td>
+                    <td>${user.userName}</td>
+                    <td><c:out value="${user.userPoint}">0</c:out></td>
+                    <td>${user.registDate}</td>
+                    <td>
+                        <button class="table-button" onclick="fnUserDetail('${user.userNo}','${paging.page}')">조회
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</div>
 <div class="wrap">
     <div class="pagination">
         <c:choose>
@@ -90,12 +93,16 @@
 </body>
 <script>
     const deleteMember = (userNo, userName) => {
-        if(confirm(userName + " 회원을 삭제 하시겠습니까?")){
+        if (confirm(userName + " 회원을 삭제 하시겠습니까?")) {
             location.href = "/user/delete?userNo=" + userNo;
         } else {
             alert("회원 삭제가 취소 됐습니다.")
             return false;
         }
+    }
+
+    const fnUserDetail = (userNo, page) => {
+        location.href = "/user?userNo=" + userNo + "&page=" + page;
     }
 </script>
 </html>

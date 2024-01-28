@@ -93,13 +93,20 @@ public class UserController {
         userService.delete(userNo);
         return "redirect:/user/";
     }
+
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam("userNo") Long userNo){
+        userService.delete(userNo);
+        return "redirect:/user/";
+    }
+
     @GetMapping("/userUpdate")
     public String userUpdate(@RequestParam("userNo") Long userNo, Model model){
         UserDTO userDTO = userService.findByUserNo(userNo);
         model.addAttribute("user", userDTO);
         return "userUpdate";
     }
-    //수정 처리
+
     @PostMapping("/userUpdate")
     public String userUpdate(@ModelAttribute UserDTO userDTO){
         boolean result = userService.update(userDTO);
