@@ -18,7 +18,7 @@ public class GameRepository {
         return sqlSessionTemplate.selectList("Game.findAll");
     }
 
-    public List<GameDTO> gameList(Map<String, Integer> pagingParams) {
+    public List<GameDTO> gameList(Map<String, Object> pagingParams) {
         return sqlSessionTemplate.selectList("Game.gameList", pagingParams);
     }
     public int gameCount() {

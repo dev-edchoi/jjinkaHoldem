@@ -8,7 +8,14 @@
     </select>
 
     <select id="gameList" parameterType="java.util.HashMap" resultType="game">
-        select * from gameInfo order by gameNo desc LIMIT #{limit} OFFSET #{start}
+        select * from gameinfo
+        WHERE
+            DATE_FORMAT(makedate, '%Y-%m-%d' )
+                BETWEEN
+                #{dateBefore}
+                AND
+                #{dateAfter}
+        order by gameNo desc LIMIT #{limit} OFFSET #{start}
     </select>
 
     <select id="gameCount" resultType="Integer">

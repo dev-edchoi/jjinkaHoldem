@@ -26,12 +26,14 @@ public class GameService {
     int pageLimit = 10; // 한 페이지당 보여줄 글 갯수
     int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
 
-    public List<GameDTO> gameList(int page) {
+    public List<GameDTO> gameList(int page, Map<String, Object> map) {
         int pagingStart = (page - 1) * pageLimit;
 
-        Map<String, Integer> pagingParams = new HashMap<>();
+        Map<String, Object> pagingParams = new HashMap<>();
         pagingParams.put("start", pagingStart);
         pagingParams.put("limit", pageLimit);
+        pagingParams.put("dateBefore", map.get("dateBefore"));
+        pagingParams.put("dateAfter", map.get("dateAfter"));
 
         return gameRepository.gameList(pagingParams);
     }

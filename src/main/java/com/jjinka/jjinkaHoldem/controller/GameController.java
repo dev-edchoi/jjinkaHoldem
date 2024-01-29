@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +32,32 @@ public class GameController {
 
         return "gameList";
     }
+
     */
+    // 현재 날짜 구하기
+    LocalDate currentDate = LocalDate.now();
+    // 하루 전날 날짜 구하기
+    LocalDate yesterdayDate = currentDate.minusDays(1);
+    // 날짜 포맷 지정
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    // 현재 날짜와 하루 전날 날짜를 지정된 형식으로 출력
+    String currentDateString = currentDate.format(formatter);
+    String yesterdayDateString = yesterdayDate.format(formatter);
+
     @GetMapping("/gameList")
     public String gameList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                           @RequestParam(value = "dateBefore") String dateBefore, @RequestParam(value = "dateAfter") String dateAfter) {
-        List<GameDTO> gameDTOList = gameService.gameList(page);
+                           @RequestParam(value = "dateBefore" ,required = false) String dateBefore, @RequestParam(value = "dateAfter", required = false) String dateAfter) {
+        System.out.println(dateBefore + " : " + dateAfter);
+        System.out.println(currentDateString + " : " + yesterdayDateString);
+
+        if(dateBefore == null) dateBefore = yesterdayDateString;
+        if(dateAfter == null) dateAfter = currentDateString;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("dateBefore", dateBefore);
+        map.put("dateAfter", dateAfter);
+
+        List<GameDTO> gameDTOList = gameService.gameList(page, map);
         PageDTO pageDTO = gameService.pagingParam(page);
 
         model.addAttribute("gameList", gameDTOList);
