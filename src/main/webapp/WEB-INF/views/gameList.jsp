@@ -30,9 +30,10 @@
     </div>
     <div style="float:left; margin-bottom: 20px">
         <label for="dateBefore"></label><input type="text" name="dateBefore" id="dateBefore" style="width: 110px"/>
-        <input type="button" class="button" value="달력" onclick="$('#dateBefore').datepicker('show');"/>
+        <button type="button" class="button" value="달력" onclick="$('#dateBefore').datepicker('show');">달력</button>
         <label for="dateAfter"></label><input type="text" name="dateAfter" id="dateAfter" style="width: 110px"/>
-        <input type="button" class="button" value="달력" onclick="$('#dateAfter').datepicker('show');"/>
+        <button type="button" class="button" value="달력" onclick="$('#dateAfter').datepicker('show');">달력</button>
+        <button type="button" class="button" onclick="fnSearchByDate()">검색</button>
     </div>
     <div style="margin-top: 20px">
         <table class="brown-table">
@@ -114,8 +115,8 @@
         let sToday = getDate();
         let sYesterday = getDate(true);
         console.log(sToday + " : " + sYesterday);
-        document.getElementById('dateAfter').value = sToday;
-        document.getElementById('dateBefore').value = sYesterday;
+        // document.getElementById('dateAfter').value = sToday;
+        // document.getElementById('dateBefore').value = sYesterday;
     }
 
     const getDate = (isYesterday) => {
@@ -131,6 +132,12 @@
         let dateString = year + '-' + month  + '-' + day;
 
         return dateString;
+    }
+
+    const fnSearchByDate = () => {
+        let dateAfter = document.getElementById('dateAfter').value;
+        let dateBefore = document.getElementById('dateBefore').value;
+        location.href = "gameList?dateBefore=" + dateBefore + "&dateAfter=" + dateAfter;
     }
 
     const makeGame = () => {

@@ -47,11 +47,10 @@ public class GameController {
     @GetMapping("/gameList")
     public String gameList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                            @RequestParam(value = "dateBefore" ,required = false) String dateBefore, @RequestParam(value = "dateAfter", required = false) String dateAfter) {
-        System.out.println(dateBefore + " : " + dateAfter);
-        System.out.println(currentDateString + " : " + yesterdayDateString);
+        if(dateBefore == null || dateBefore.isEmpty()) dateBefore = yesterdayDateString;
+        if(dateAfter == null || dateAfter.isEmpty()) dateAfter = currentDateString;
 
-        if(dateBefore == null) dateBefore = yesterdayDateString;
-        if(dateAfter == null) dateAfter = currentDateString;
+        System.out.println(dateBefore + " : " + dateAfter);
 
         Map<String, Object> map = new HashMap<>();
         map.put("dateBefore", dateBefore);
