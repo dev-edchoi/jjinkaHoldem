@@ -18,4 +18,6 @@ public class GameDTO {
     private Long gameReward;
     private Long isEnd;
     private Timestamp makeDate;
+    private String dateAfter;
+    private String dateBefore;
 }

@@ -14,6 +14,11 @@
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/paging.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="${pageContext.request.contextPath}/js/datepicker-ko.js"></script>
 </head>
 <body>
 <header>
@@ -23,7 +28,12 @@
     <div class="buttons-container">
         <button onclick="makeGame()" class="button">게임 생성</button>
     </div>
-
+    <div style="float:left; margin-bottom: 20px">
+        <label for="dateBefore"></label><input type="text" name="dateBefore" id="dateBefore" style="width: 110px"/>
+        <input type="button" class="button" value="달력" onclick="$('#dateBefore').datepicker('show');"/>
+        <label for="dateAfter"></label><input type="text" name="dateAfter" id="dateAfter" style="width: 110px"/>
+        <input type="button" class="button" value="달력" onclick="$('#dateAfter').datepicker('show');"/>
+    </div>
     <div style="margin-top: 20px">
         <table class="brown-table">
             <tr>
@@ -100,6 +110,29 @@
 </div>
 </body>
 <script>
+    window.onload=function() {
+        let sToday = getDate();
+        let sYesterday = getDate(true);
+        console.log(sToday + " : " + sYesterday);
+        document.getElementById('dateAfter').value = sToday;
+        document.getElementById('dateBefore').value = sYesterday;
+    }
+
+    const getDate = (isYesterday) => {
+        let today = new Date();
+        let year = today.getFullYear();
+        let month = ('0' + (today.getMonth() + 1)).slice(-2);
+        let day;
+        if(!isYesterday){
+            day = ('0' + today.getDate()).slice(-2);
+        } else {
+            day = ('0' + (today.getDate() - 1)).slice(-2);
+        }
+        let dateString = year + '-' + month  + '-' + day;
+
+        return dateString;
+    }
+
     const makeGame = () => {
         location.href = "/game/makeGame";
     }
@@ -124,5 +157,21 @@
             return false;
         }
     }
+
+    $(function () {
+        $("#dateBefore").datepicker({
+            onSelect: function (dateText, inst) {
+                console.log(dateText);
+            }
+        });
+    });
+
+    $(function () {
+        $("#dateAfter").datepicker({
+            onSelect: function (dateText, inst) {
+                console.log(dateText);
+            }
+        });
+    });
 </script>
 </html>

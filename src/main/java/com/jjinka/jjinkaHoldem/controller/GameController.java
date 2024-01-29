@@ -21,6 +21,7 @@ import java.util.Map;
 public class GameController {
     private final GameService gameService;
     private final UserService userService;
+
     /*
     @GetMapping("/gameList")
     public String gameList(Model model) {
@@ -31,7 +32,8 @@ public class GameController {
     }
     */
     @GetMapping("/gameList")
-    public String gameList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+    public String gameList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                           @RequestParam(value = "dateBefore") String dateBefore, @RequestParam(value = "dateAfter") String dateAfter) {
         List<GameDTO> gameDTOList = gameService.gameList(page);
         PageDTO pageDTO = gameService.pagingParam(page);
 
@@ -40,10 +42,12 @@ public class GameController {
 
         return "gameList";
     }
+
     @GetMapping("/makeGame")
-    public String makeGame(){
+    public String makeGame() {
         return "makeGame";
     }
+
     @PostMapping("/makeGame")
     public String makeGame(@ModelAttribute GameDTO gameDTO) {
         int saveResult = gameService.makeGame(gameDTO);
@@ -54,8 +58,9 @@ public class GameController {
             return "/makeGame";
         }
     }
+
     @GetMapping
-    public String findByGameNo(@RequestParam("gameNo") Long gameNo,@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model){
+    public String findByGameNo(@RequestParam("gameNo") Long gameNo, @RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model) {
         GameDTO gameDTO = gameService.findByGameNo(gameNo);
         List<GameJoinerDTO> gameJoinerDTOS = gameService.findJoinerList(gameNo);
 
@@ -68,8 +73,8 @@ public class GameController {
     }
 
     @PostMapping("/setReward")
-    public @ResponseBody GameDTO setReward(@RequestParam("gameNo") Long gameNo,@RequestParam("totalGameFee") Long totalGameFee, @RequestParam("gameReward") Long gameReward, Model model){
-        Map<String,Object> map = new HashMap<>();
+    public @ResponseBody GameDTO setReward(@RequestParam("gameNo") Long gameNo, @RequestParam("totalGameFee") Long totalGameFee, @RequestParam("gameReward") Long gameReward, Model model) {
+        Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("totalGameFee", totalGameFee);
         map.put("gameReward", gameReward);
@@ -82,10 +87,10 @@ public class GameController {
     }
 
     @PostMapping("/gamerJoin")
-    public  @ResponseBody List<GameJoinerDTO> gamerJoin(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
-        UserDTO userDTO =userService.findByUserNo(userNo);
+    public @ResponseBody List<GameJoinerDTO> gamerJoin(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+        UserDTO userDTO = userService.findByUserNo(userNo);
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userDTO.getUserNo());
         map.put("userName", userDTO.getUserName());
@@ -94,9 +99,10 @@ public class GameController {
 
         return gameService.findJoinerList(gameNo);
     }
+
     @PostMapping("/userGameSet")
-    public  @ResponseBody List<GameJoinerDTO> userGameSet(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
-        Map<String,Object> map = new HashMap<>();
+    public @ResponseBody List<GameJoinerDTO> userGameSet(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+        Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userNo);
 
@@ -106,10 +112,10 @@ public class GameController {
     }
 
     @PostMapping("/reGameIn")
-    public  @ResponseBody List<GameJoinerDTO> reGameIn(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
-        UserDTO userDTO =userService.findByUserNo(userNo);
+    public @ResponseBody List<GameJoinerDTO> reGameIn(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+        UserDTO userDTO = userService.findByUserNo(userNo);
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userDTO.getUserNo());
         map.put("userName", userDTO.getUserName());
@@ -120,8 +126,8 @@ public class GameController {
     }
 
     @PostMapping("/oneMoreGameCnt")
-    public  @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo){
-        Map<String,Object> map = new HashMap<>();
+    public @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+        Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userNo);
 
@@ -129,21 +135,23 @@ public class GameController {
 
         return gameService.findJoinerList(gameNo);
     }
+
     @PostMapping("/chkJoiner")
-    public @ResponseBody String chkJoiner(@RequestParam("userNo") Long userNo,@RequestParam("gameNo") Long gameNo){
-        Map<String,Object> map = new HashMap<>();
+    public @ResponseBody String chkJoiner(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+        Map<String, Object> map = new HashMap<>();
         map.put("userNo", userNo);
         map.put("gameNo", gameNo);
 
         return gameService.chkJoiner(map);
     }
+
     @PostMapping("/chkInGame")
-    public @ResponseBody String chkInGame(@RequestParam("tableNo") String tableNo){
+    public @ResponseBody String chkInGame(@RequestParam("tableNo") String tableNo) {
         return gameService.chkInGame(tableNo);
     }
 
     @PostMapping("/gameSet")
-    public  String gameSet(@RequestParam("gameNo") Long gameNo){
+    public String gameSet(@RequestParam("gameNo") Long gameNo) {
         boolean saveResult = gameService.gameSet(gameNo);
 
         if (saveResult) {
