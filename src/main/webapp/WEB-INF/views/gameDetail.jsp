@@ -300,6 +300,8 @@
     }
 
     calcReward = () => {
+        let gameType = ${gameList.gameType};
+
         let gameNumber = '${gameList.gameNo}';
         let gamerCnt = document.getElementById('totalGamerCnt').value;
         let gameFee = ${gameList.gameFee};
@@ -307,25 +309,42 @@
 
         let gameReward = (gamerCnt * gameFee) * (rewardRate / 100);
             gameReward = Math.ceil(gameReward);
+
         let totalGameFee = parseInt(gamerCnt * gameFee);
 
-        $.ajax({
-            type: "post",
-            url: "/game/setReward",
-            data: {
-                "gameNo": gameNumber,
-                "totalGameFee": totalGameFee,
-                "gameReward" : gameReward,
-            },
-            success: function (res) {
-                document.getElementById('totalGameFee').innerHTML = res.totalGameFee;
-                document.getElementById('gameReward').innerHTML = res.gameReward;
-            },
-            error: function (err) {
-                console.log("에러 발생", err);
-            }
-        });
-
+        if(gameType === 2){
+            $.ajax({
+                type: "post",
+                url: "/game/setReward",
+                data: {
+                    "gameNo": gameNumber,
+                    "totalGameFee": totalGameFee,
+                    "gameReward" : gameReward,
+                },
+                success: function (res) {
+                    document.getElementById('totalGameFee').innerHTML = res.totalGameFee;
+                    document.getElementById('gameReward').innerHTML = res.gameReward;
+                },
+                error: function (err) {
+                    console.log("에러 발생", err);
+                }
+            });
+        } else if (gameType === 1){
+            $.ajax({
+                type: "post",
+                url: "/game/setReward",
+                data: {
+                    "gameNo": gameNumber,
+                    "totalGameFee": totalGameFee,
+                },
+                success: function (res) {
+                    document.getElementById('totalGameFee').innerHTML = res.totalGameFee;
+                },
+                error: function (err) {
+                    console.log("에러 발생", err);
+                }
+            });
+        }
     }
 
     window.addEventListener('DOMContentLoaded', function () {

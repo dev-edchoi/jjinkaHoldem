@@ -38,8 +38,8 @@ public class GameService {
         return gameRepository.gameList(pagingParams);
     }
 
-    public PageDTO pagingParam(int page) {
-        int boardCount = gameRepository.gameCount();
+    public PageDTO pagingParam(int page, Map<String, Object> map) {
+        int boardCount = gameRepository.gameCount(map);
         int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
         int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
         int endPage = startPage + blockLimit - 1;
@@ -105,13 +105,27 @@ public class GameService {
         }
     }
 
-    public boolean gameSet(Long gameNo) {
-        int result = gameRepository.gameSet(gameNo);
-
-        return result > 0;
+    public String gameSet(Map<String, Object> map) {
+        int result = gameRepository.gameSet(map);
+        String sResult = "";
+        if(result > 0) {
+            sResult = "success";
+        } else {
+            sResult = "false";
+        }
+        System.out.println("service sResult : " + sResult);
+        return sResult;
     }
 
     public void setReward(Map<String, Object> map) {
         gameRepository.setReward(map);
+    }
+
+    public Long getGameReward(Long gameNo) {
+        return gameRepository.getGameReward(gameNo);
+    }
+
+    public void setGameWinner(Map<String, Object> map) {
+        gameRepository.setGameWinner(map);
     }
 }

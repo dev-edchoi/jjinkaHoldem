@@ -86,5 +86,7 @@ public class UserService {
 
         return pageDTO;
     }
-
+    public List<UserDTO> userPopUp(Long gameNo) {
+        return userRepository.userPopUp(gameNo);
+    }
 }

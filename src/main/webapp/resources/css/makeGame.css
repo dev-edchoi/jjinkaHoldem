@@ -43,3 +43,7 @@ input[type="button"] {
 input[type="button"]:hover {
     background-color: #6d4c41; /* 버튼 호버 배경색 */
 }
+
+input[disabled] {
+    background-color: black;
+}

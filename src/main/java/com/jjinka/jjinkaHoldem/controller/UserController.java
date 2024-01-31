@@ -1,10 +1,12 @@
 package com.jjinka.jjinkaHoldem.controller;
 
+import com.jjinka.jjinkaHoldem.dto.GameDTO;
 import com.jjinka.jjinkaHoldem.dto.PageDTO;
 import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.dto.UserPointDTO;
 import com.jjinka.jjinkaHoldem.service.UserPointService;
 import com.jjinka.jjinkaHoldem.service.UserService;
+import com.jjinka.jjinkaHoldem.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ public class UserController {
 
     private final UserService userService;
     private final UserPointService userPointService;
+    private final GameService gameService;
 
     @GetMapping("/userRegister")
     public String saveForm() {
@@ -129,6 +132,21 @@ public class UserController {
     @PostMapping("/phoneNumberChk")
     public @ResponseBody String phoneNumberChk(@RequestParam("phoneNumber") String phoneNumber){
         return userService.phoneNoCheck(phoneNumber);
+    }
+
+    @GetMapping("/userPopUp")
+    public String userPopUp(Model model,@RequestParam("gameNo") Long gameNo){
+        List<UserDTO> userDTOList = userService.userPopUp(gameNo);
+        Long gameReward = gameService.getGameReward(gameNo);
+
+        GameDTO gameDTO = new GameDTO();
+                gameDTO.setGameReward(gameReward);
+                gameDTO.setGameNo(gameNo);
+        System.out.println(gameDTO);
+        model.addAttribute("userList", userDTOList);
+        model.addAttribute("gameInfo", gameDTO);
+
+        return "userPopUp";
     }
 }
 

@@ -9,64 +9,135 @@
 <html>
 <head>
     <title>테이블 정보 입력</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="${pageContext.request.contextPath}/js/datepicker-ko.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-            $("#date1").datepicker();
-        });
-
-        $(function () {
-            $("#date2").datepicker({
-                showOn: "both",
-                buttonImage: "images/calendar.gif",
-                buttonImageOnly: true,
-                buttonText: "Select date"
-            });
-        });
-        $(function () {
-            $("#date3").datepicker({
-                onSelect: function (dateText, inst) {
-                    console.log(dateText);
-                }
-            });
-        });
-
-    </script>
     <style>
-        input {
-            width: 200px;
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
             padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #a1887f; /* 브라운 계통 테두리 색상 */
-            border-radius: 4px;
-            background-color: #f5f5f5;
-            color: #4e342e; /* 브라운 계통 글자색 */
+            text-align: left;
         }
 
-        .small-button {
-            background-color: #795548;
-            color: #fff;
-            padding: 5px 5px;
-            border: none;
-            border-radius: 5px;
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
             cursor: pointer;
-            margin-left: 10px;
         }
 
-        .small-button:hover {
-            background-color: #4e342e;
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 
 </head>
 <body>
-<input type="text" name="date" id="date1" size="12"/>
-<input type="text" name="date" id="date2" size="12"/>
-<input type="text" name="date" id="date3" size="12"/>
-<input type="button" class="small-button" value="달력" onclick="$('#date3').datepicker('show');"/>
+
+<table>
+    <tr>
+        <td>Member 1</td>
+        <td><button onclick="openPopup(1)">Open Popup</button></td>
+    </tr>
+    <tr>
+        <td>Member 2</td>
+        <td><button onclick="openPopup(2)">Open Popup</button></td>
+    </tr>
+    <!-- Add more rows as needed -->
+</table>
+
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Member List</h2>
+        <ul id="memberList"></ul>
+        <button onclick="getSelectedMember()">Get Selected Member</button>
+    </div>
+</div>
 </body>
+<script>
+    function openPopup(memberId) {
+        // Open the popup
+        document.getElementById('popup').style.display = 'block';
+
+        // Fetch member list and update the popup content
+        fetchMemberList(memberId);
+    }
+
+    function closePopup() {
+        // Close the popup
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    function fetchMemberList(selectedMemberId) {
+        // Simulate fetching member list (replace with actual API call)
+        const memberList = ['Member 1', 'Member 2', 'Member 3'];
+
+        // Update the popup content with the member list
+        const memberListElement = document.getElementById('memberList');
+        memberListElement.innerHTML = '';
+
+        memberList.forEach((member, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = member;
+            listItem.onclick = () => selectMember(index + 1, selectedMemberId);
+            memberListElement.appendChild(listItem);
+        });
+    }
+
+    function selectMember(selectedId, originalId) {
+        // Handle the selected member
+        alert(`Selected Member: ${selectedId}`);
+
+        // Close the popup (optional)
+        closePopup();
+    }
+
+    function getSelectedMember() {
+        // Logic to get the selected member if needed
+        // (you can implement additional functionality here)
+    }
+</script>
 </html>

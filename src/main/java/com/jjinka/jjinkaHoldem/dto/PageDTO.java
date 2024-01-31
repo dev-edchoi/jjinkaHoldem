@@ -12,4 +12,6 @@ public class PageDTO {
     private int maxPage;
     private int startPage;
     private int endPage;
+    private String dateAfter;
+    private String dateBefore;
 }

@@ -17,7 +17,7 @@
         <property name="password" value="root!234"/>
     </bean>
     -->
-    <!-- 데이터베이스 이름 및 계정 확인-->
+    <!-- 데이터베이스 이름 및 계정 확인
     <bean id="dataSourceSpied"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
@@ -26,17 +26,9 @@
         <property name="username" value="root"/>
         <property name="password" value="root!234"/>
     </bean>
+-->
 
-    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-        <constructor-arg ref="dataSourceSpied" />
-        <property name="logFormatter">
-            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
-                <property name="loggingType" value="MULTI_LINE" />
-                <property name="sqlPrefix" value="SQL : "/>
-            </bean>
-        </property>
-    </bean>
-<!--
+<!--   -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
@@ -45,7 +37,7 @@
         <property name="username" value="alphaadmin"/>
         <property name="password" value="alpha!2024"/>
     </bean>
--->
+
     <!-- 파일 모두 생성했는지 확인 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>

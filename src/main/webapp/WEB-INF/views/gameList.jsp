@@ -29,9 +29,11 @@
         <button onclick="makeGame()" class="button">게임 생성</button>
     </div>
     <div style="float:left; margin-bottom: 20px">
-        <label for="dateBefore"></label><input type="text" name="dateBefore" id="dateBefore" style="width: 110px"/>
+        <label for="dateBefore"></label><input type="text" name="dateBefore" id="dateBefore"
+                                               value="${paging.dateBefore}" style="width: 110px"/>
         <button type="button" class="button" value="달력" onclick="$('#dateBefore').datepicker('show');">달력</button>
-        <label for="dateAfter"></label><input type="text" name="dateAfter" id="dateAfter" style="width: 110px"/>
+        <label for="dateAfter"></label><input type="text" name="dateAfter" id="dateAfter" value="${paging.dateAfter}"
+                                              style="width: 110px"/>
         <button type="button" class="button" value="달력" onclick="$('#dateAfter').datepicker('show');">달력</button>
         <button type="button" class="button" onclick="fnSearchByDate()">검색</button>
     </div>
@@ -40,6 +42,7 @@
             <tr>
                 <th>Game No.</th>
                 <th>테이블 번호</th>
+                <th>게임 유형</th>
                 <th>게임 참가 비용</th>
                 <th>총 게임 비용</th>
                 <th>보상 비율</th>
@@ -51,6 +54,17 @@
                 <tr>
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameNo}</td>
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.tableNo}</td>
+                    <c:choose>
+                        <c:when test="${game.gameType == 1}">
+                            <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'"
+                                style="font-weight: bold">고정 상금
+                            </td>
+                        </c:when>
+                        <c:otherwise>
+                            <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">변동 상금</td>
+                        </c:otherwise>
+                    </c:choose>
+
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameFee}</td>
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.totalGameFee}</td>
                     <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.rewardRate}</td>
@@ -58,7 +72,8 @@
                     <c:choose>
                         <c:when test="${game.isEnd == 0}">
                             <td>
-                                <button class="table-button" onclick="fnGameSet('${game.gameNo}')">게임 종료</button>
+                                <!--<button class="table-button" onclick="fnGameSet('${game.gameNo}')">게임 종료</button>-->
+                                <button class="table-button" onclick="fnMakePopUp('${game.gameNo}')">게임 종료</button>
                             </td>
                         </c:when>
                         <c:otherwise>
@@ -81,7 +96,7 @@
             </c:when>
             <%-- 1페이지가 아닌 경우에는 [이전]을 클릭하면 현재 페이지보다 1 작은 페이지 요청 --%>
             <c:otherwise>
-                <a href="/game/gameList?page=${paging.page-1}">[이전]</a>
+                <a href="/game/gameList?page=${paging.page-1}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">[이전]</a>
             </c:otherwise>
         </c:choose>
 
@@ -94,7 +109,7 @@
                 </c:when>
 
                 <c:otherwise>
-                    <a href="/game/gameList?page=${i}">${i}</a>
+                    <a href="/game/gameList?page=${i}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">${i}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
@@ -104,17 +119,16 @@
                 <span>[다음]</span>
             </c:when>
             <c:otherwise>
-                <a href="/game/gameList?page=${paging.page+1}">[다음]</a>
+                <a href="/game/gameList?page=${paging.page+1}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">[다음]</a>
             </c:otherwise>
         </c:choose>
     </div>
 </div>
 </body>
 <script>
-    window.onload=function() {
+    window.onload = function () {
         let sToday = getDate();
         let sYesterday = getDate(true);
-        console.log(sToday + " : " + sYesterday);
         // document.getElementById('dateAfter').value = sToday;
         // document.getElementById('dateBefore').value = sYesterday;
     }
@@ -124,12 +138,12 @@
         let year = today.getFullYear();
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
         let day;
-        if(!isYesterday){
+        if (!isYesterday) {
             day = ('0' + today.getDate()).slice(-2);
         } else {
             day = ('0' + (today.getDate() - 1)).slice(-2);
         }
-        let dateString = year + '-' + month  + '-' + day;
+        let dateString = year + '-' + month + '-' + day;
 
         return dateString;
     }
@@ -143,9 +157,17 @@
     const makeGame = () => {
         location.href = "/game/makeGame";
     }
+    const fnMakePopUp = (gameNo) => {
+        let _width = '650';
+        let _height = '600';
+        // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+        let _left = Math.ceil((window.screen.width - _width) / 2);
+        let _top = Math.ceil((window.screen.height - _height) / 2);
+        //window.open("/test", "childForm", "width=570, height=350, resizable = no, scrollbars = no");
+        window.open('/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
+    }
 
     const fnGameSet = (gameNo) => {
-        console.log(gameNo);
         if (confirm("해당 게임을 종료하겠습니까?")) {
             $.ajax({
                 type: "post",
@@ -154,7 +176,8 @@
                     "gameNo": parseInt(gameNo)
                 },
                 success: function (res) {
-                    console.log(res);
+                    //console.log(res);
+                    location.reload();
                 },
                 error: function (err) {
                     console.log("에러 발생", err);

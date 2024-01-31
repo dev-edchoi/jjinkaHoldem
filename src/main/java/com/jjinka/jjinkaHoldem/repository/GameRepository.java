@@ -21,8 +21,8 @@ public class GameRepository {
     public List<GameDTO> gameList(Map<String, Object> pagingParams) {
         return sqlSessionTemplate.selectList("Game.gameList", pagingParams);
     }
-    public int gameCount() {
-        return sqlSessionTemplate.selectOne("Game.gameCount");
+    public int gameCount(Map<String, Object> map) {
+        return sqlSessionTemplate.selectOne("Game.gameCount", map);
     }
     public int makeGame(GameDTO gameDTO) {
         return sqlSessionTemplate.insert("Game.makeGame", gameDTO);
@@ -60,11 +60,19 @@ public class GameRepository {
         return sqlSessionTemplate.selectOne("Game.chkInGame", tableNo);
     }
 
-    public int gameSet(Long gameNo) {
-        return sqlSessionTemplate.update("Game.gameSet", gameNo);
+    public int gameSet(Map<String, Object> map) {
+        return sqlSessionTemplate.update("Game.gameSet", map);
     }
 
     public void setReward(Map<String, Object> map) {
         sqlSessionTemplate.update("Game.setReward", map);
+    }
+
+    public Long getGameReward(Long gameNo) {
+        return sqlSessionTemplate.selectOne("Game.getGameReward", gameNo);
+    }
+
+    public void setGameWinner(Map<String, Object> map) {
+        sqlSessionTemplate.update("Game.setGameWinner", map);
     }
 }

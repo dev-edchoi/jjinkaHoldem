@@ -16,7 +16,9 @@ public class GameDTO {
     private Long totalGameFee;
     private Long rewardRate;
     private Long gameReward;
+    //private Long gamePrize;
     private Long isEnd;
+    private Long gameType;
     private Timestamp makeDate;
     private String dateAfter;
     private String dateBefore;

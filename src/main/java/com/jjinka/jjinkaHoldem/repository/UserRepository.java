@@ -50,4 +50,8 @@ public class UserRepository {
     public int userCount() {
         return sqlSessionTemplate.selectOne("User.userCount");
     }
+
+    public List<UserDTO> userPopUp(Long gameNo) {
+        return sqlSessionTemplate.selectList("User.userPopUp", gameNo);
+    }
 }

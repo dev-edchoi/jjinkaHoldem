@@ -50,14 +50,15 @@ public class GameController {
         if(dateBefore == null || dateBefore.isEmpty()) dateBefore = yesterdayDateString;
         if(dateAfter == null || dateAfter.isEmpty()) dateAfter = currentDateString;
 
-        System.out.println(dateBefore + " : " + dateAfter);
-
         Map<String, Object> map = new HashMap<>();
         map.put("dateBefore", dateBefore);
         map.put("dateAfter", dateAfter);
 
         List<GameDTO> gameDTOList = gameService.gameList(page, map);
-        PageDTO pageDTO = gameService.pagingParam(page);
+        PageDTO pageDTO = gameService.pagingParam(page, map);
+
+        pageDTO.setDateBefore(dateBefore);
+        pageDTO.setDateAfter(dateAfter);
 
         model.addAttribute("gameList", gameDTOList);
         model.addAttribute("paging", pageDTO);
@@ -89,18 +90,22 @@ public class GameController {
         model.addAttribute("gameList", gameDTO);
         model.addAttribute("gameJoiner", gameJoinerDTOS);
         model.addAttribute("page", page);
-
-        System.out.println(gameJoinerDTOS);
+        System.out.println("gmaeList : " + gameDTO);
         return "gameDetail";
     }
 
     @PostMapping("/setReward")
-    public @ResponseBody GameDTO setReward(@RequestParam("gameNo") Long gameNo, @RequestParam("totalGameFee") Long totalGameFee, @RequestParam("gameReward") Long gameReward, Model model) {
+    public @ResponseBody GameDTO setReward(@RequestParam("gameNo") Long gameNo, @RequestParam("totalGameFee") Long totalGameFee, @RequestParam(value = "gameReward", required = false, defaultValue = "999") Long gameReward, Model model) {
         Map<String, Object> map = new HashMap<>();
-        map.put("gameNo", gameNo);
-        map.put("totalGameFee", totalGameFee);
-        map.put("gameReward", gameReward);
 
+        if(gameReward != 999){
+            map.put("gameNo", gameNo);
+            map.put("totalGameFee", totalGameFee);
+            map.put("gameReward", gameReward);
+        } else {
+            map.put("gameNo", gameNo);
+            map.put("totalGameFee", totalGameFee);
+        }
         gameService.setReward(map);
 
         GameDTO gameDTO = gameService.findByGameNo(gameNo);
@@ -173,13 +178,18 @@ public class GameController {
     }
 
     @PostMapping("/gameSet")
-    public String gameSet(@RequestParam("gameNo") Long gameNo) {
-        boolean saveResult = gameService.gameSet(gameNo);
+    public String gameSet(@RequestParam("gameNo") Long gameNo, @RequestParam("gameReward") Long gameReward, @RequestParam("userNo") Long userNo) {
+        Map<String, Object> setGameWinnerMap = new HashMap<>();
+        setGameWinnerMap.put("gameReward", gameReward);
+        setGameWinnerMap.put("userNo", userNo);
 
-        if (saveResult) {
-            return "redirect:/game/gameList";
-        } else {
-            return "/makeGame";
-        }
+        Map<String, Object> gameSetMap = new HashMap<>();
+        gameSetMap.put("gameNo", gameNo);
+        gameSetMap.put("userNo", userNo);
+
+        String sResult = gameService.gameSet(gameSetMap);
+        gameService.setGameWinner(setGameWinnerMap);
+
+        return "gameList";
     }
 }

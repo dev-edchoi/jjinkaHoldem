@@ -27,11 +27,21 @@
             <option value="5">5</option>
         </select>
 
+        <label for="gameType">게임 유형:</label>
+        <select id="gameType" name="gameType" onchange="toggleInputs()" required>
+            <option value="0">=== 선택 ===</option>
+            <option value="1">고정 상금</option>
+            <option value="2">변동 상금</option>
+        </select>
+
+        <label for="gameReward">상금:</label>
+        <input type="number" id="gameReward" name="gameReward" placeholder="상금을 입력하세요.">
+
         <label for="gameFee">참가 비용:</label>
-        <input type="number" id="gameFee" name="gameFee" placeholder="참가 비용을 입력하세요" required>
+        <input type="number" id="gameFee" name="gameFee" placeholder="참가 비용을 입력하세요">
 
         <label for="rewardRate">상금 비율:</label>
-        <input type="number" id="rewardRate" name="rewardRate" placeholder="상금 비율을 입력하세요" required>
+        <input type="number" id="rewardRate" name="rewardRate" placeholder="상금 비율을 입력하세요">
 
         <input type="button" value="게임 만들기" onclick="fnMakeGame()">
         <input type="button" value="취소" onclick="listFn()">
@@ -73,6 +83,20 @@
 
     const listFn = () => {
         location.href = "/game/gameList";
+    }
+
+    const toggleInputs = () => {
+        let gameType = document.getElementById('gameType');
+        let gameReward = document.getElementById('gameReward');
+        let rewardRate = document.getElementById('rewardRate');
+
+        if (gameType.value === '1') {
+            gameReward.disabled = false;
+            rewardRate.disabled = true;
+        } else if (gameType.value === '2') {
+            gameReward.disabled = true;
+            rewardRate.disabled = false;
+        }
     }
 </script>
 </html>
