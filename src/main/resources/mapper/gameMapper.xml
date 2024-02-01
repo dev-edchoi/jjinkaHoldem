@@ -73,7 +73,11 @@
     </select>
 
     <update id="gameSet" parameterType="map">
-        update gameInfo set isEnd=1, gameWinnerUserNo=#{userNo} WHERE gameNo=#{gameNo}
+        update gameInfo set isEnd=1, gameWinnerUserNo=#{userNo} WHERE gameNo=#{gameNo};
+    </update>
+
+    <update id="allJoinerGameSet" parameterType="Long">
+        update gameJoiner set inGame=1 WHERE gameNo=#{gameNo};
     </update>
 
     <update id="setReward" parameterType="Long">

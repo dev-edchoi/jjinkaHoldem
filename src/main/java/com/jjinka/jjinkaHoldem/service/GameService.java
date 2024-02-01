@@ -108,12 +108,13 @@ public class GameService {
     public String gameSet(Map<String, Object> map) {
         int result = gameRepository.gameSet(map);
         String sResult = "";
+
         if(result > 0) {
             sResult = "success";
         } else {
             sResult = "false";
         }
-        System.out.println("service sResult : " + sResult);
+
         return sResult;
     }
 
@@ -127,5 +128,9 @@ public class GameService {
 
     public void setGameWinner(Map<String, Object> map) {
         gameRepository.setGameWinner(map);
+    }
+
+    public void allJoinerGameSet(Long gameNo) {
+        gameRepository.allJoinerGameSet(gameNo);
     }
 }

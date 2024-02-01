@@ -16,5 +16,6 @@ public class UserDTO {
     private String userPwd;
     private boolean pwdUpdate;
     private Long userPoint;
+    private Long visitRoute;
     private Timestamp registDate;
 }

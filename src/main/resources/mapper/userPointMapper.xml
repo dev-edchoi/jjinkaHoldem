@@ -9,7 +9,17 @@
     </select>
 
     <insert id="insertPointLog" parameterType="map">
-        insert into userPoint(userNo, point)
-        values (#{userNo}, #{userPoint})
+        <if test="isGameReward == 1">
+            insert into userPoint(userNo, point, isGameReward)
+            values (#{userNo}, #{userPoint}, 1)
+        </if>
+        <if test="isGameReward == 2">
+            insert into userPoint(userNo, point, isGameReward)
+            values (#{userNo}, #{userPoint}, 2)
+        </if>
+        <if test="isGameReward != 1 and isGameReward != 2">
+            insert into userPoint(userNo, point, isGameReward)
+            values (#{userNo}, #{userPoint}, 0)
+        </if>
     </insert>
 </mapper>

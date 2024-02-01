@@ -4,6 +4,7 @@ import com.jjinka.jjinkaHoldem.dto.GameDTO;
 import com.jjinka.jjinkaHoldem.dto.GameJoinerDTO;
 import com.jjinka.jjinkaHoldem.dto.PageDTO;
 import com.jjinka.jjinkaHoldem.dto.UserDTO;
+import com.jjinka.jjinkaHoldem.service.UserPointService;
 import com.jjinka.jjinkaHoldem.service.UserService;
 import org.springframework.ui.Model;
 import com.jjinka.jjinkaHoldem.service.GameService;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class GameController {
     private final GameService gameService;
     private final UserService userService;
+    private final UserPointService userPointService;
 
     /*
     @GetMapping("/gameList")
@@ -90,7 +92,7 @@ public class GameController {
         model.addAttribute("gameList", gameDTO);
         model.addAttribute("gameJoiner", gameJoinerDTOS);
         model.addAttribute("page", page);
-        System.out.println("gmaeList : " + gameDTO);
+
         return "gameDetail";
     }
 
@@ -178,18 +180,24 @@ public class GameController {
     }
 
     @PostMapping("/gameSet")
-    public String gameSet(@RequestParam("gameNo") Long gameNo, @RequestParam("gameReward") Long gameReward, @RequestParam("userNo") Long userNo) {
-        Map<String, Object> setGameWinnerMap = new HashMap<>();
-        setGameWinnerMap.put("gameReward", gameReward);
-        setGameWinnerMap.put("userNo", userNo);
-
+    public void gameSet(@RequestParam("gameNo") Long gameNo, @RequestParam("gameReward") Long gameReward, @RequestParam("userNo") Long userNo) {
         Map<String, Object> gameSetMap = new HashMap<>();
         gameSetMap.put("gameNo", gameNo);
         gameSetMap.put("userNo", userNo);
 
-        String sResult = gameService.gameSet(gameSetMap);
-        gameService.setGameWinner(setGameWinnerMap);
+        Map<String, Object> setGameWinnerMap = new HashMap<>();
+        setGameWinnerMap.put("gameReward", gameReward);
+        setGameWinnerMap.put("userNo", userNo);
 
-        return "gameList";
+        Map<String, Object> userPointMap = new HashMap<>();
+        userPointMap.put("userNo", userNo);
+        userPointMap.put("userPoint", gameReward);
+        userPointMap.put("isGameReward", "1");
+
+        gameService.gameSet(gameSetMap);
+        gameService.allJoinerGameSet(gameNo);
+        gameService.setGameWinner(setGameWinnerMap);
+        userPointService.insertPointLog(userPointMap);
     }
 }
+

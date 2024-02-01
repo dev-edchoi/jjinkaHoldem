@@ -75,4 +75,8 @@ public class GameRepository {
     public void setGameWinner(Map<String, Object> map) {
         sqlSessionTemplate.update("Game.setGameWinner", map);
     }
+
+    public void allJoinerGameSet(Long gameNo) {
+        sqlSessionTemplate.update("Game.allJoinerGameSet",gameNo);
+    }
 }

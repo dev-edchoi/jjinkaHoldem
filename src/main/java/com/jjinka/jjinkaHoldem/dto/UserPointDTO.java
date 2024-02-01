@@ -12,5 +12,6 @@ import java.sql.Timestamp;
 public class UserPointDTO {
     private Long userNo;
     private Long point;
+    private Long isGameReward;
     private Timestamp date;
 }

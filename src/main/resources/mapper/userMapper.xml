@@ -4,8 +4,14 @@
 
 <mapper namespace="User">
     <insert id="save" parameterType="user">
-        insert into user(userName, phoneNumber, userPwd, pwdUpdate, registDate)
-        values (#{userName}, #{phoneNumber}, '1111', '0', NOW())
+        <if test="visitRoute == null">
+            insert into user(userName, phoneNumber, userPwd, pwdUpdate, registDate)
+            values (#{userName}, #{phoneNumber}, '1111', '0', NOW())
+        </if>
+        <if test="visitRoute != null">
+            insert into user(userName, phoneNumber, userPwd, pwdUpdate, visitRoute, registDate)
+            values (#{userName}, #{phoneNumber}, '1111', '0', #{visitRoute}, NOW())
+        </if>
     </insert>
 
     <select id="userList" parameterType="java.util.HashMap" resultType="user">

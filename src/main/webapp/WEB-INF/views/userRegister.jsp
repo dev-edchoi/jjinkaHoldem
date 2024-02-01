@@ -22,6 +22,13 @@
         <p id="check-result"></p>
         <label for="userName">회원 이름:</label>
         <input type="text" id="userName" name="userName" placeholder="회원 이름" >
+        <label for="visitRoute">방문 경로:</label>
+        <select id="visitRoute" name="visitRoute">
+            <option value="0">=== 선택 ===</option>
+            <option value="1">친구 소개</option>
+            <option value="2">SNS(인스타그램 등)</option>
+            <option value="3">지도 검색</option>
+        </select>
         <input type="button" value="회원 등록" onclick="userRegist()">
         <input type="button" value="등록 취소" onclick="location.href='/'">
     </form>
@@ -52,26 +59,30 @@
             phoneNumber = phoneNumber.toString();
         const checkResult = document.getElementById("check-result");
 
-        $.ajax({
-            // 요청방식: post, url: "email-check", 데이터: 이메일
-            type: "post",
-            url: "/user/phoneNumberChk",
-            data: {
-                "phoneNumber": phoneNumber
-            },
-            success: function (res) {
-                if (res === "ok") {
-                    checkResult.style.color = "green";
-                    checkResult.innerHTML = "사용 가능 한 번호";
-                } else {
-                    checkResult.style.color = "red";
-                    checkResult.innerHTML = "이미 사용 중인 번호";
+        if(phoneNumber.length === 11){
+            $.ajax({
+                // 요청방식: post, url: "email-check", 데이터: 이메일
+                type: "post",
+                url: "/user/phoneNumberChk",
+                data: {
+                    "phoneNumber": phoneNumber
+                },
+                success: function (res) {
+                    if (res === "ok") {
+                        checkResult.style.color = "green";
+                        checkResult.innerHTML = "사용 가능 한 번호";
+                    } else {
+                        checkResult.style.color = "red";
+                        checkResult.innerHTML = "이미 사용 중인 번호";
+                    }
+                },
+                error: function (err) {
+                    console.log("에러발생", err);
                 }
-            },
-            error: function (err) {
-                console.log("에러발생", err);
-            }
-        });
+            });
+        } else {
+            return false;
+        }
     }
 
     function handleOnInput(el, maxlength) {

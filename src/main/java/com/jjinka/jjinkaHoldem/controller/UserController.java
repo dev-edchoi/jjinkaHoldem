@@ -142,11 +142,44 @@ public class UserController {
         GameDTO gameDTO = new GameDTO();
                 gameDTO.setGameReward(gameReward);
                 gameDTO.setGameNo(gameNo);
-        System.out.println(gameDTO);
+
         model.addAttribute("userList", userDTOList);
         model.addAttribute("gameInfo", gameDTO);
 
         return "userPopUp";
+    }
+
+    @GetMapping("/userPointPopUp")
+    public String userPointPopUp(Model model, @RequestParam("userNo") Long userNo, @RequestParam("userPoint") Long userPoint){
+        UserDTO userDTO = new UserDTO();
+                userDTO.setUserNo(userNo);
+                userDTO.setUserPoint(userPoint);
+
+        model.addAttribute("userInfo", userDTO);
+
+        return "userPointSendPopUp";
+    }
+    @PostMapping("/sendPointToUser")
+    public @ResponseBody String sendPointToUser(@RequestParam("senderUserNo") Long senderUserNo, @RequestParam("receiverUserNo") Long receiverUserNo, @RequestParam("pointToSend") Long pointToSend){
+        Map<String,Object> senderMap = new HashMap<>();
+        senderMap.put("userNo", senderUserNo);
+        senderMap.put("userPoint", pointToSend * -1);
+        senderMap.put("isGameReward", "2");
+
+        Map<String,Object> receiverMap = new HashMap<>();
+        receiverMap.put("userNo", receiverUserNo);
+        receiverMap.put("userPoint", pointToSend);
+        receiverMap.put("isGameReward", "2");
+
+        if(userService.updatePoint(senderMap) > 0) {
+            userPointService.insertPointLog(senderMap);
+            if (userService.updatePoint(receiverMap) > 0) {
+                userPointService.insertPointLog(receiverMap);
+            }
+            return "true";
+        }else{
+            return "false";
+        }
     }
 }
 

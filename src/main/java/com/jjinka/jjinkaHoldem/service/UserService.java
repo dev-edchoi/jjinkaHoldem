@@ -53,8 +53,8 @@ public class UserService {
             return "no";
         }
     }
-    public void updatePoint(Map<String, Object> map) {
-        userRepository.updatePoint(map);
+    public int updatePoint(Map<String, Object> map) {
+        return userRepository.updatePoint(map);
     }
     int pageLimit = 10; // 한 페이지당 보여줄 글 갯수
     int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수

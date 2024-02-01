@@ -160,10 +160,9 @@
     const fnMakePopUp = (gameNo) => {
         let _width = '650';
         let _height = '600';
-        // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
         let _left = Math.ceil((window.screen.width - _width) / 2);
         let _top = Math.ceil((window.screen.height - _height) / 2);
-        //window.open("/test", "childForm", "width=570, height=350, resizable = no, scrollbars = no");
+
         window.open('/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
 
