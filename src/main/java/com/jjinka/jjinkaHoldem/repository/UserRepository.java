@@ -29,6 +29,11 @@ public class UserRepository {
     public List<UserDTO> findByUserName(String userName) {
         return sqlSessionTemplate.selectList("User.findByUserName", userName);
     }
+
+    public List<UserDTO> searchUserByNameOrNum(String searchWord) {
+        return sqlSessionTemplate.selectList("User.searchUserByNameOrNum", searchWord);
+    }
+
     public void delete(Long userNo) {
         sqlSessionTemplate.delete("User.delete",userNo);
     }
@@ -44,14 +49,16 @@ public class UserRepository {
         return sqlSessionTemplate.update("User.updatePoint", map);
     }
 
-    public List<UserDTO> userList(Map<String, Integer> pagingParams) {
+    public List<UserDTO> userList(Map<String, Object> pagingParams) {
         return sqlSessionTemplate.selectList("User.userList", pagingParams);
     }
-    public int userCount() {
-        return sqlSessionTemplate.selectOne("User.userCount");
+    public int userCount(String searchWord) {
+        return sqlSessionTemplate.selectOne("User.userCount", searchWord);
     }
 
     public List<UserDTO> userPopUp(Long gameNo) {
         return sqlSessionTemplate.selectList("User.userPopUp", gameNo);
     }
+
+
 }

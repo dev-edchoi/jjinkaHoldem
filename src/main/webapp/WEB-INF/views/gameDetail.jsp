@@ -135,7 +135,6 @@
                     output += "<td>" + res[i].userNo + "</td>";
                     output += "<td>" + res[i].userName + "</td>";
                     output += "<td>" + res[i].phoneNumber + "</td>";
-                    //output += "<td><a href='/user?userNo=" + res[i].userNo + "'>참가</a></td>";
                     output += "<td><button class='table-button' onclick='ChkJoiner(" + res[i].userNo + ")'>" + "게임 참가" + "</button></td>";
                     output += "</tr>";
                 }

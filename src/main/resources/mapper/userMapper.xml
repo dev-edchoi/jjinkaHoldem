@@ -15,11 +15,16 @@
     </insert>
 
     <select id="userList" parameterType="java.util.HashMap" resultType="user">
-        select * from user order by userNo desc LIMIT #{limit} OFFSET #{start}
+        <if test="searchWord != null">
+            select * from user WHERE userName LIKE '%${searchWord}%' OR phoneNumber LIKE '%${searchWord}%' order by userNo desc LIMIT #{limit} OFFSET #{start}
+        </if>
+        <if test="searchWord == null">
+            select * from user order by userNo desc LIMIT #{limit} OFFSET #{start}
+        </if>
     </select>
 
-    <select id="userCount" resultType="Integer">
-        select count(userNo) from user
+    <select id="userCount" parameterType="String" resultType="Integer" >
+        select count(userNo) from user WHERE userName LIKE '%${searchWord}%' OR phoneNumber LIKE '%${searchWord}%'
     </select>
 
     <select id="findByUserNo" parameterType="Long" resultType="user">
@@ -28,6 +33,10 @@
 
     <select id="findByUserName" parameterType="String" resultType="user">
         select * from user where userName like '%${userName}%'
+    </select>
+
+    <select id="searchUserByNameOrNum" parameterType="String" resultType="user">
+        select * from user where userName like '%${searchWord}%' OR phoneNumber like '%${searchWord}%'
     </select>
 
     <update id="update" parameterType="user">

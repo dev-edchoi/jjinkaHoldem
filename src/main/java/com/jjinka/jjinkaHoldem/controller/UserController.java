@@ -66,12 +66,13 @@ public class UserController {
     }
     */
     @GetMapping("/")
-    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page){
-        List<UserDTO> userDTOList = userService.userList(page);
-        PageDTO pageDTO = userService.pagingParam(page);
+    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "searchWord", required = false) String searchWord){
+        List<UserDTO> userDTOList = userService.userList(page, searchWord);
+        PageDTO pageDTO = userService.pagingParam(page,searchWord);
 
         model.addAttribute("userList", userDTOList);
         model.addAttribute("paging", pageDTO);
+
 
         return "userList";
     }
@@ -87,10 +88,17 @@ public class UserController {
 
         return "userDetail";
     }
+//    @PostMapping("/searchUserByNameOrNum")
+//    public @ResponseBody List<UserDTO> searchUserByNameOrNum(@RequestParam("searchWord") String searchWord){
+//        System.out.println(userService.searchUserByNameOrNum(searchWord));
+//        return userService.searchUserByNameOrNum(searchWord);
+//    }
+
     @PostMapping("/findByUserName")
     public @ResponseBody List<UserDTO> findByUserName(@RequestParam("userName") String userName){
         return userService.findByUserName(userName);
     }
+
     @GetMapping("/delete")
     public String delete(@RequestParam("userNo") Long userNo){
         userService.delete(userNo);

@@ -22,12 +22,9 @@ public class LoginController {
     @GetMapping("/makePwd")
     public void makePwd(@RequestParam("adminPwd") String adminPwd) {
         String makePwd = hashPassword(adminPwd);
-        System.out.println(makePwd);
     }
     @PostMapping("/adminLogin")
     public String adminLogin(@ModelAttribute AdminLoginDTO adminLoginDTO, HttpSession httpSession) {
-        System.out.println("adminLoginDTO : " +adminLoginDTO);
-
         String adminId = adminLoginDTO.getAdminId();
         String adminPwd = adminLoginDTO.getAdminPwd();
 
@@ -40,7 +37,6 @@ public class LoginController {
         boolean isValidUser = loginService.validateAdmin(adminLoginDTO);
 
         if (isValidUser) {
-            System.out.println("로그인 처리");
             httpSession.setAttribute("adminId", adminId);
             return "index";
         } else {

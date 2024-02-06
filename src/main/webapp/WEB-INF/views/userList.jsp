@@ -23,6 +23,12 @@
     <div class="buttons-container">
         <button onclick="location.href='/'" class="button">메인 화면</button>
     </div>
+    <div style="margin:auto">
+        <!-- 검색 입력창 -->
+        <label for="searchInput">유저 검색 : </label>
+        <input type="text" id="searchInput" style="width: 300px" placeholder="유저 이름이나 전화번호로 검색" onblur="fnSearchUser()">
+        <button onclick="fnSearchUser()" class="button">회원 검색</button>
+    </div>
     <div style="margin-top: 20px">
         <table class="brown-table">
             <thead>
@@ -103,6 +109,27 @@
 
     const fnUserDetail = (userNo, page) => {
         location.href = "/user?userNo=" + userNo + "&page=" + page;
+    }
+
+    const fnSearchUser = () => {
+        let searchWord = document.getElementById("searchInput").value;
+        console.log(searchWord);
+        location.href = "/user/?searchWord=" + searchWord;
+
+        // $.ajax({
+        //     type: "post",
+        //     url: "/user/searchUserByNameOrNum",
+        //     data: {
+        //         "searchWord": searchWord
+        //     },
+        //     success: function (res) {
+        //         console.log(res);
+        //         location.href = "/user/?searchWord=" + searchWord;
+        //     },
+        //     error: function (err) {
+        //         console.log("에러 발생", err);
+        //     }
+        // });
     }
 </script>
 </html>
