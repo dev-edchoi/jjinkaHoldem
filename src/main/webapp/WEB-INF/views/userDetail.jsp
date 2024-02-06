@@ -71,6 +71,8 @@
                 style="margin-right: 20px">확인
         </button>
         <input type="number" id="point" onblur="updatePoint(value)" style="width: 150px"/>
+        <button type="button" class="button" id="minus2M" value="-20000" onclick="updatePoint(value)">-20,000</button>
+        <button type="button" class="button" id="plus2M" value="+20000" onclick="updatePoint(value)">+20,000</button>
         <button type="button" class="button" id="minus3M" value="-30000" onclick="updatePoint(value)">-30,000</button>
         <button type="button" class="button" id="plus3M" value="+30000" onclick="updatePoint(value)">+30,000</button>
         <button type="button" class="button" id="minus5M" value="-50000" onclick="updatePoint(value)">-50,000</button>
