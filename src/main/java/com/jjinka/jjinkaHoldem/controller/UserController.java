@@ -73,7 +73,6 @@ public class UserController {
         model.addAttribute("userList", userDTOList);
         model.addAttribute("paging", pageDTO);
 
-
         return "userList";
     }
 
@@ -88,11 +87,6 @@ public class UserController {
 
         return "userDetail";
     }
-//    @PostMapping("/searchUserByNameOrNum")
-//    public @ResponseBody List<UserDTO> searchUserByNameOrNum(@RequestParam("searchWord") String searchWord){
-//        System.out.println(userService.searchUserByNameOrNum(searchWord));
-//        return userService.searchUserByNameOrNum(searchWord);
-//    }
 
     @PostMapping("/findByUserName")
     public @ResponseBody List<UserDTO> findByUserName(@RequestParam("userName") String userName){
