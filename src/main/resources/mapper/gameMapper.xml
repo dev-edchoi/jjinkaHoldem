@@ -101,4 +101,10 @@
     <select id="chkGaming" parameterType="Long" resultType="String">
         SELECT isEnd FROM gameInfo WHERE gameNO=#{gameNo}
     </select>
+
+    <update id="gameUpdate" parameterType="game">
+        UPDATE gameInfo SET gameReward=#{gameReward}, gameFee=#{gameFee}, rewardRate=#{rewardRate} WHERE gameNo=#{gameNo}
+    </update>
+
+
 </mapper>

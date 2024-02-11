@@ -83,4 +83,8 @@ public class GameRepository {
     public String chkGaming(Long gameNo) {
         return sqlSessionTemplate.selectOne("Game.chkGaming", gameNo);
     }
+
+    public int gameUpdate(GameDTO gameDTO) {
+        return sqlSessionTemplate.update("Game.gameUpdate", gameDTO);
+    }
 }

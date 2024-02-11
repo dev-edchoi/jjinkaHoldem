@@ -37,7 +37,7 @@
                     <td>${user.userNo}</td>
                     <td>${user.phoneNumber}</td>
                     <td>${user.userName}</td>
-                    <td><input type="text" placeholder="Enter Prize"></td>
+                    <td><input type="number" placeholder="Enter Prize"></td>
                 </tr>
             </c:forEach>
         </table>

@@ -137,4 +137,10 @@ public class GameService {
     public String chkGaming(Long gameNo) {
         return gameRepository.chkGaming(gameNo);
     }
+
+    public boolean gameUpdate(GameDTO gameDTO) {
+        int result = gameRepository.gameUpdate(gameDTO);
+
+        return result > 0;
+    }
 }

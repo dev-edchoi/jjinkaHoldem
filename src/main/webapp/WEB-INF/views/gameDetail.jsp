@@ -382,5 +382,10 @@
 
         window.open('/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
+
+    const updateFn = () => {
+        const gameNo = '${gameList.gameNo}';
+        location.href = "/game/gameUpdate?gameNo=" + gameNo;
+    }
 </script>
 </html>

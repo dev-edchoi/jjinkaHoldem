@@ -237,5 +237,27 @@ public class GameController {
     public @ResponseBody String gameSet(@RequestParam("gameNo") Long gameNo){
         return gameService.chkGaming(gameNo);
     }
+
+    @GetMapping("/gameUpdate")
+    public String gameUpdate(@RequestParam("gameNo") Long gameNo, Model model){
+        GameDTO gameDTO = gameService.findByGameNo(gameNo);
+        model.addAttribute("game", gameDTO);
+        return "gameUpdate";
+    }
+
+    @PostMapping("/gameUpdate")
+    public String gameUpdate(@ModelAttribute GameDTO gameDTO){
+        System.out.println("gameDTO : " + gameDTO);
+        boolean result = gameService.gameUpdate(gameDTO);
+        System.out.println("result :" + result);
+
+        if(result){
+            return "redirect:/game?gameNo=" + gameDTO.getGameNo();
+        } else {
+            return "gameList";
+        }
+    }
+
+
 }
 
