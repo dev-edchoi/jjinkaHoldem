@@ -72,12 +72,12 @@
         SELECT * FROM gameInfo WHERE tableNo=#{tableNo} AND isEnd=0;
     </select>
 
-    <update id="gameSet" parameterType="map">
-        update gameInfo set isEnd=1, gameWinnerUserNo=#{userNo} WHERE gameNo=#{gameNo};
+    <update id="gameSet" parameterType="Long">
+        update gameInfo set isEnd=1 WHERE gameNo=#{gameNo};
     </update>
 
     <update id="allJoinerGameSet" parameterType="Long">
-        update gameJoiner set inGame=1 WHERE gameNo=#{gameNo};
+        update gameJoiner set inGame=1, finishTime=NOW() WHERE gameNo=#{gameNo};
     </update>
 
     <update id="setReward" parameterType="Long">
@@ -98,4 +98,7 @@
         UPDATE user SET userPoint = ((SELECT user.userPoint WHERE user.userNo=#{userNo}) + #{gameReward}) WHERE userNo = #{userNo}
     </update>
 
+    <select id="chkGaming" parameterType="Long" resultType="String">
+        SELECT isEnd FROM gameInfo WHERE gameNO=#{gameNo}
+    </select>
 </mapper>

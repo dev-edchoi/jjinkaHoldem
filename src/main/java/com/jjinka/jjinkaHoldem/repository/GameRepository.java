@@ -60,8 +60,8 @@ public class GameRepository {
         return sqlSessionTemplate.selectOne("Game.chkInGame", tableNo);
     }
 
-    public int gameSet(Map<String, Object> map) {
-        return sqlSessionTemplate.update("Game.gameSet", map);
+    public int gameSet(Long gameNo) {
+        return sqlSessionTemplate.update("Game.gameSet", gameNo);
     }
 
     public void setReward(Map<String, Object> map) {
@@ -78,5 +78,9 @@ public class GameRepository {
 
     public void allJoinerGameSet(Long gameNo) {
         sqlSessionTemplate.update("Game.allJoinerGameSet",gameNo);
+    }
+
+    public String chkGaming(Long gameNo) {
+        return sqlSessionTemplate.selectOne("Game.chkGaming", gameNo);
     }
 }

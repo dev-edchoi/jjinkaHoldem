@@ -9,135 +9,137 @@
 <html>
 <head>
     <title>테이블 정보 입력</title>
-
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #eee;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            background-color: #f5f5f5;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
         }
 
         table {
             border-collapse: collapse;
             width: 100%;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
+            margin-bottom: 20px;
         }
 
         th, td {
-            padding: 8px;
+            padding: 12px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #8B4513; /* 브라운 계열의 색상 */
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        input {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         button {
-            padding: 5px 10px;
-        }
-
-        /* Popup styles */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .popup-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+            padding: 12px 20px;
+            background-color: #8B4513;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
         }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        button:hover {
+            background-color: #6b3510; /* 더 진한 브라운 계열의 색상 */
         }
     </style>
-
 </head>
 <body>
+<div id="container">
+    <table id="userTable">
+        <thead>
+        <tr>
+            <th>User Number</th>
+            <th>Phone Number</th>
+            <th>Member Name</th>
+            <th>Prize</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>123-456-7890</td>
+            <td>John Doe</td>
+            <td><input type="text" placeholder="Enter Prize"></td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>123-456-7890</td>
+            <td>John Doe</td>
+            <td><input type="text" placeholder="Enter Prize"></td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>123-456-7890</td>
+            <td>John Doe</td>
+            <td><input type="text" placeholder="Enter Prize"></td>
+        </tr>
+        <!-- Add more rows as needed -->
+        </tbody>
+    </table>
 
-<table>
-    <tr>
-        <td>Member 1</td>
-        <td><button onclick="openPopup(1)">Open Popup</button></td>
-    </tr>
-    <tr>
-        <td>Member 2</td>
-        <td><button onclick="openPopup(2)">Open Popup</button></td>
-    </tr>
-    <!-- Add more rows as needed -->
-</table>
-
-<div id="popup" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
-        <h2>Member List</h2>
-        <ul id="memberList"></ul>
-        <button onclick="getSelectedMember()">Get Selected Member</button>
-    </div>
+    <button onclick="confirmAction()">Confirm</button>
 </div>
-</body>
+
 <script>
-    function openPopup(memberId) {
-        // Open the popup
-        document.getElementById('popup').style.display = 'block';
+    function getTableCellValues() {
+        var table = document.getElementById('userTable');
+        var rows = table.getElementsByTagName('tr');
+        var values = [];
 
-        // Fetch member list and update the popup content
-        fetchMemberList(memberId);
+        for (var i = 1; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            var rowData = [];
+
+            for (var j = 0; j < cells.length - 1; j++) {
+                // Exclude the last cell (input field) from the loop
+                rowData.push(cells[j].innerText);
+            }
+
+            // Get the value from the input field
+            var prizeInput = cells[cells.length - 1].getElementsByTagName('input')[0];
+            console.log(i +"번째 : " +prizeInput.value)
+            rowData.push(prizeInput.value);
+
+            values.push(rowData);
+        }
+
+        console.log(values);
+        // You can use the 'values' array as needed (e.g., send it to the server, process the data, etc.)
     }
 
-    function closePopup() {
-        // Close the popup
-        document.getElementById('popup').style.display = 'none';
-    }
-
-    function fetchMemberList(selectedMemberId) {
-        // Simulate fetching member list (replace with actual API call)
-        const memberList = ['Member 1', 'Member 2', 'Member 3'];
-
-        // Update the popup content with the member list
-        const memberListElement = document.getElementById('memberList');
-        memberListElement.innerHTML = '';
-
-        memberList.forEach((member, index) => {
-            const listItem = document.createElement('li');
-            listItem.textContent = member;
-            listItem.onclick = () => selectMember(index + 1, selectedMemberId);
-            memberListElement.appendChild(listItem);
-        });
-    }
-
-    function selectMember(selectedId, originalId) {
-        // Handle the selected member
-        alert(`Selected Member: ${selectedId}`);
-
-        // Close the popup (optional)
-        closePopup();
-    }
-
-    function getSelectedMember() {
-        // Logic to get the selected member if needed
-        // (you can implement additional functionality here)
+    function confirmAction() {
+        getTableCellValues();
+        // Add your confirmation logic here
+        alert("Confirmed!"); // Example: Show an alert
     }
 </script>
+
+</body>
+
 </html>

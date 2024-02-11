@@ -21,11 +21,11 @@
 
 <div class="buttons-container">
     <button class="button" onclick="listFn()">게임 목록</button>
+    <button id="gameSet" class="button" onclick="fnMakePopUp('${gameList.gameNo}')">게임 종료</button>
     <button class="button" onclick="updateFn()">게임 정보 수정</button>
 </div>
 
-<div class="container">
-    <div class="game-info">
+<div class="container">    <div class="game-info">
         <h2>Game Information</h2>
         <table class="brown-table">
             <tr>
@@ -114,6 +114,25 @@
 </div>
 </body>
 <script>
+    window.onload = function () {
+        let gameNo = ${gameList.gameNo};
+        $.ajax({
+            type: "post",
+            url: "/game/chkGaming",
+            data: {
+                "gameNo": gameNo
+            },
+            success: function (res) {
+                if(res === "1"){
+                    document.getElementById("gameSet").disabled = true;
+                }
+            },
+            error: function (err) {
+                console.log("에러 발생", err);
+            }
+        });
+    }
+
     const userSearch = () => {
         const userName = document.getElementById("searchUser").value;
 
@@ -353,6 +372,15 @@
     const listFn = () => {
         const page = '${page}';
         location.href = "/game/gameList?page=" + page;
+    }
+
+    const fnMakePopUp = (gameNo) => {
+        let _width = '650';
+        let _height = '600';
+        let _left = Math.ceil((window.screen.width - _width) / 2);
+        let _top = Math.ceil((window.screen.height - _height) / 2);
+
+        window.open('/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
 </script>
 </html>

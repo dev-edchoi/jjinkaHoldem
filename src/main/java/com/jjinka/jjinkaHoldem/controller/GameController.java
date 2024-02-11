@@ -6,6 +6,10 @@ import com.jjinka.jjinkaHoldem.dto.PageDTO;
 import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.service.UserPointService;
 import com.jjinka.jjinkaHoldem.service.UserService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.ui.Model;
 import com.jjinka.jjinkaHoldem.service.GameService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -179,25 +184,58 @@ public class GameController {
         return gameService.chkInGame(tableNo);
     }
 
+//    @PostMapping("/gameSet")
+//    public void gameSet(@RequestParam("gameNo") Long gameNo, @RequestParam("gameReward") Long gameReward, @RequestParam("userNo") Long userNo) {
+//        Map<String, Object> gameSetMap = new HashMap<>();
+//        gameSetMap.put("gameNo", gameNo);
+//        gameSetMap.put("userNo", userNo);
+//
+//        Map<String, Object> setGameWinnerMap = new HashMap<>();
+//        setGameWinnerMap.put("gameReward", gameReward);
+//        setGameWinnerMap.put("userNo", userNo);
+//
+//        Map<String, Object> userPointMap = new HashMap<>();
+//        userPointMap.put("userNo", userNo);
+//        userPointMap.put("userPoint", gameReward);
+//        userPointMap.put("isGameReward", "1");
+//
+//        gameService.gameSet(gameSetMap);
+//        gameService.allJoinerGameSet(gameNo);
+//        gameService.setGameWinner(setGameWinnerMap);
+//        userPointService.insertPointLog(userPointMap);
+//    }
+
     @PostMapping("/gameSet")
-    public void gameSet(@RequestParam("gameNo") Long gameNo, @RequestParam("gameReward") Long gameReward, @RequestParam("userNo") Long userNo) {
-        Map<String, Object> gameSetMap = new HashMap<>();
-        gameSetMap.put("gameNo", gameNo);
-        gameSetMap.put("userNo", userNo);
+    public @ResponseBody String gameSet(@RequestParam("values") String values, @RequestParam("gameNo") Long gameNo) throws ParseException {
+        JSONParser jsonParser = new JSONParser();
+        JSONArray insertParam = (JSONArray) jsonParser.parse(values);
 
-        Map<String, Object> setGameWinnerMap = new HashMap<>();
-        setGameWinnerMap.put("gameReward", gameReward);
-        setGameWinnerMap.put("userNo", userNo);
+        for(int i=0; i < insertParam.size(); i++){
+            JSONObject insertData = (JSONObject) insertParam.get(i);
+            Long userNo = Long.parseLong(String.valueOf(insertData.get("userNo")));
+            Long gameReward = Long.parseLong(String.valueOf(insertData.get("gameReward")));
 
-        Map<String, Object> userPointMap = new HashMap<>();
-        userPointMap.put("userNo", userNo);
-        userPointMap.put("userPoint", gameReward);
-        userPointMap.put("isGameReward", "1");
+            Map<String, Object> setGameWinnerMap = new HashMap<>();
+            setGameWinnerMap.put("gameReward", gameReward);
+            setGameWinnerMap.put("userNo", userNo);
 
-        gameService.gameSet(gameSetMap);
+            gameService.setGameWinner(setGameWinnerMap);
+
+            Map<String, Object> userPointMap = new HashMap<>();
+            userPointMap.put("userNo", userNo);
+            userPointMap.put("userPoint", gameReward);
+            userPointMap.put("isGameReward", "1");
+
+            userPointService.insertPointLog(userPointMap);
+        }
         gameService.allJoinerGameSet(gameNo);
-        gameService.setGameWinner(setGameWinnerMap);
-        userPointService.insertPointLog(userPointMap);
+
+        return gameService.gameSet(gameNo);
+    }
+
+    @PostMapping("/chkGaming")
+    public @ResponseBody String gameSet(@RequestParam("gameNo") Long gameNo){
+        return gameService.chkGaming(gameNo);
     }
 }
 

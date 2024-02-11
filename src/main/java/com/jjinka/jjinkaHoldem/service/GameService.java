@@ -105,8 +105,8 @@ public class GameService {
         }
     }
 
-    public String gameSet(Map<String, Object> map) {
-        int result = gameRepository.gameSet(map);
+    public String gameSet(Long gameNo) {
+        int result = gameRepository.gameSet(gameNo);
         String sResult = "";
 
         if(result > 0) {
@@ -132,5 +132,9 @@ public class GameService {
 
     public void allJoinerGameSet(Long gameNo) {
         gameRepository.allJoinerGameSet(gameNo);
+    }
+
+    public String chkGaming(Long gameNo) {
+        return gameRepository.chkGaming(gameNo);
     }
 }

@@ -129,8 +129,6 @@
     window.onload = function () {
         let sToday = getDate();
         let sYesterday = getDate(true);
-        // document.getElementById('dateAfter').value = sToday;
-        // document.getElementById('dateBefore').value = sYesterday;
     }
 
     const getDate = (isYesterday) => {
@@ -157,6 +155,7 @@
     const makeGame = () => {
         location.href = "/game/makeGame";
     }
+
     const fnMakePopUp = (gameNo) => {
         let _width = '650';
         let _height = '600';

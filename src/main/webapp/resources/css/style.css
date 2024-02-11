@@ -132,6 +132,10 @@ h2 {
     background-color: #4e342e;
 }
 
+.button:disabled {
+    background-color: #6c757d;
+}
+
 label {
     margin-bottom: 8px;
     color: #4e342e; /* 브라운 계통 글자색 */
