@@ -326,7 +326,7 @@
         let rewardRate = ${gameList.rewardRate};
 
         let gameReward = (gamerCnt * gameFee) * (rewardRate / 100);
-            gameReward = Math.ceil(gameReward);
+            gameReward = Math.ceil(Math.ceil(gameReward) / 10000) * 10000;
 
         let totalGameFee = parseInt(gamerCnt * gameFee);
 

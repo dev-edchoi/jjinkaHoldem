@@ -35,7 +35,7 @@
         <label for="gameFee">참가 비용:</label>
         <input type="number" id="gameFee" name="gameFee" value="${game.gameFee}">
 
-        <label for="rewardRate">참가 비용:</label>
+        <label for="rewardRate">상금 비율:</label>
         <input type="number" id="rewardRate" name="rewardRate" value="${game.rewardRate}">
 
         <input type="button" value="수정" onclick="fnGameUpdate()">
@@ -47,6 +47,8 @@
         let gameType = ${game.gameType};
 
         document.getElementsByName('gameType')[0].value= gameType;
+
+        fnChkGameType();
     }
 
     function fnGameUpdate() {
@@ -59,6 +61,20 @@
 
     const listFn = (gameNo) => {
         location.href = "/game?gameNo=" + gameNo;
+    }
+
+    const fnChkGameType = () => {
+        let gameType = document.getElementById('gameType');
+        let gameReward = document.getElementById('gameReward');
+        let rewardRate = document.getElementById('rewardRate');
+
+        if (gameType.value === '1') {
+            gameReward.disabled = false;
+            rewardRate.disabled = true;
+        } else if (gameType.value === '2') {
+            gameReward.disabled = true;
+            rewardRate.disabled = false;
+        }
     }
 </script>
 </body>
