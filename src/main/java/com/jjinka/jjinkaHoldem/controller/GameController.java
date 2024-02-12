@@ -224,7 +224,7 @@ public class GameController {
             Map<String, Object> userPointMap = new HashMap<>();
             userPointMap.put("userNo", userNo);
             userPointMap.put("userPoint", gameReward);
-            userPointMap.put("isGameReward", "1");
+            userPointMap.put("reasonForChange", "1");
 
             userPointService.insertPointLog(userPointMap);
         }

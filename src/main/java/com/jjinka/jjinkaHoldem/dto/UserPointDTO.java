@@ -13,5 +13,11 @@ public class UserPointDTO {
     private Long userNo;
     private Long point;
     private Long isGameReward;
+    private Long reasonForChange;
+    private String etcReason;
+    private Long receiverUserNo;
+    private String receiverUserName;
+    private Long senderUserNo;
+    private String senderUserName;
     private Timestamp date;
 }

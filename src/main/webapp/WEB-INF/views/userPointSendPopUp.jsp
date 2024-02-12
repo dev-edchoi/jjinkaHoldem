@@ -180,7 +180,7 @@
                         "pointToSend" : pointToSend,
                     },
                     success: function (res) {
-                        if(res == "true"){
+                        if(res === "true"){
                             window.open('', '_self', '');
                             window.close();
                             window.opener.location.reload();

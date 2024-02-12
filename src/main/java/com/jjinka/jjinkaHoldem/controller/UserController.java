@@ -122,10 +122,13 @@ public class UserController {
         }
     }
     @PostMapping("/userUpdatePoint")
-    public String userUpdatePoint(@ModelAttribute UserDTO userDTO, @RequestParam("userPoint") String userPoint){
+    public String userUpdatePoint(@ModelAttribute UserDTO userDTO, @RequestParam("userPoint") String userPoint, @RequestParam("reasonForChange") String reasonForChange, @RequestParam(value = "etcReason", required=false) String etcReason){
         Map<String,Object> map = new HashMap<>();
-            map.put("userNo", userDTO.getUserNo());
-            map.put("userPoint", (long) Integer.parseInt(userPoint));
+        map.put("userNo", userDTO.getUserNo());
+        map.put("userPoint", (long) Integer.parseInt(userPoint));
+        map.put("reasonForChange", reasonForChange);
+        map.put("etcReason", etcReason);
+
         userService.updatePoint(map);
         userPointService.insertPointLog(map);
 
@@ -166,12 +169,14 @@ public class UserController {
         Map<String,Object> senderMap = new HashMap<>();
         senderMap.put("userNo", senderUserNo);
         senderMap.put("userPoint", pointToSend * -1);
-        senderMap.put("isGameReward", "2");
+        senderMap.put("reasonForChange", "2");
+        senderMap.put("receiverUserNo", receiverUserNo);
 
         Map<String,Object> receiverMap = new HashMap<>();
         receiverMap.put("userNo", receiverUserNo);
         receiverMap.put("userPoint", pointToSend);
-        receiverMap.put("isGameReward", "2");
+        receiverMap.put("reasonForChange", "2");
+        receiverMap.put("senderUserNo", senderUserNo);
 
         if(userService.updatePoint(senderMap) > 0) {
             userPointService.insertPointLog(senderMap);

@@ -3,22 +3,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="UserPoint">
-
+<!--
     <select id="userPointAll" parameterType="Long" resultType="userPoint">
         select * from userPoint where userNo=#{userNo} order by date desc
     </select>
+-->
+    <select id="userPointAll" parameterType="Long" resultType="userPoint">
+        SELECT
+            userNo
+            , point
+            , isGameReward
+            , reasonForChange
+            , etcReason
+            , (select userName from user where receiverUserNo = userNo) AS receiverUserName
+            , (select userName from user where senderUserNo = userNo) AS senderUserName
+            , DATE
+        FROM userPoint where userNo=#{userNo} ORDER BY DATE desc;
+
+    </select>
 
     <insert id="insertPointLog" parameterType="map">
-        <if test="isGameReward == 1">
-            insert into userPoint(userNo, point, isGameReward)
+        <if test="reasonForChange == 1">
+            insert into userPoint(userNo, point, reasonForChange)
             values (#{userNo}, #{userPoint}, 1)
         </if>
-        <if test="isGameReward == 2">
-            insert into userPoint(userNo, point, isGameReward)
-            values (#{userNo}, #{userPoint}, 2)
+        <if test="reasonForChange == 2 and receiverUserNo != null">
+            insert into userPoint(userNo, point, reasonForChange, receiverUserNo)
+            values (#{userNo}, #{userPoint}, 2, #{receiverUserNo})
         </if>
-        <if test="isGameReward != 1 and isGameReward != 2">
-            insert into userPoint(userNo, point, isGameReward)
+        <if test="reasonForChange == 2 and senderUserNo != null">
+            insert into userPoint(userNo, point, reasonForChange, senderUserNo)
+            values (#{userNo}, #{userPoint}, 2, #{senderUserNo})
+        </if>
+        <if test="reasonForChange == 3">
+            insert into userPoint(userNo, point, reasonForChange, etcReason)
+            values (#{userNo}, #{userPoint}, 3, #{etcReason})
+        </if>
+        <if test="reasonForChange != 1 and reasonForChange != 2 and reasonForChange != 3">
+            insert into userPoint(userNo, point, reasonForChange)
             values (#{userNo}, #{userPoint}, 0)
         </if>
     </insert>

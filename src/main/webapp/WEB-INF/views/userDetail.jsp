@@ -77,6 +77,11 @@
         <button type="button" class="button" id="plus3M" value="+30000" onclick="updatePoint(value)">+30,000</button>
         <button type="button" class="button" id="minus5M" value="-50000" onclick="updatePoint(value)">-50,000</button>
         <button type="button" class="button" id="plus5M" value="+50000" onclick="updatePoint(value)">+50,000</button>
+        <select id="reasonForChange" name="reasonForChange" required onchange="toggleInputs()">
+            <option value="0" selected>일반 충전</option>
+            <option value="3">기타</option>
+        </select>
+        <input type="text" id="etcReason" name="etcReason" style="width: 300px"/>
     </div>
 </form>
 <div>
@@ -85,6 +90,9 @@
         <tr>
             <th>변동 금액</th>
             <th>변동 이유</th>
+            <th>Etc.</th>
+            <th>포인트 받은 사람</th>
+            <th>포인트 준 사람</th>
             <th>변동 일자</th>
         </tr>
         </thead>
@@ -92,16 +100,22 @@
             <tr>
                 <td>${userPoint.point}</td>
                 <c:choose>
-                    <c:when test="${userPoint.isGameReward == 2}">
+                    <c:when test="${userPoint.reasonForChange == 3}">
+                        <td>기타</td>
+                    </c:when>
+                    <c:when test="${userPoint.reasonForChange == 2}">
                         <td>포인트 선물</td>
                     </c:when>
-                    <c:when test="${userPoint.isGameReward == 1}">
+                    <c:when test="${userPoint.reasonForChange == 1}">
                         <td>게임 우승 상금</td>
                     </c:when>
                     <c:otherwise>
                         <td>일반 충전</td>
                     </c:otherwise>
                 </c:choose>
+                <td>${userPoint.etcReason}</td>
+                <td>${userPoint.receiverUserName}</td>
+                <td>${userPoint.senderUserName}</td>
                 <td>${userPoint.date}</td>
             </tr>
         </c:forEach>
@@ -109,6 +123,10 @@
 </div>
 </body>
 <script>
+    window.onload = function () {
+        toggleInputs();
+    }
+
     const updateFn = () => {
         const userNo = '${userList.userNo}';
         location.href = "/user/userUpdate?userNo=" + userNo;
@@ -127,6 +145,14 @@
     }
 
     const userUpdatePoint = () => {
+        let etcReason = document.getElementById("etcReason").value;
+        let reasonForChange = document.getElementById("reasonForChange").value;
+
+        if(reasonForChange === '3' && !etcReason){
+            alert("포인트 변동 사유를 입력해 주세요.");
+            return false;
+        }
+
         document.userPointUpdate.submit();
     }
 
@@ -145,6 +171,13 @@
         let _top = Math.ceil((window.screen.height - _height) / 2);
 
         window.open('/user/userPointPopUp?userNo=' + userNo + "&userPoint=" + userPoint, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
+    }
+
+    const toggleInputs = () => {
+        let reasonForChange = document.getElementById('reasonForChange').value;
+        let etcReason = document.getElementById('etcReason');
+
+        etcReason.disabled = reasonForChange === '0';
     }
 </script>
 </html>
