@@ -80,9 +80,9 @@
         <input type="text" id="userPoint" name="userPoint" value="${user.userPoint}">
 
         <button onclick="editUserInfo()">수정</button>
-        <button onclick="delUser('${user.userNo}')">회원 삭제</button>
         <button onclick="location.href='/'">취소</button>
     </form>
+    <button onclick="delUser('${user.userNo}')">회원 삭제</button>
 </div>
 <script>
     function editUserInfo() {
