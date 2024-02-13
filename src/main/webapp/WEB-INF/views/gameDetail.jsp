@@ -25,7 +25,8 @@
     <button class="button" onclick="updateFn()">게임 정보 수정</button>
 </div>
 
-<div class="container">    <div class="game-info">
+<div class="container">
+    <div class="game-info">
         <h2>Game Information</h2>
         <table class="brown-table">
             <tr>
@@ -147,6 +148,7 @@
                     output += "<tr><th>번호</th>";
                     output += "<th>이름</th>";
                     output += "<th>전화번호</th>";
+                    output += "<th>포인트</th>";
                     output += "<th>게임 참가</th>";
 
                 for (let i in res) {
@@ -154,6 +156,7 @@
                     output += "<td>" + res[i].userNo + "</td>";
                     output += "<td>" + res[i].userName + "</td>";
                     output += "<td>" + res[i].phoneNumber + "</td>";
+                    output += "<td>" + res[i].userPoint + "</td>";
                     output += "<td><button class='table-button' onclick='ChkJoiner(" + res[i].userNo + ")'>" + "게임 참가" + "</button></td>";
                     output += "</tr>";
                 }

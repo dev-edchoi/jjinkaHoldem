@@ -95,7 +95,6 @@ public class UserController {
 
     @GetMapping("/delete")
     public String delete(@RequestParam("userNo") Long userNo){
-        System.out.println(userNo);
         userService.delete(userNo);
         return "redirect:/user/";
     }
