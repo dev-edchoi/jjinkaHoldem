@@ -3,12 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="UserPoint">
-<!--
+
     <select id="userPointAll" parameterType="Long" resultType="userPoint">
         select * from userPoint where userNo=#{userNo} order by date desc
     </select>
--->
-    <select id="userPointAll" parameterType="Long" resultType="userPoint">
+
+    <select id="userPointRecent" parameterType="Long" resultType="userPoint">
         SELECT
             userNo
             , point
@@ -18,7 +18,7 @@
             , (select userName from user where receiverUserNo = userNo) AS receiverUserName
             , (select userName from user where senderUserNo = userNo) AS senderUserName
             , DATE
-        FROM userPoint where userNo=#{userNo} ORDER BY DATE desc;
+        FROM userPoint where userNo=#{userNo} ORDER BY DATE DESC LIMIT 10 OFFSET 0;
     </select>
 
     <insert id="insertPointLog" parameterType="map">
@@ -44,7 +44,15 @@
         </if>
         <if test="reasonForChange != 1 and reasonForChange != 2 and reasonForChange != 3 and reasonForChange != 4">
             insert into userPoint(userNo, point, reasonForChange)
-            values3 (#{userNo}, #{userPoint}, 0)
+            values (#{userNo}, #{userPoint}, 0)
         </if>
     </insert>
+
+    <select id="userPointList" parameterType="java.util.HashMap" resultType="userPoint">
+        select * from userPoint WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
+    </select>
+
+    <select id="pointLogCount" parameterType="Long" resultType="Integer" >
+        select count(userNo) from userPoint where userNo=#{userNo}
+    </select>
 </mapper>

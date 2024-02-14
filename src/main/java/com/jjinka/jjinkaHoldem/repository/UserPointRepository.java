@@ -1,5 +1,6 @@
 package com.jjinka.jjinkaHoldem.repository;
 
+import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.dto.UserPointDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -13,11 +14,19 @@ import java.util.Map;
 public class UserPointRepository {
     private final SqlSessionTemplate sqlSessionTemplate;
 
-    public List<UserPointDTO> userPointAll(Long userNo) {
-        return sqlSessionTemplate.selectList("UserPoint.userPointAll" ,userNo);
+    public List<UserPointDTO> userPointRecent(Long userNo) {
+        return sqlSessionTemplate.selectList("UserPoint.userPointRecent" ,userNo);
     }
 
     public void insertPointLog(Map<String, Object> map) {
         sqlSessionTemplate.insert("UserPoint.insertPointLog" ,map);
+    }
+
+    public int pointLogCount(Long userNo) {
+        return sqlSessionTemplate.selectOne("UserPoint.pointLogCount", userNo);
+    }
+
+    public List<UserPointDTO> userPointList(Map<String, Object> pagingParams) {
+        return sqlSessionTemplate.selectList("UserPoint.userPointList", pagingParams);
     }
 }

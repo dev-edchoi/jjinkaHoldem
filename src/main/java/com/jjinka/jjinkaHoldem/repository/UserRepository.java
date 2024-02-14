@@ -60,5 +60,4 @@ public class UserRepository {
         return sqlSessionTemplate.selectList("User.userPopUp", gameNo);
     }
 
-
 }

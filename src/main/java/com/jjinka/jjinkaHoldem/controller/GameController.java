@@ -282,7 +282,5 @@ public class GameController {
             return "gameList";
         }
     }
-
-
 }
 

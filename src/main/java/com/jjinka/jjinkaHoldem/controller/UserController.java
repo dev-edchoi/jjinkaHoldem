@@ -66,9 +66,11 @@ public class UserController {
     }
     */
     @GetMapping("/")
-    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "searchWord", required = false) String searchWord){
+    public String paging(Model model,
+                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                         @RequestParam(value = "searchWord", required = false) String searchWord) {
         List<UserDTO> userDTOList = userService.userList(page, searchWord);
-        PageDTO pageDTO = userService.pagingParam(page,searchWord);
+        PageDTO pageDTO = userService.pagingParam(page, searchWord);
 
         model.addAttribute("userList", userDTOList);
         model.addAttribute("paging", pageDTO);
@@ -77,9 +79,11 @@ public class UserController {
     }
 
     @GetMapping
-    public String findByUserNo(@RequestParam("userNo") Long userNo,@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model){
+    public String findByUserNo(@RequestParam("userNo") Long userNo,
+                               @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                               Model model) {
         UserDTO userDTO = userService.findByUserNo(userNo);
-        List<UserPointDTO> userPointDTOS = userPointService.userPointAll(userNo);
+        List<UserPointDTO> userPointDTOS = userPointService.userPointRecent(userNo);
 
         model.addAttribute("userList", userDTO);
         model.addAttribute("userPoint", userPointDTOS);

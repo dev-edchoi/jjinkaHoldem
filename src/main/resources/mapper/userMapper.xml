@@ -60,4 +60,5 @@
     <select id="userPopUp" parameterType="java.util.HashMap" resultType="user">
         SELECT * FROM user WHERE userNo in (SELECT userNo FROM gameJoiner WHERE gameNo=#{gameNo})
     </select>
+
 </mapper>

@@ -21,6 +21,7 @@
 <div class="buttons-container">
     <button class="button" onclick="userPointSend()">포인트 선물</button>
     <button class="button" onclick="updateFn()">유정 정보 수정</button>
+    <button class="button" onclick="userPointLog()">전체 포인트 목록</button>
     <button class="button" onclick="listFn()">유저 목록</button>
 </div>
 <div class="container">
@@ -181,6 +182,12 @@
         let etcReason = document.getElementById('etcReason');
 
         etcReason.disabled = reasonForChange === '0';
+    }
+
+    const userPointLog = () => {
+        let userNo = ${userList.userNo};
+
+        location.href = "/userPoint/userPointLog?userNo=" + userNo
     }
 </script>
 </html>
