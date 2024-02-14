@@ -271,11 +271,9 @@ public class GameController {
 
     @PostMapping("/gameUpdate")
     public String gameUpdate(@ModelAttribute GameDTO gameDTO){
-
         if(gameDTO.getRewardRate() == null){
             gameDTO.setRewardRate(0L);
         }
-        System.out.println("gameDTO : " + gameDTO);
         boolean result = gameService.gameUpdate(gameDTO);
 
         if(result){
