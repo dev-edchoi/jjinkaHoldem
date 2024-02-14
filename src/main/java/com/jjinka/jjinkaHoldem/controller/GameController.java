@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.SysexMessage;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -120,20 +121,6 @@ public class GameController {
         return gameDTO;
     }
 
-    @PostMapping("/gamerJoin")
-    public @ResponseBody List<GameJoinerDTO> gamerJoin(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
-        UserDTO userDTO = userService.findByUserNo(userNo);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("gameNo", gameNo);
-        map.put("userNo", userDTO.getUserNo());
-        map.put("userName", userDTO.getUserName());
-
-        gameService.gamerJoin(map);
-
-        return gameService.findJoinerList(gameNo);
-    }
-
     @PostMapping("/userGameSet")
     public @ResponseBody List<GameJoinerDTO> userGameSet(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
         Map<String, Object> map = new HashMap<>();
@@ -145,8 +132,22 @@ public class GameController {
         return gameService.findJoinerList(gameNo);
     }
 
-    @PostMapping("/reGameIn")
-    public @ResponseBody List<GameJoinerDTO> reGameIn(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+    public void gamerPointDeduction(Long userNo, Long gameFee){
+        Map<String, Object> pointDeductionMap = new HashMap<>();
+        pointDeductionMap.put("userNo", userNo);
+        pointDeductionMap.put("gameFee", gameFee);
+        pointDeductionMap.put("reasonForChange", 4);
+
+        int isSuccess2 = gameService.pointDeduction(pointDeductionMap);
+        if(isSuccess2 > 0) {
+            pointDeductionMap.put("gameFee", gameFee * -1);
+            userPointService.insertPointLog(pointDeductionMap);
+        }
+    }
+
+    @PostMapping("/gamerJoin")
+    public @ResponseBody List<GameJoinerDTO> gamerJoin(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo,
+                                                       @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee) {
         UserDTO userDTO = userService.findByUserNo(userNo);
 
         Map<String, Object> map = new HashMap<>();
@@ -154,18 +155,41 @@ public class GameController {
         map.put("userNo", userDTO.getUserNo());
         map.put("userName", userDTO.getUserName());
 
-        gameService.reGameIn(map);
+        int isSuccess = gameService.gamerJoin(map);
+        if(isSuccess > 0){
+            gamerPointDeduction(userDTO.getUserNo(), gameFee);
+        }
+        return gameService.findJoinerList(gameNo);
+    }
+    @PostMapping("/reGameIn")
+    public @ResponseBody List<GameJoinerDTO> reGameIn(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo,
+                                                      @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee) {
+        UserDTO userDTO = userService.findByUserNo(userNo);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("gameNo", gameNo);
+        map.put("userNo", userDTO.getUserNo());
+        map.put("userName", userDTO.getUserName());
+
+        int isSuccess = gameService.reGameIn(map);
+        if(isSuccess > 0){
+            gamerPointDeduction(userNo, gameFee);
+        }
 
         return gameService.findJoinerList(gameNo);
     }
 
     @PostMapping("/oneMoreGameCnt")
-    public @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+    public @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo,
+                                                            @RequestParam("gameFee") Long gameFee) {
         Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userNo);
 
-        gameService.oneMoreGameCnt(map);
+        int isSuccess = gameService.oneMoreGameCnt(map);
+        if(isSuccess > 0){
+            gamerPointDeduction(userNo, gameFee);
+        }
 
         return gameService.findJoinerList(gameNo);
     }

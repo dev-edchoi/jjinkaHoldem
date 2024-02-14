@@ -193,12 +193,14 @@
 
     const gamerJoin = (userNo) => {
         let gameNumber = '${gameList.gameNo}';
+        let gameFee = ${gameList.gameFee};
         $.ajax({
             type: "post",
             url: "/game/gamerJoin",
             data: {
                 "userNo": userNo,
-                "gameNo": gameNumber
+                "gameNo": gameNumber,
+                "gameFee": gameFee
             },
             success: function (res) {
                 reloadGamerList(res);
@@ -214,12 +216,15 @@
     const oneMoreGameCnt = (userNo) => {
         if (confirm("게임에 추가 참여하시겠습니까?")) {
             let gameNumber = '${gameList.gameNo}';
+            let gameFee = ${gameList.gameFee};
+
             $.ajax({
                 type: "post",
                 url: "/game/oneMoreGameCnt",
                 data: {
                     "userNo": userNo,
-                    "gameNo": gameNumber
+                    "gameNo": gameNumber,
+                    "gameFee": gameFee
                 },
                 success: function (res) {
                     reloadGamerList(res);
@@ -258,12 +263,15 @@
     const reGameIn = (userNo) =>{
         if (confirm("다시 참여하겠습니까?")) {
             let gameNumber = '${gameList.gameNo}';
+            let gameFee = ${gameList.gameFee};
+
             $.ajax({
                 type: "post",
                 url: "/game/reGameIn",
                 data: {
                     "userNo": userNo,
-                    "gameNo": gameNumber
+                    "gameNo": gameNumber,
+                    "gameFee": gameFee
                 },
                 success: function (res) {
                     reloadGamerList(res);

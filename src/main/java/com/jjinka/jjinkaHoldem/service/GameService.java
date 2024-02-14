@@ -69,8 +69,8 @@ public class GameService {
         return gameRepository.findJoinerList(gameNo);
     }
 
-    public void gamerJoin(Map<String, Object> map) {
-        gameRepository.gamerJoin(map);
+    public int gamerJoin(Map<String, Object> map) {
+        return gameRepository.gamerJoin(map);
     }
 
     public String chkJoiner(Map<String, Object> map) {
@@ -87,12 +87,12 @@ public class GameService {
         gameRepository.userGameSet(map);
     }
 
-    public void reGameIn(Map<String, Object> map) {
-        gameRepository.reGameIn(map);
+    public int reGameIn(Map<String, Object> map) {
+        return gameRepository.reGameIn(map);
     }
 
-    public void oneMoreGameCnt(Map<String, Object> map) {
-        gameRepository.oneMoreGameCnt(map);
+    public int oneMoreGameCnt(Map<String, Object> map) {
+        return gameRepository.oneMoreGameCnt(map);
     }
 
     public String chkInGame(String tableNo) {
@@ -142,5 +142,9 @@ public class GameService {
         int result = gameRepository.gameUpdate(gameDTO);
 
         return result > 0;
+    }
+
+    public int pointDeduction(Map<String, Object> pointDeductionMap) {
+        return gameRepository.pointDeduction(pointDeductionMap);
     }
 }

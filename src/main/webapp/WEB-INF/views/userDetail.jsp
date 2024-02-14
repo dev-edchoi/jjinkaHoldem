@@ -100,6 +100,9 @@
             <tr>
                 <td>${userPoint.point}</td>
                 <c:choose>
+                    <c:when test="${userPoint.reasonForChange == 4}">
+                        <td>게임 참여</td>
+                    </c:when>
                     <c:when test="${userPoint.reasonForChange == 3}">
                         <td>기타</td>
                     </c:when>

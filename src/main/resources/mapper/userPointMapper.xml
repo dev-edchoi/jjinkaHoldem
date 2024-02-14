@@ -19,7 +19,6 @@
             , (select userName from user where senderUserNo = userNo) AS senderUserName
             , DATE
         FROM userPoint where userNo=#{userNo} ORDER BY DATE desc;
-
     </select>
 
     <insert id="insertPointLog" parameterType="map">
@@ -39,9 +38,13 @@
             insert into userPoint(userNo, point, reasonForChange, etcReason)
             values (#{userNo}, #{userPoint}, 3, #{etcReason})
         </if>
-        <if test="reasonForChange != 1 and reasonForChange != 2 and reasonForChange != 3">
+        <if test="reasonForChange == 4">
             insert into userPoint(userNo, point, reasonForChange)
-            values (#{userNo}, #{userPoint}, 0)
+            values (#{userNo}, (#{gameFee}), 4)
+        </if>
+        <if test="reasonForChange != 1 and reasonForChange != 2 and reasonForChange != 3 and reasonForChange != 4">
+            insert into userPoint(userNo, point, reasonForChange)
+            values3 (#{userNo}, #{userPoint}, 0)
         </if>
     </insert>
 </mapper>

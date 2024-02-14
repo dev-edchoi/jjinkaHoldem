@@ -44,7 +44,7 @@
     </select>
 
     <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
-        select * from gameJoiner where gameNo=#{gameNo} ORDER BY inGame	asc
+        select * from gameJoiner where gameNo=#{gameNo} ORDER BY inGame	ASC
     </select>
 
     <insert id="gamerJoin" parameterType="map">
@@ -106,5 +106,8 @@
         UPDATE gameInfo SET gameReward=#{gameReward}, gameFee=#{gameFee}, rewardRate=#{rewardRate} WHERE gameNo=#{gameNo}
     </update>
 
+    <update id="pointDeduction" parameterType="Map">
+        UPDATE user SET userPoint = ((SELECT user.userPoint WHERE user.userNo=#{userNo}) - #{gameFee}) WHERE userNo = #{userNo}
+    </update>
 
 </mapper>
