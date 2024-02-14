@@ -271,9 +271,12 @@ public class GameController {
 
     @PostMapping("/gameUpdate")
     public String gameUpdate(@ModelAttribute GameDTO gameDTO){
+
+        if(gameDTO.getRewardRate() == null){
+            gameDTO.setRewardRate(0L);
+        }
         System.out.println("gameDTO : " + gameDTO);
         boolean result = gameService.gameUpdate(gameDTO);
-        System.out.println("result :" + result);
 
         if(result){
             return "redirect:/game?gameNo=" + gameDTO.getGameNo();

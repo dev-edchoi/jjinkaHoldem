@@ -71,9 +71,6 @@
 </div>
 
 <script>
-    window.onload = function () {
-
-    }
     function login() {
         let adminId = document.getElementById("adminId");
         let adminPwd = document.getElementById("adminPwd");
