@@ -76,9 +76,6 @@
         <label for="phoneNumber">Phone Number:</label>
         <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}">
 
-        <label for="userPoint">Points:</label>
-        <input type="text" id="userPoint" name="userPoint" value="${user.userPoint}">
-
         <button onclick="editUserInfo()">수정</button>
         <button onclick="location.href='/'">취소</button>
     </form>

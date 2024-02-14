@@ -40,7 +40,7 @@
     </select>
 
     <update id="update" parameterType="user">
-        update user set userPoint = #{userPoint}, phoneNumber = #{phoneNumber} where userNo = #{userNo}
+        update user set phoneNumber = #{phoneNumber} where userNo = #{userNo}
     </update>
 
     <update id="updatePoint" parameterType="map">
