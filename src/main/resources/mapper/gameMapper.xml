@@ -42,11 +42,27 @@
     <select id="findByGameNo" parameterType="Long" resultType="game">
         select * from gameInfo where gameNo=#{gameNo}
     </select>
-
+    <!--
     <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
         select * from gameJoiner where gameNo=#{gameNo} ORDER BY inGame	ASC
     </select>
-
+    -->
+    <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
+        SELECT
+            gameNo
+             , userNo
+             , userName
+             , gameTime
+             , inGame
+             , joinTime
+             , finishTime
+             , (SELECT user.userPoint FROM user WHERE userNo = gameJoiner.userNo) AS joinUserPoint
+        FROM
+            gameJoiner
+        WHERE
+            gameNo=#{gameNo}
+        ORDER BY inGame ASC;
+    </select>
     <insert id="gamerJoin" parameterType="map">
         insert into gameJoiner(gameNo, userNo, userName, gameTime)
         values (#{gameNo}, #{userNo}, #{userName}, 1)

@@ -64,7 +64,6 @@
         <label for="searchUser"> 유저 검색 :</label>
         <input type="text" id="searchUser" name="userName" placeholder="Enter member name" onblur="userSearch()"/>
         <button class="table-button" id="btnSearchUser" onclick="userSearch()">회원 검색</button>
-        <!-- Display search results here -->
         <div class="search-results" id="search-list">
             <!-- Results will be displayed dynamically here -->
         </div>
@@ -81,6 +80,7 @@
             <th>회원 번호</th>
             <th>참가자 이름</th>
             <th>참여 횟수</th>
+            <th>잔여 포인트</th>
             <th>추가 참여</th>
             <th>게임 종료</th>
             <th>참여 시간</th>
@@ -91,6 +91,7 @@
                 <td>${joiner.userNo}</td>
                 <td>${joiner.userName}</td>
                 <td>${joiner.gameTime}</td>
+                <td>${joiner.joinUserPoint}</td>
                 <c:choose>
                     <c:when test="${joiner.inGame == 0}">
                         <td>
@@ -290,6 +291,7 @@
             gamerList += "<tr><th>회원 번호</th>";
             gamerList += "<th>참가자 이름</th>";
             gamerList += "<th>참여 횟수</th>";
+            gamerList += "<th>잔여 포인트</th>";
             gamerList += "<th>추가 참여</th>";
             gamerList += "<th>게임 종료</th>";
             gamerList += "<th>참여 시간</th>";
@@ -299,6 +301,7 @@
             gamerList += "<td>" + res[i].userNo + "</td>";
             gamerList += "<td>" + res[i].userName + "</td>";
             gamerList += "<td class='gameTimeCnt'>" + res[i].gameTime + "</td>";
+            gamerList += "<td class='gameTimeCnt'>" + res[i].joinUserPoint + "</td>";
             if(parseInt(res[i].inGame) === 0){
                 gamerList += "<td><button class='table-button' onclick='oneMoreGameCnt(" + res[i].userNo + ")'>" + "추가 참여" + "</button></td>";
                 gamerList += "<td><button class='table-button' onclick='gameSet(" + res[i].userNo + ")'>" + "게임 종료" + "</button></td>";

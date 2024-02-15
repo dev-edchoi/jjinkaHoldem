@@ -159,6 +159,7 @@ public class GameController {
         if(isSuccess > 0){
             gamerPointDeduction(userDTO.getUserNo(), gameFee);
         }
+
         return gameService.findJoinerList(gameNo);
     }
     @PostMapping("/reGameIn")
