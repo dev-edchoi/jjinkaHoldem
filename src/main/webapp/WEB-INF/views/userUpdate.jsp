@@ -71,7 +71,7 @@
         <h1>User Information</h1>
 
         <label for="userName">User Name:</label>
-        <input type="text" id="userName" name="userName" value="${user.userName}" readonly>
+        <input type="text" id="userName" name="userName" value="${user.userName}">
 
         <label for="phoneNumber">Phone Number:</label>
         <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}">
