@@ -54,3 +54,15 @@
 .conB_small_container p {
     font-size: 15px;
 }
+
+/* 모바일에 대응하는 반응형 CSS */
+@media (max-width: 768px) {
+    .conB_container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .conB_small_container {
+        margin-bottom: 20px; /* 각 컨테이너 사이의 간격 조정 */
+    }
+}
