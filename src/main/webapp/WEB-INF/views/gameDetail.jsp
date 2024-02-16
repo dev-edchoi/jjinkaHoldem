@@ -62,7 +62,7 @@
     <div class="member-search">
         <h2>Member Search</h2>
         <label for="searchUser"> 유저 검색 :</label>
-        <input type="text" id="searchUser" name="userName" placeholder="Enter member name" onblur="userSearch()"/>
+        <input type="text" id="searchUser" name="userName" placeholder="Enter member name" onkeyup="fnEnterKeyUp()" onblur="userSearch()"/>
         <button class="table-button" id="btnSearchUser" onclick="userSearch()">회원 검색</button>
         <div class="search-results" id="search-list">
             <!-- Results will be displayed dynamically here -->
@@ -400,6 +400,12 @@
     const updateFn = () => {
         const gameNo = '${gameList.gameNo}';
         location.href = "/game/gameUpdate?gameNo=" + gameNo;
+    }
+
+    const fnEnterKeyUp = () =>{
+        if (window.event.keyCode === 13) {
+            userSearch()
+        }
     }
 </script>
 </html>

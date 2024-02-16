@@ -26,7 +26,7 @@
     <div style="margin:auto">
         <!-- 검색 입력창 -->
         <label for="searchInput">유저 검색 : </label>
-        <input type="text" id="searchInput" style="width: 300px" placeholder="유저 이름이나 전화번호로 검색" onblur="fnSearchUser()">
+        <input type="text" id="searchInput" style="width: 300px" placeholder="유저 이름이나 전화번호로 검색" onkeyup="fnEnterKeyUp()" onblur="fnSearchUser()">
         <button onclick="fnSearchUser()" class="button">회원 검색</button>
     </div>
     <div style="margin-top: 20px">
@@ -130,6 +130,12 @@
         //         console.log("에러 발생", err);
         //     }
         // });
+    }
+
+    const fnEnterKeyUp = () =>{
+        if (window.event.keyCode === 13) {
+            fnSearchUser()
+        }
     }
 </script>
 </html>
