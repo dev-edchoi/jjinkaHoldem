@@ -40,7 +40,23 @@
                 <tr>
                     <td>${userPointList.userNo}</td>
                     <td>${userPointList.point}</td>
-                    <td>${userPointList.reasonForChange}</td>
+                    <c:choose>
+                        <c:when test="${userPoint.reasonForChange == 4}">
+                            <td>게임 참여</td>
+                        </c:when>
+                        <c:when test="${userPoint.reasonForChange == 3}">
+                            <td>기타</td>
+                        </c:when>
+                        <c:when test="${userPoint.reasonForChange == 2}">
+                            <td>포인트 선물</td>
+                        </c:when>
+                        <c:when test="${userPoint.reasonForChange == 1}">
+                            <td>게임 우승 상금</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>일반 충전</td>
+                        </c:otherwise>
+                    </c:choose>
                     <td>${userPointList.etcReason}</td>
                     <td>${userPointList.receiverUserName}</td>
                     <td>${userPointList.senderUserName}</td>
