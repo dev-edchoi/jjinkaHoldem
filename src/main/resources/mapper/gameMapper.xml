@@ -49,14 +49,15 @@
     -->
     <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
         SELECT
-            gameNo
-             , userNo
-             , userName
-             , gameTime
-             , inGame
-             , joinTime
-             , finishTime
-             , (SELECT user.userPoint FROM user WHERE userNo = gameJoiner.userNo) AS joinUserPoint
+            gameJoinNo
+            , gameNo
+            , userNo
+            , userName
+            , gameTime
+            , inGame
+            , joinTime
+            , finishTime
+            , (SELECT user.userPoint FROM user WHERE userNo = gameJoiner.userNo) AS joinUserPoint
         FROM
             gameJoiner
         WHERE
@@ -73,15 +74,15 @@
     </select>
 
     <update id="userGameSet" parameterType="map">
-        update gameJoiner set inGame=1, finishTime=NOW() WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+        update gameJoiner set inGame=1, finishTime=NOW() WHERE userNo=#{userNo} AND gameNo=#{gameNo} AND gameJoinNo = #{gameJoinNo}
     </update>
 
     <update id="reGameIn" parameterType="map">
-        update gameJoiner set inGame=0, gameTime = gameTime + 1, finishTime=null WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+        update gameJoiner set inGame=0, gameTime = gameTime + 1, finishTime=null WHERE userNo=#{userNo} AND gameNo=#{gameNo} AND gameJoinNo = #{gameJoinNo}
     </update>
 
     <update id="oneMoreGameCnt" parameterType="map">
-        UPDATE gameJoiner SET gameTime = gameTime + 1 WHERE userNo=#{userNo} AND gameNo=#{gameNo}
+        UPDATE gameJoiner SET gameTime = gameTime + 1 WHERE userNo=#{userNo} AND gameNo=#{gameNo} AND gameJoinNo = #{gameJoinNo}
     </update>
 
     <select id="chkInGame" parameterType="String" resultType="game">

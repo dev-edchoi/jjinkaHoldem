@@ -122,10 +122,12 @@ public class GameController {
     }
 
     @PostMapping("/userGameSet")
-    public @ResponseBody List<GameJoinerDTO> userGameSet(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo) {
+    public @ResponseBody List<GameJoinerDTO> userGameSet(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo,
+                                                         @RequestParam("gameJoinNo") Long gameJoinNo) {
         Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userNo);
+        map.put("gameJoinNo", gameJoinNo);
 
         gameService.userGameSet(map);
 
@@ -164,13 +166,14 @@ public class GameController {
     }
     @PostMapping("/reGameIn")
     public @ResponseBody List<GameJoinerDTO> reGameIn(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo,
-                                                      @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee) {
+                                                      @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee, @RequestParam("gameJoinNo") Long gameJoinNo) {
         UserDTO userDTO = userService.findByUserNo(userNo);
 
         Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userDTO.getUserNo());
         map.put("userName", userDTO.getUserName());
+        map.put("gameJoinNo", gameJoinNo);
 
         int isSuccess = gameService.reGameIn(map);
         if(isSuccess > 0){
@@ -182,10 +185,11 @@ public class GameController {
 
     @PostMapping("/oneMoreGameCnt")
     public @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo,
-                                                            @RequestParam("gameFee") Long gameFee) {
+                                                            @RequestParam("gameFee") Long gameFee, @RequestParam("gameJoinNo") Long gameJoinNo) {
         Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userNo);
+        map.put("gameJoinNo", gameJoinNo);
 
         int isSuccess = gameService.oneMoreGameCnt(map);
         if(isSuccess > 0){

@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 public class GameJoinerDTO {
+    private Long gameJoinNo;
     private Long gameNo;
     private Long userNo;
     private String userName;
