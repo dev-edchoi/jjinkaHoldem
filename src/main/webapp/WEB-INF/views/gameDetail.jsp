@@ -331,7 +331,7 @@
         const table = document.getElementById('gamerTable');        // table element 찾기
         let sum = 0;
         for (let i = 1; i < table.rows.length; i++) {               // 합계 계산
-            sum += parseInt(table.rows[i].cells[2].innerHTML);
+            sum += parseInt(table.rows[i].cells[3].innerHTML);
         }
         document.getElementById('totalGamerCnt').value = sum;       // 합계 출력
 
