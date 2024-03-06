@@ -32,29 +32,19 @@ public class GameController {
     private final UserService userService;
     private final UserPointService userPointService;
 
-    /*
-    @GetMapping("/gameList")
-    public String gameList(Model model) {
-        List<GameDTO> gameDTOList = gameService.findAll();
-        model.addAttribute("gameList", gameDTOList);
-
-        return "gameList";
-    }
-
-    */
-    // 현재 날짜 구하기
-    LocalDate currentDate = LocalDate.now();
-    // 하루 전날 날짜 구하기
-    LocalDate yesterdayDate = currentDate.minusDays(1);
-    // 날짜 포맷 지정
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    // 현재 날짜와 하루 전날 날짜를 지정된 형식으로 출력
-    String currentDateString = currentDate.format(formatter);
-    String yesterdayDateString = yesterdayDate.format(formatter);
-
     @GetMapping("/gameList")
     public String gameList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                            @RequestParam(value = "dateBefore", required = false) String dateBefore, @RequestParam(value = "dateAfter", required = false) String dateAfter) {
+        // 현재 날짜 구하기
+        LocalDate currentDate = LocalDate.now();
+        // 하루 전날 날짜 구하기
+        LocalDate yesterdayDate = currentDate.minusDays(1);
+        // 날짜 포맷 지정
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // 현재 날짜와 하루 전날 날짜를 지정된 형식으로 출력
+        String currentDateString = currentDate.format(formatter);
+        String yesterdayDateString = yesterdayDate.format(formatter);
+
         if(dateBefore == null || dateBefore.isEmpty()) dateBefore = yesterdayDateString;
         if(dateAfter == null || dateAfter.isEmpty()) dateAfter = currentDateString;
 
