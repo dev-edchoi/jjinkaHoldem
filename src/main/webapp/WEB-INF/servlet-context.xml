@@ -31,7 +31,8 @@
             <exclude-mapping path="/login"/>
             <exclude-mapping path="/makePwd"/>
             <exclude-mapping path="/adminLogin"/>
-            <exclude-mapping path="/test"/>
+            <exclude-mapping path="/point/**"/>
+            <exclude-mapping path="/img/ALPHA_black_60.png"/>
 
             <beans:ref bean="adminInterceptor"/>
         </interceptor>

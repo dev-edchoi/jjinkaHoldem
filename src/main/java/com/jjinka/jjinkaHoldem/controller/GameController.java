@@ -54,7 +54,7 @@ public class GameController {
 
     @GetMapping("/gameList")
     public String gameList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                           @RequestParam(value = "dateBefore" ,required = false) String dateBefore, @RequestParam(value = "dateAfter", required = false) String dateAfter) {
+                           @RequestParam(value = "dateBefore", required = false) String dateBefore, @RequestParam(value = "dateAfter", required = false) String dateAfter) {
         if(dateBefore == null || dateBefore.isEmpty()) dateBefore = yesterdayDateString;
         if(dateAfter == null || dateAfter.isEmpty()) dateAfter = currentDateString;
 
@@ -68,6 +68,7 @@ public class GameController {
         pageDTO.setDateBefore(dateBefore);
         pageDTO.setDateAfter(dateAfter);
 
+        System.out.println(pageDTO);
         model.addAttribute("gameList", gameDTOList);
         model.addAttribute("paging", pageDTO);
 
