@@ -52,7 +52,7 @@
         if (confirm(userName + "에게 포인트 " + gameReward + " 만큼 적립됩니다.")) {
             $.ajax({
                 type: "post",
-                url: "/game/gameSet",
+                url: "/alphaAdmin/game/gameSet",
                 data: {
                     "gameNo": parseInt(gameNo),
                     "gameReward": parseInt(gameReward),
@@ -98,7 +98,7 @@
             if (confirm("게임을 종료 하겠습니까?")) {
                 $.ajax({
                     type: "post",
-                    url: "/game/gameSet",
+                    url: "/alphaAdmin/game/gameSet",
                     data: {
                         "values": JSON.stringify(values),
                         "gameNo": parseInt(gameNo)

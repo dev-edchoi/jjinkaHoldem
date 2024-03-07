@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/game")
+@RequestMapping("/alphaAdmin/game")
 @RequiredArgsConstructor
 public class GameController {
     private final GameService gameService;
@@ -58,7 +58,6 @@ public class GameController {
         pageDTO.setDateBefore(dateBefore);
         pageDTO.setDateAfter(dateAfter);
 
-        System.out.println(pageDTO);
         model.addAttribute("gameList", gameDTOList);
         model.addAttribute("paging", pageDTO);
 
@@ -75,7 +74,7 @@ public class GameController {
         int saveResult = gameService.makeGame(gameDTO);
 
         if (saveResult > 0) {
-            return "redirect:/game/gameList";
+            return "redirect:/alphaAdmin/game/gameList";
         } else {
             return "/makeGame";
         }
@@ -273,7 +272,7 @@ public class GameController {
         boolean result = gameService.gameUpdate(gameDTO);
 
         if(result){
-            return "redirect:/game?gameNo=" + gameDTO.getGameNo();
+            return "redirect:/alphaAdmin/game?gameNo=" + gameDTO.getGameNo();
         } else {
             return "gameList";
         }

@@ -36,7 +36,7 @@
         </div>
         <div class="conB_container">
             <div class="conB_small_container">
-                <div class="conB_icon" onclick="location.href='game/gameList'">
+                <div class="conB_icon" onclick="location.href='alphaAdmin/game/gameList'">
                     <i class="fas fa-cogs icon"></i>
                 </div>
                 <div class="conB_content">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="conB_small_container">
-                <div class="conB_icon" onclick="location.href='user/userRegister'">
+                <div class="conB_icon" onclick="location.href='alphaAdmin/user/userRegister'">
                     <i class="fas fa-code icon"></i>
                 </div>
                 <div class="conB_content">
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="conB_small_container">
-                <div class="conB_icon" onclick="location.href='user/'">
+                <div class="conB_icon" onclick="location.href='alphaAdmin/user/'">
                     <i class="fas fa-cogs icon"></i>
                 </div>
                 <div class="conB_content">

@@ -122,7 +122,7 @@
         let gameNo = ${gameList.gameNo};
         $.ajax({
             type: "post",
-            url: "/game/chkGaming",
+            url: "/alphaAdmin/game/chkGaming",
             data: {
                 "gameNo": gameNo
             },
@@ -142,7 +142,7 @@
 
         $.ajax({
             type: "post",
-            url: "/user/findByUserName",
+            url: "/alphaAdmin/user/findByUserName",
             data: {
                 "userName": userName
             },
@@ -176,7 +176,7 @@
         let gameNumber = '${gameList.gameNo}';
         $.ajax({
             type: "post",
-            url: "/game/chkJoiner",
+            url: "/alphaAdmin/game/chkJoiner",
             data: {
                 "userNo": userNo,
                 "gameNo": gameNumber
@@ -199,7 +199,7 @@
         let gameFee = ${gameList.gameFee};
         $.ajax({
             type: "post",
-            url: "/game/gamerJoin",
+            url: "/alphaAdmin/game/gamerJoin",
             data: {
                 "userNo": userNo,
                 "gameNo": gameNumber,
@@ -223,7 +223,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/game/oneMoreGameCnt",
+                url: "/alphaAdmin/game/oneMoreGameCnt",
                 data: {
                     "userNo": userNo,
                     "gameNo": gameNumber,
@@ -247,7 +247,7 @@
             let gameNumber = '${gameList.gameNo}';
             $.ajax({
                 type: "post",
-                url: "/game/userGameSet",
+                url: "/alphaAdmin/game/userGameSet",
                 data: {
                     "userNo": userNo,
                     "gameNo": gameNumber,
@@ -272,7 +272,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/game/reGameIn",
+                url: "/alphaAdmin/game/reGameIn",
                 data: {
                     "userNo": userNo,
                     "gameNo": gameNumber,
@@ -354,7 +354,7 @@
         if(gameType === 2){
             $.ajax({
                 type: "post",
-                url: "/game/setReward",
+                url: "/alphaAdmin/game/setReward",
                 data: {
                     "gameNo": gameNumber,
                     "totalGameFee": totalGameFee,
@@ -371,7 +371,7 @@
         } else if (gameType === 1){
             $.ajax({
                 type: "post",
-                url: "/game/setReward",
+                url: "/alphaAdmin/game/setReward",
                 data: {
                     "gameNo": gameNumber,
                     "totalGameFee": totalGameFee,
@@ -392,7 +392,7 @@
 
     const listFn = () => {
         const page = '${page}';
-        location.href = "/game/gameList?page=" + page;
+        location.href = "/alphaAdmin/game/gameList?page=" + page;
     }
 
     const fnMakePopUp = (gameNo) => {
@@ -401,12 +401,12 @@
         let _left = Math.ceil((window.screen.width - _width) / 2);
         let _top = Math.ceil((window.screen.height - _height) / 2);
 
-        window.open('/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
+        window.open('/alphaAdmin/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
 
     const updateFn = () => {
         const gameNo = '${gameList.gameNo}';
-        location.href = "/game/gameUpdate?gameNo=" + gameNo;
+        location.href = "/alphaAdmin/game/gameUpdate?gameNo=" + gameNo;
     }
 
     const fnEnterKeyUp = () =>{

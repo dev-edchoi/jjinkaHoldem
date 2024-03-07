@@ -16,7 +16,7 @@
 <body>
 <div class="container">
     <h2 style="text-align: center; color: #4e342e;">회원 정보 입력</h2>
-    <form action="/user/save" method="post" class="joinForm" name="joinForm">
+    <form action="/alphaAdmin/user/save" method="post" class="joinForm" name="joinForm">
         <label for="phoneNumber">전화 번호:</label>
         <input type="number" id="phoneNumber" name="phoneNumber" class="cellphoneNo" placeholder="전화 번호" maxlength="11" required oninput="handleOnInput(this, 11)" onblur="numberCheck()">
         <p id="check-result"></p>
@@ -30,7 +30,7 @@
             <option value="3">지도 검색</option>
         </select>
         <input type="button" value="회원 등록" onclick="userRegist()">
-        <input type="button" value="등록 취소" onclick="location.href='/'">
+        <input type="button" value="등록 취소" onclick="location.href='/alphaAdmin'">
     </form>
 </div>
 </body>
@@ -63,7 +63,7 @@
             $.ajax({
                 // 요청방식: post, url: "email-check", 데이터: 이메일
                 type: "post",
-                url: "/user/phoneNumberChk",
+                url: "/alphaAdmin/user/phoneNumberChk",
                 data: {
                     "phoneNumber": phoneNumber
                 },

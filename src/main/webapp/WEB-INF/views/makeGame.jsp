@@ -16,7 +16,7 @@
 <body>
 <div class="container">
     <h2 style="text-align: center; color: #4e342e;">게임 정보 입력</h2>
-    <form action="/game/makeGame" method="post" class="makeGame" name="makeGameForm">
+    <form action="/alphaAdmin/game/makeGame" method="post" class="makeGame" name="makeGameForm">
         <label for="tableNo">테이블 번호:</label>
         <select id="tableNo" name="tableNo" required>
             <option value="0">=== 선택 ===</option>
@@ -63,7 +63,7 @@
     const fnChkGame = (tableNo) => {
         $.ajax({
             type: "post",
-            url: "/game/chkInGame",
+            url: "/alphaAdmin/game/chkInGame",
             data: {
                 "tableNo": tableNo
             },
@@ -82,7 +82,7 @@
     }
 
     const listFn = () => {
-        location.href = "/game/gameList";
+        location.href = "/alphaAdmin/game/gameList";
     }
 
     const toggleInputs = () => {

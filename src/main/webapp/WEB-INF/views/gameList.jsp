@@ -52,23 +52,23 @@
             </tr>
             <c:forEach items="${gameList}" var="game">
                 <tr>
-                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameNo}</td>
-                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.tableNo}</td>
+                    <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameNo}</td>
+                    <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.tableNo}</td>
                     <c:choose>
                         <c:when test="${game.gameType == 1}">
-                            <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'"
+                            <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'"
                                 style="font-weight: bold">고정 상금
                             </td>
                         </c:when>
                         <c:otherwise>
-                            <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">변동 상금</td>
+                            <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">변동 상금</td>
                         </c:otherwise>
                     </c:choose>
 
-                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameFee}</td>
-                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.totalGameFee}</td>
-                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.rewardRate}</td>
-                    <td onclick="location.href='/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameReward}</td>
+                    <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameFee}</td>
+                    <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.totalGameFee}</td>
+                    <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.rewardRate}</td>
+                    <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameReward}</td>
                     <c:choose>
                         <c:when test="${game.isEnd == 0}">
                             <td>
@@ -96,7 +96,7 @@
             </c:when>
             <%-- 1페이지가 아닌 경우에는 [이전]을 클릭하면 현재 페이지보다 1 작은 페이지 요청 --%>
             <c:otherwise>
-                <a href="/game/gameList?page=${paging.page-1}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">[이전]</a>
+                <a href="/alphaAdmin/game/gameList?page=${paging.page-1}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">[이전]</a>
             </c:otherwise>
         </c:choose>
 
@@ -109,7 +109,7 @@
                 </c:when>
 
                 <c:otherwise>
-                    <a href="/game/gameList?page=${i}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">${i}</a>
+                    <a href="/alphaAdmin/game/gameList?page=${i}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">${i}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
@@ -119,7 +119,7 @@
                 <span>[다음]</span>
             </c:when>
             <c:otherwise>
-                <a href="/game/gameList?page=${paging.page+1}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">[다음]</a>
+                <a href="/alphaAdmin/game/gameList?page=${paging.page+1}&dateBefore=${paging.dateBefore}&dateAfter=${paging.dateAfter}">[다음]</a>
             </c:otherwise>
         </c:choose>
     </div>
@@ -153,7 +153,7 @@
     }
 
     const makeGame = () => {
-        location.href = "/game/makeGame";
+        location.href = "/alphaAdmin/game/makeGame";
     }
 
     const fnMakePopUp = (gameNo) => {
@@ -162,14 +162,14 @@
         let _left = Math.ceil((window.screen.width - _width) / 2);
         let _top = Math.ceil((window.screen.height - _height) / 2);
 
-        window.open('/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
+        window.open('/alphaAdmin/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
 
     const fnGameSet = (gameNo) => {
         if (confirm("해당 게임을 종료하겠습니까?")) {
             $.ajax({
                 type: "post",
-                url: "/game/gameSet",
+                url: "/alphaAdmin/game/gameSet",
                 data: {
                     "gameNo": parseInt(gameNo)
                 },

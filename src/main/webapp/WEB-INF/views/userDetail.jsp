@@ -63,7 +63,7 @@
         </table>
     </div>
 </div>
-<form action="/user/userUpdatePoint" method="post" name="userPointUpdate">
+<form action="/alphaAdmin/user/userUpdatePoint" method="post" name="userPointUpdate">
     <input type="hidden" name="userNo" value="${userList.userNo}">
     <div class="buttons-container">
         <label for="userPoint" style="font-size: 16px; margin-top: 4px"> 포인트 수정 :</label>
@@ -133,7 +133,7 @@
 
     const updateFn = () => {
         const userNo = '${userList.userNo}';
-        location.href = "/user/userUpdate?userNo=" + userNo;
+        location.href = "/alphaAdmin/user/userUpdate?userNo=" + userNo;
     }
 
     const updatePoint = (point) => {
@@ -162,7 +162,7 @@
 
     const listFn = () => {
         const page = '${page}';
-        location.href = "/user/?page=" + page;
+        location.href = "/alphaAdmin/user/?page=" + page;
     }
 
     const userPointSend = () => {
@@ -174,7 +174,7 @@
         let _left = Math.ceil((window.screen.width - _width) / 2);
         let _top = Math.ceil((window.screen.height - _height) / 2);
 
-        window.open('/user/userPointPopUp?userNo=' + userNo + "&userPoint=" + userPoint, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
+        window.open('/alphaAdmin/user/userPointPopUp?userNo=' + userNo + "&userPoint=" + userPoint, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
 
     const toggleInputs = () => {
@@ -187,7 +187,7 @@
     const userPointLog = () => {
         let userNo = ${userList.userNo};
 
-        location.href = "/userPoint/userPointLog?userNo=" + userNo
+        location.href = "/alphaAdmin/userPoint/userPointLog?userNo=" + userNo
     }
 </script>
 </html>

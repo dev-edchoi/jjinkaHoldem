@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="/game/gameUpdate" method="post" name="updateForm">
+    <form action="/alphaAdmin/game/gameUpdate" method="post" name="updateForm">
         <input type="hidden" name="gameNo" value="${game.gameNo}" readonly>
         <h1>User Information</h1>
 
@@ -60,7 +60,7 @@
     }
 
     const listFn = (gameNo) => {
-        location.href = "/game?gameNo=" + gameNo;
+        location.href = "/alphaAdmin/game?gameNo=" + gameNo;
     }
 
     const fnChkGameType = () => {

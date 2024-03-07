@@ -18,7 +18,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
             PrintWriter out = res.getWriter();
             out.print("<script>");
             out.print("alert('로그인 후 사용가능합니다.');");
-            out.print("location.href='/login';");
+            out.print("location.href='/alphaAdmin/login';");
             out.print("</script>");
             out.flush();
             return false;

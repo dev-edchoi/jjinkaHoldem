@@ -24,7 +24,7 @@
 </head>
 <body>
 <header class="header">
-    <a href="/">
+    <a href="/alphaAdmin">
         <img src="${pageContext.request.contextPath}/img/ALPHA_black_60.png" alt="Alpha Logo" class="logo">
     </a>
 </header>

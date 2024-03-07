@@ -63,7 +63,7 @@
 <body>
 <div class="login-container">
     <h2>Login</h2>
-    <form action="/adminLogin" method="post" class="login-form" id="loginForm" name="login">
+    <form action="/alphaAdmin/adminLogin" method="post" class="login-form" id="loginForm" name="login">
         <input type="text" id="adminId" name="adminId" placeholder="adminId" required autofocus>
         <input type="password" id="adminPwd" name="adminPwd" placeholder="adminPwd" required>
         <button onclick="login()">Login</button>

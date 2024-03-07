@@ -74,11 +74,22 @@
         .error {
             color: #FF5733;
         }
+
+        .header {
+            background-color: #d2b48c;
+            text-align: center;
+            height: fit-content;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
-<header>
-    <jsp:include page="header.jsp"></jsp:include>
+<header class="header">
+    <img src="${pageContext.request.contextPath}/img/ALPHA_black_60.png" alt="Alpha Logo" class="logo">    </a>
 </header>
 <div class="container">
     <div class="point-checker">

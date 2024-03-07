@@ -129,7 +129,7 @@
         if(userName != null || userName !== ""){
             $.ajax({
                 type: "post",
-                url: "/user/findByUserName",
+                url: "/alphaAdmin/user/findByUserName",
                 data: {
                     "userName": userName
                 },
@@ -173,7 +173,7 @@
             if(confirm(receiverUserName + "에게 포인트 : " + pointToSend + " 만큼 보내겠습니까?" )) {
                 $.ajax({
                     type: "post",
-                    url: "/user/sendPointToUser",
+                    url: "/alphaAdmin/user/sendPointToUser",
                     data: {
                         "senderUserNo" : senderUserNo,
                         "receiverUserNo": receiverUserNo,

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/userPoint")
+@RequestMapping("/alphaAdmin/userPoint")
 @RequiredArgsConstructor
 public class UserPointController {
     private final UserPointService userPointService;

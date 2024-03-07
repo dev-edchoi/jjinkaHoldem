@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/alphaAdmin/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -36,7 +36,7 @@ public class UserController {
         int saveResult = userService.userRegister(userDTO);
 
         if (saveResult > 0) {
-            return "redirect:/user/";
+            return "redirect:/alphaAdmin/user/";
         } else {
             return "userRegister";
         }
@@ -100,7 +100,7 @@ public class UserController {
     @GetMapping("/delete")
     public String delete(@RequestParam("userNo") Long userNo){
         userService.delete(userNo);
-        return "redirect:/user/";
+        return "redirect:/alphaAdmin/user/";
     }
 
     @GetMapping("/userUpdate")
@@ -114,7 +114,7 @@ public class UserController {
     public String userUpdate(@ModelAttribute UserDTO userDTO){
         boolean result = userService.update(userDTO);
         if(result){
-            return "redirect:/user?userNo=" + userDTO.getUserNo();
+            return "redirect:/alphaAdmin/user?userNo=" + userDTO.getUserNo();
         } else {
             return "index";
         }
@@ -130,7 +130,7 @@ public class UserController {
         userService.updatePoint(map);
         userPointService.insertPointLog(map);
 
-        return "redirect:/user?userNo=" + userDTO.getUserNo();
+        return "redirect:/alphaAdmin/user?userNo=" + userDTO.getUserNo();
     }
     @PostMapping("/phoneNumberChk")
     public @ResponseBody String phoneNumberChk(@RequestParam("phoneNumber") String phoneNumber){

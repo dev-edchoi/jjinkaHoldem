@@ -66,7 +66,7 @@
 </head>
 <body>
 <div class="user-info">
-    <form action="/user/userUpdate" method="post" name="updateForm">
+    <form action="/alphaAdmin/user/userUpdate" method="post" name="updateForm">
         <input type="hidden" name="userNo" value="${user.userNo}" readonly>
         <h1>User Information</h1>
 
@@ -92,7 +92,7 @@
 
     const delUser = (userNo) => {
         if(confirm("해당 회원을 삭제 하겠습니까?")){
-            location.href = "/user/delete?userNo="+userNo;
+            location.href = "/alphaAdmin/user/delete?userNo="+userNo;
         } else {
             return false;
         }
