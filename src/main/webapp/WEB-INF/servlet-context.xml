@@ -30,7 +30,7 @@
             <mapping path="/**/**"/>
             <exclude-mapping path="/alphaAdmin/login"/>
             <exclude-mapping path="/alphaAdmin/adminLogin"/>
-            <exclude-mapping path="/alphaAdmin/makePwd"/>
+            <!--<exclude-mapping path="/alphaAdmin/makePwd"/>-->
             <exclude-mapping path="/point/**"/>
             <exclude-mapping path="/img/ALPHA_black_60.png"/>
 

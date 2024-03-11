@@ -6,11 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title>Point Checker</title>
 
     <style>
@@ -114,22 +117,28 @@
 
 <script>
     function checkPoint() {
-        // 여기에서 서버로 요청하여 포인트를 확인하고 결과를 받아와야 합니다.
-        // 아래는 가상의 결과를 표시하는 코드입니다.
-        var nickname = document.getElementById('nickname').value;
+        var userName = document.getElementById('nickname').value;
         var phoneNumber = document.getElementById('phoneNumber').value;
 
-        // 서버 요청 및 결과 처리 (가상의 예시)
-        var fakeApiResponse = {
-            success: true,
-            point: 500
-        };
-
-        if (fakeApiResponse.success) {
-            document.getElementById('result').innerHTML = '<p class="success">잔여 포인트: ' + fakeApiResponse.point + '</p>';
-        } else {
-            document.getElementById('result').innerHTML = '<p class="error">포인트 조회에 실패했습니다.</p>';
-        }
+        $.ajax({
+            type: "post",
+            url: "/point/checkPoint",
+            data: {
+                "userName": userName,
+                "phoneNumber": phoneNumber
+            },
+            success: function (res) {
+                console.log(res);
+                if (res) {
+                    document.getElementById('result').innerHTML = '<p class="success">잔여 포인트: ' + res + '</p>';
+                } else {
+                    document.getElementById('result').innerHTML = '<p class="error">닉네임 혹은 전화번호를 확인해주세요.</p>';
+                }
+            },
+            error: function (err) {
+                console.log("에러 발생", err);
+            }
+        });
     }
 </script>
 
