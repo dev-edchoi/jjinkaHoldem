@@ -97,29 +97,30 @@
 <div class="container">
     <div class="point-checker">
         <h2>잔여 포인트</h2>
-        <form id="pointForm">
+        <form action="/point/checkUserPoint" method="post" class="pointForm" name="pointForm" id="pointForm">
+            <input type="hidden" name="userNo" id="userNo" value="" readonly>
             <div class="form-group">
-                <label for="nickname">닉네임:</label>
-                <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임을 입력하세요" required>
+                <label for="userName">닉네임:</label>
+                <input type="text" id="userName" name="userName" class="form-control" placeholder="닉네임을 입력하세요" required>
             </div>
-
             <div class="form-group">
                 <label for="phoneNumber">전화번호:</label>
-                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="전화번호를 입력하세요" required>
+                <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" maxlength="11" oninput="handleOnInput(this, 11)" placeholder="전화번호를 입력하세요" required>
             </div>
-
             <button type="button" onclick="checkPoint()" class="btn btn-primary">잔여 포인트 확인</button>
+            <button type="button" onclick="checkUserPoint()" class="btn btn-primary" style="margin-top: 10px">이력 조회</button>
         </form>
-
         <div id="result" class="result"></div>
     </div>
 </div>
 
 <script>
-    function checkPoint() {
-        var userName = document.getElementById('nickname').value;
-        var phoneNumber = document.getElementById('phoneNumber').value;
+    let bChkPoint = false;
 
+    function checkPoint() {
+        let userName = document.getElementById('userName').value;
+        let phoneNumber = document.getElementById('phoneNumber').value;
+        bChkPoint = false;
         $.ajax({
             type: "post",
             url: "/point/checkPoint",
@@ -128,9 +129,11 @@
                 "phoneNumber": phoneNumber
             },
             success: function (res) {
-                console.log(res);
                 if (res || res === 0) {
-                    document.getElementById('result').innerHTML = '<p class="success">잔여 포인트: ' + res + '</p>';
+                    bChkPoint = true;
+                    console.log(res);
+                    document.getElementById('result').innerHTML = '<p class="success">잔여 포인트: ' + res.userPoint + '</p>';
+                    document.getElementById('userNo').value = res.userNo;
                 } else {
                     document.getElementById('result').innerHTML = '<p class="error">닉네임 혹은 전화번호를 확인해주세요.</p>';
                 }
@@ -139,6 +142,21 @@
                 console.log("에러 발생", err);
             }
         });
+    }
+
+    const checkUserPoint = () => {
+        if(!bChkPoint) {
+            document.getElementById('result').innerHTML = '<p class="error">잔여 포인트 확인을 먼저 진행해 주세요.</p>';
+        } else {
+            document.pointForm.submit();
+        }
+        //location.href = "/point/checkUserPoint";
+    }
+
+    function handleOnInput(el, maxlength) {
+        if(el.value.length > maxlength)  {
+            el.value = el.value.substr(0, maxlength);
+        }
     }
 </script>
 

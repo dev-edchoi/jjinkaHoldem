@@ -62,7 +62,7 @@
     </select>
 
     <!---->
-    <select id="checkPoint" parameterType="java.util.HashMap" resultType="Long">
-        SELECT userPoint FROM user WHERE userName = #{userName} AND phoneNumber = #{phoneNumber}
+    <select id="checkPoint" parameterType="java.util.HashMap" resultType="user">
+        SELECT * FROM user WHERE userName = #{userName} AND phoneNumber = #{phoneNumber}
     </select>
 </mapper>

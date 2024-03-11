@@ -33,6 +33,7 @@
             <!--<exclude-mapping path="/alphaAdmin/makePwd"/>-->
             <exclude-mapping path="/point/**"/>
             <exclude-mapping path="/img/ALPHA_black_60.png"/>
+            <exclude-mapping path="/css/paging.css"/>
 
             <beans:ref bean="adminInterceptor"/>
         </interceptor>

@@ -55,4 +55,9 @@
     <select id="pointLogCount" parameterType="Long" resultType="Integer" >
         select count(userNo) from userPoint where userNo=#{userNo}
     </select>
+<!--
+    <select id="checkUserPoint" parameterType="java.util.HashMap" resultType="userPoint">
+        select * from userPoint where userNo=#{userNo} order by date desc
+    </select>
+-->
 </mapper>
