@@ -129,7 +129,7 @@
             },
             success: function (res) {
                 console.log(res);
-                if (res) {
+                if (res || res === 0) {
                     document.getElementById('result').innerHTML = '<p class="success">잔여 포인트: ' + res + '</p>';
                 } else {
                     document.getElementById('result').innerHTML = '<p class="error">닉네임 혹은 전화번호를 확인해주세요.</p>';
