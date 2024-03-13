@@ -64,6 +64,7 @@
             gameNo=#{gameNo}
         ORDER BY inGame ASC;
     </select>
+
     <insert id="gamerJoin" parameterType="map">
         insert into gameJoiner(gameNo, userNo, userName, gameTime)
         values (#{gameNo}, #{userNo}, #{userName}, 1)
@@ -94,7 +95,7 @@
     </update>
 
     <update id="allJoinerGameSet" parameterType="Long">
-        update gameJoiner set inGame=1, finishTime=NOW() WHERE gameNo=#{gameNo};
+        update gameJoiner set inGame=1, finishTime=NOW() WHERE gameNo=#{gameNo} AND inGame=0;
     </update>
 
     <update id="setReward" parameterType="Long">
