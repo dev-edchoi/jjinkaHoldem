@@ -16,6 +16,7 @@ public class GameJoinerDTO {
     private String userName;
     private Long gameTime;
     private int inGame;
+    private Long prizeMoney;
     private Long joinUserPoint;
     private Timestamp joinTime;
     private Timestamp finishTime;

@@ -45,6 +45,10 @@
     <button onclick="confirmAction()">Confirm</button>
 </div>
 <script>
+    window.onload =function (){
+
+    }
+    /*
     const setWinner = (userNo, userName) => {
         let gameNo = ${gameInfo.gameNo};
         let gameReward = ${gameInfo.gameReward};
@@ -71,10 +75,11 @@
             return false;
         }
     }
-
+    */
     const confirmAction = () => {
         let gameNo = ${gameInfo.gameNo};
         let gameReward = ${gameInfo.gameReward};
+        let joinGameNo = '${gameInfo.joinGameNo}';
         let table = document.getElementById('userTable');
         let rows = table.getElementsByTagName('tr');
         let values = [];
@@ -101,7 +106,8 @@
                     url: "/alphaAdmin/game/gameSet",
                     data: {
                         "values": JSON.stringify(values),
-                        "gameNo": parseInt(gameNo)
+                        "gameNo": parseInt(gameNo),
+                        "joinGameNo": joinGameNo
                     },
                     success: function (res) {
                         console.log(res);

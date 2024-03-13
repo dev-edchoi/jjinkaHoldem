@@ -7,7 +7,7 @@
     <select id="userPointAll" parameterType="Long" resultType="userPoint">
         select * from userPoint where userNo=#{userNo} order by date desc
     </select>
-
+    <!--
     <select id="userPointRecent" parameterType="Long" resultType="userPoint">
         SELECT
             userNo
@@ -18,13 +18,28 @@
             , (select userName from user where receiverUserNo = userNo) AS receiverUserName
             , (select userName from user where senderUserNo = userNo) AS senderUserName
             , DATE
+            , joinGameNo
+        FROM userPoint where userNo=#{userNo} ORDER BY DATE DESC LIMIT 10 OFFSET 0;
+    </select>
+    -->
+    <select id="userPointRecent" parameterType="Long" resultType="userPoint">
+        SELECT
+            userNo
+             , point
+             , isGameReward
+             , (SELECT typeName FROM userPointType WHERE userpoint.reasonForChange = userPointType.typeNo) AS typeName
+             , etcReason
+             , (select userName from user where receiverUserNo = userNo) AS receiverUserName
+             , (select userName from user where senderUserNo = userNo) AS senderUserName
+             , DATE
+             , joinGameNo
         FROM userPoint where userNo=#{userNo} ORDER BY DATE DESC LIMIT 10 OFFSET 0;
     </select>
 
     <insert id="insertPointLog" parameterType="map">
         <if test="reasonForChange == 1">
-            insert into userPoint(userNo, point, reasonForChange)
-            values (#{userNo}, #{userPoint}, 1)
+            insert into userPoint(userNo, point, reasonForChange, joinGameNo)
+            values (#{userNo}, #{userPoint}, 1, #{joinGameNo})
         </if>
         <if test="reasonForChange == 2 and receiverUserNo != null">
             insert into userPoint(userNo, point, reasonForChange, receiverUserNo)
@@ -39,8 +54,8 @@
             values (#{userNo}, #{userPoint}, 3, #{etcReason})
         </if>
         <if test="reasonForChange == 4">
-            insert into userPoint(userNo, point, reasonForChange)
-            values (#{userNo}, (#{gameFee}), 4)
+            insert into userPoint(userNo, point, reasonForChange, joinGameNo)
+            values (#{userNo}, (#{gameFee}), 4, #{joinGameNo})
         </if>
         <if test="reasonForChange != 1 and reasonForChange != 2 and reasonForChange != 3 and reasonForChange != 4">
             insert into userPoint(userNo, point, reasonForChange)
@@ -49,8 +64,24 @@
     </insert>
 
     <select id="userPointList" parameterType="java.util.HashMap" resultType="userPoint">
+        select
+            userNo
+             , point
+             , isGameReward
+             , (SELECT typeName FROM userPointType WHERE userpoint.reasonForChange = userPointType.typeNo) AS typeName
+             , etcReason
+             , (select userName from user where receiverUserNo = userNo) AS receiverUserName
+             , (select userName from user where senderUserNo = userNo) AS senderUserName
+             , DATE
+             , joinGameNo
+        from userPoint WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
+    </select>
+
+    <!--
+    <select id="userPointList" parameterType="java.util.HashMap" resultType="userPoint">
         select * from userPoint WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
     </select>
+    -->
 
     <select id="pointLogCount" parameterType="Long" resultType="Integer" >
         select count(userNo) from userPoint where userNo=#{userNo}

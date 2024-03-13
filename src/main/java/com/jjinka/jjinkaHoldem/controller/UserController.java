@@ -138,13 +138,14 @@ public class UserController {
     }
 
     @GetMapping("/userPopUp")
-    public String userPopUp(Model model,@RequestParam("gameNo") Long gameNo){
+    public String userPopUp(Model model,@RequestParam("gameNo") Long gameNo, @RequestParam("joinGameNo") String joinGameNo){
         List<UserDTO> userDTOList = userService.userPopUp(gameNo);
         Long gameReward = gameService.getGameReward(gameNo);
 
         GameDTO gameDTO = new GameDTO();
                 gameDTO.setGameReward(gameReward);
                 gameDTO.setGameNo(gameNo);
+                gameDTO.setJoinGameNo(joinGameNo);
 
         model.addAttribute("userList", userDTOList);
         model.addAttribute("gameInfo", gameDTO);

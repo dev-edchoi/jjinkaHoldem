@@ -91,4 +91,12 @@ public class GameRepository {
     public int pointDeduction(Map<String, Object> pointDeductionMap) {
         return sqlSessionTemplate.update("Game.pointDeduction", pointDeductionMap);
     }
+
+    public void setPrizeMoney(Map<String, Object> prizeMoneyMap) {
+        sqlSessionTemplate.update("Game.setPrizeMoney", prizeMoneyMap);
+    }
+
+    public Long CntTodayGame() {
+        return sqlSessionTemplate.selectOne("Game.CntTodayGame");
+    }
 }

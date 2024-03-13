@@ -43,12 +43,40 @@
         <label for="rewardRate">상금 비율:</label>
         <input type="number" id="rewardRate" name="rewardRate" placeholder="상금 비율을 입력하세요">
 
+        <label for="todayGameNo">오늘의 게임 번호:</label>
+        <input type="number" id="todayGameNo" name="todayGameNo" readonly>
+
         <input type="button" value="게임 만들기" onclick="fnMakeGame()">
         <input type="button" value="취소" onclick="listFn()">
     </form>
 </div>
 </body>
 <script>
+
+
+    window.onload = function () {
+
+
+        fnCheckCntTodayGame();
+    }
+
+    const fnCheckCntTodayGame = () => {
+        $.ajax({
+            type: "post",
+            url: "/alphaAdmin/game/CntTodayGame",
+            data: {
+
+            },
+            success: function (res) {
+                document.getElementById("todayGameNo").value = res + 1;
+            },
+            error: function (err) {
+                console.log("에러 발생", err);
+                return false;
+            }
+        });
+    }
+
     const fnMakeGame = () => {
         let sTableNo = document.getElementById("tableNo").value;
         console.log("테이블 번호 : " + sTableNo);
@@ -65,7 +93,7 @@
             type: "post",
             url: "/alphaAdmin/game/chkInGame",
             data: {
-                "tableNo": tableNo
+                "tableNo": tableNo,
             },
             success: function (res) {
                 if(res === "ok"){

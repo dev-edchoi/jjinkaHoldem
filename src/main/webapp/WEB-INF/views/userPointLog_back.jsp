@@ -21,7 +21,7 @@
 </header>
 <div>
     <div class="buttons-container">
-        <button onclick="fnBackToUserDetail()" class="button">유저 상세</button>
+        <button onclick="history.back()" class="button">유저 상세</button>
     </div>
     <div style="margin-top: 20px">
         <table class="brown-table">
@@ -41,7 +41,23 @@
                 <tr>
                     <td>${userPointList.userNo}</td>
                     <td>${userPointList.point}</td>
-                    <td>${userPointList.typeName}</td>
+                    <c:choose>
+                        <c:when test="${userPoint.reasonForChange == 4}">
+                            <td>게임 참여</td>
+                        </c:when>
+                        <c:when test="${userPoint.reasonForChange == 3}">
+                            <td>기타</td>
+                        </c:when>
+                        <c:when test="${userPoint.reasonForChange == 2}">
+                            <td>포인트 선물</td>
+                        </c:when>
+                        <c:when test="${userPoint.reasonForChange == 1}">
+                            <td>게임 우승 상금</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>일반 충전</td>
+                        </c:otherwise>
+                    </c:choose>
                     <td>${userPointList.joinGameNo}</td>
                     <td>${userPointList.etcReason}</td>
                     <td>${userPointList.receiverUserName}</td>
@@ -93,11 +109,6 @@
 <script>
     window.onload = function (){
 
-    }
-
-    const fnBackToUserDetail = () => {
-        let userNo = '${userNo}'
-        location.href="/alphaAdmin/user?userNo=" + userNo;
     }
 </script>
 </html>

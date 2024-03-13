@@ -147,4 +147,12 @@ public class GameService {
     public int pointDeduction(Map<String, Object> pointDeductionMap) {
         return gameRepository.pointDeduction(pointDeductionMap);
     }
+
+    public void setPrizeMoney(Map<String, Object> prizeMoneyMap) {
+        gameRepository.setPrizeMoney(prizeMoneyMap);
+    }
+
+    public Long CntTodayGame() {
+        return gameRepository.CntTodayGame();
+    }
 }

@@ -29,4 +29,6 @@ public class UserPointRepository {
     public List<UserPointDTO> userPointList(Map<String, Object> pagingParams) {
         return sqlSessionTemplate.selectList("UserPoint.userPointList", pagingParams);
     }
+
+
 }

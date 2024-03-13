@@ -34,6 +34,10 @@
                 <td>${gameList.gameNo}</td>
             </tr>
             <tr>
+                <th>오늘의 게임 번호</th>
+                <td>${gameList.todayGameNo}</td>
+            </tr>
+            <tr>
                 <th>테이블 번호</th>
                 <td>${gameList.tableNo}</td>
             </tr>
@@ -84,6 +88,7 @@
             <th>잔여 포인트</th>
             <th>추가 참여</th>
             <th>게임 종료</th>
+            <th>획득 상금</th>
             <th>참여 시간</th>
             <th>종료 시간</th>
         </tr>
@@ -110,6 +115,7 @@
                         <td>참여 종료 됐습니다.</td>
                     </c:otherwise>
                 </c:choose>
+                <td>${joiner.prizeMoney}</td>
                 <td>${joiner.joinTime}</td>
                 <td>${joiner.finishTime}</td>
             </tr>
@@ -118,7 +124,23 @@
 </div>
 </body>
 <script>
+    let gameNoForLog;
+
     window.onload = function () {
+        let today = new Date();
+
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+
+        let todayGameNo = ${gameList.todayGameNo};
+
+        gameNoForLog = year + "_" + month + "_" + date + "-" + todayGameNo;
+        console.log(gameNoForLog);
+        fnChkGaming();
+    }
+
+    const fnChkGaming = () =>{
         let gameNo = ${gameList.gameNo};
         $.ajax({
             type: "post",
@@ -203,7 +225,8 @@
             data: {
                 "userNo": userNo,
                 "gameNo": gameNumber,
-                "gameFee": gameFee
+                "gameFee": gameFee,
+                "gameNoForLog" : gameNoForLog
             },
             success: function (res) {
                 reloadGamerList(res);
@@ -228,7 +251,8 @@
                     "userNo": userNo,
                     "gameNo": gameNumber,
                     "gameFee": gameFee,
-                    "gameJoinNo" : gameJoinNo
+                    "gameJoinNo" : gameJoinNo,
+                    "gameNoForLog" : gameNoForLog
                 },
                 success: function (res) {
                     reloadGamerList(res);
@@ -277,7 +301,8 @@
                     "userNo": userNo,
                     "gameNo": gameNumber,
                     "gameFee": gameFee,
-                    "gameJoinNo" : gameJoinNo
+                    "gameJoinNo" : gameJoinNo,
+                    "gameNoForLog" : gameNoForLog
                 },
                 success: function (res) {
                     reloadGamerList(res);
@@ -300,6 +325,7 @@
             gamerList += "<th>잔여 포인트</th>";
             gamerList += "<th>추가 참여</th>";
             gamerList += "<th>게임 종료</th>";
+            gamerList += "<th>획득 상금</th>";
             gamerList += "<th>참여 시간</th>";
             gamerList += "<th>종료 시간</th>";
         for (let i in res) {
@@ -317,6 +343,7 @@
                 gamerList += "<td>참여 종료 됐습니다.</td>";
 
             }
+            gamerList += "<td class='gameTimeCnt'>" + res[i].prizeMoney + "</td>";
             gamerList += "<td>" + res[i].joinTime + "</td>";
             if(res[i].finishTime === undefined || res[i].finishTime === null) res[i].finishTime ="";
             gamerList += "<td>" + res[i].finishTime + "</td>";
@@ -401,7 +428,7 @@
         let _left = Math.ceil((window.screen.width - _width) / 2);
         let _top = Math.ceil((window.screen.height - _height) / 2);
 
-        window.open('/alphaAdmin/user/userPopUp?gameNo=' + gameNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
+        window.open('/alphaAdmin/user/userPopUp?gameNo=' + gameNo +'&joinGameNo=' + gameNoForLog , 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
 
     const updateFn = () => {

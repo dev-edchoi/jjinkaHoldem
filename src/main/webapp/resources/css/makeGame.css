@@ -45,5 +45,9 @@ input[type="button"]:hover {
 }
 
 input[disabled] {
-    background-color: black;
+    background-color: grey;
+}
+
+input[readonly] {
+    background-color: grey;
 }

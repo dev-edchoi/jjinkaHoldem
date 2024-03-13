@@ -101,7 +101,23 @@
         <c:forEach items="${userPoint}" var="userPoint">
             <tr>
                 <td>${userPoint.point}</td>
-                <td>${userPoint.typeName}</td>
+                <c:choose>
+                    <c:when test="${userPoint.reasonForChange == 4}">
+                        <td>게임 참여</td>
+                    </c:when>
+                    <c:when test="${userPoint.reasonForChange == 3}">
+                        <td>기타</td>
+                    </c:when>
+                    <c:when test="${userPoint.reasonForChange == 2}">
+                        <td>포인트 선물</td>
+                    </c:when>
+                    <c:when test="${userPoint.reasonForChange == 1}">
+                        <td>게임 우승 상금</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>일반 충전</td>
+                    </c:otherwise>
+                </c:choose>
                 <td>${userPoint.joinGameNo}</td>
                 <td>${userPoint.etcReason}</td>
                 <td>${userPoint.receiverUserName}</td>

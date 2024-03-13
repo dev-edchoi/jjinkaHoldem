@@ -30,23 +30,19 @@
 
     <insert id="makeGame" parameterType="game">
         <if test="gameType == 1">
-            insert into gameInfo(tableNo, gameFee, gameReward, gameType, rewardRate, makeDate)
-            values (#{tableNo},#{gameFee}, #{gameReward}, #{gameType}, 0, NOW())
+            insert into gameInfo(tableNo, gameFee, gameReward, gameType, rewardRate, todayGameNo, makeDate)
+            values (#{tableNo},#{gameFee}, #{gameReward}, #{gameType}, 0, #{todayGameNo}, NOW())
         </if>
         <if test="gameType == 2">
-            insert into gameInfo(tableNo, gameFee, rewardRate, gameType, makeDate)
-            values (#{tableNo},#{gameFee}, #{rewardRate}, #{gameType}, NOW())
+            insert into gameInfo(tableNo, gameFee, rewardRate, gameType, todayGameNo, makeDate)
+            values (#{tableNo},#{gameFee}, #{rewardRate}, #{gameType}, #{todayGameNo}, NOW())
         </if>
     </insert>
 
     <select id="findByGameNo" parameterType="Long" resultType="game">
         select * from gameInfo where gameNo=#{gameNo}
     </select>
-    <!--
-    <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
-        select * from gameJoiner where gameNo=#{gameNo} ORDER BY inGame	ASC
-    </select>
-    -->
+
     <select id="findJoinerList" parameterType="Long" resultType="gameJoiner">
         SELECT
             gameJoinNo
@@ -55,6 +51,7 @@
             , userName
             , gameTime
             , inGame
+            , prizeMoney
             , joinTime
             , finishTime
             , (SELECT user.userPoint FROM user WHERE userNo = gameJoiner.userNo) AS joinUserPoint
@@ -88,6 +85,10 @@
 
     <select id="chkInGame" parameterType="String" resultType="game">
         SELECT * FROM gameInfo WHERE tableNo=#{tableNo} AND isEnd=0;
+    </select>
+
+    <select id="CntTodayGame" resultType="Long">
+        SELECT COUNT(*) from gameinfo WHERE DATE_FORMAT(makedate, '%Y-%m-%d' ) = DATE_FORMAT(NOW(), '%Y-%m-%d');
     </select>
 
     <update id="gameSet" parameterType="Long">
@@ -126,6 +127,10 @@
 
     <update id="pointDeduction" parameterType="Map">
         UPDATE user SET userPoint = ((SELECT user.userPoint WHERE user.userNo=#{userNo}) - #{gameFee}) WHERE userNo = #{userNo}
+    </update>
+
+    <update id="setPrizeMoney" parameterType="Map">
+        UPDATE gameJoiner SET prizeMoney = #{prizeMoney} WHERE userNo = #{userNo} AND gameNo = #{gameNo}
     </update>
 
 </mapper>

@@ -71,6 +71,7 @@ public class GameController {
 
     @PostMapping("/makeGame")
     public String makeGame(@ModelAttribute GameDTO gameDTO) {
+        System.out.println(gameDTO);
         int saveResult = gameService.makeGame(gameDTO);
 
         if (saveResult > 0) {
@@ -124,7 +125,7 @@ public class GameController {
         return gameService.findJoinerList(gameNo);
     }
 
-    public void gamerPointDeduction(Long userNo, Long gameFee){
+    public void gamerPointDeduction(Long userNo, Long gameFee, String joinGameNo){
         Map<String, Object> pointDeductionMap = new HashMap<>();
         pointDeductionMap.put("userNo", userNo);
         pointDeductionMap.put("gameFee", gameFee);
@@ -133,13 +134,15 @@ public class GameController {
         int isSuccess2 = gameService.pointDeduction(pointDeductionMap);
         if(isSuccess2 > 0) {
             pointDeductionMap.put("gameFee", gameFee * -1);
+            pointDeductionMap.put("joinGameNo", joinGameNo);
             userPointService.insertPointLog(pointDeductionMap);
         }
     }
 
     @PostMapping("/gamerJoin")
     public @ResponseBody List<GameJoinerDTO> gamerJoin(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo,
-                                                       @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee) {
+                                                       @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee,
+                                                       @RequestParam("gameNoForLog") String gameNoForLog) {
         UserDTO userDTO = userService.findByUserNo(userNo);
 
         Map<String, Object> map = new HashMap<>();
@@ -149,14 +152,14 @@ public class GameController {
 
         int isSuccess = gameService.gamerJoin(map);
         if(isSuccess > 0){
-            gamerPointDeduction(userDTO.getUserNo(), gameFee);
+            gamerPointDeduction(userDTO.getUserNo(), gameFee, gameNoForLog);
         }
-
         return gameService.findJoinerList(gameNo);
     }
     @PostMapping("/reGameIn")
     public @ResponseBody List<GameJoinerDTO> reGameIn(@ModelAttribute GameJoinerDTO gameJoinerDTO, @RequestParam("userNo") Long userNo,
-                                                      @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee, @RequestParam("gameJoinNo") Long gameJoinNo) {
+                                                      @RequestParam("gameNo") Long gameNo, @RequestParam("gameFee") Long gameFee,
+                                                      @RequestParam("gameJoinNo") Long gameJoinNo, @RequestParam("gameNoForLog") String gameNoForLog) {
         UserDTO userDTO = userService.findByUserNo(userNo);
 
         Map<String, Object> map = new HashMap<>();
@@ -167,7 +170,7 @@ public class GameController {
 
         int isSuccess = gameService.reGameIn(map);
         if(isSuccess > 0){
-            gamerPointDeduction(userNo, gameFee);
+            gamerPointDeduction(userNo, gameFee, gameNoForLog);
         }
 
         return gameService.findJoinerList(gameNo);
@@ -175,7 +178,8 @@ public class GameController {
 
     @PostMapping("/oneMoreGameCnt")
     public @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo,
-                                                            @RequestParam("gameFee") Long gameFee, @RequestParam("gameJoinNo") Long gameJoinNo) {
+                                                            @RequestParam("gameFee") Long gameFee, @RequestParam("gameJoinNo") Long gameJoinNo,
+                                                            @RequestParam("gameNoForLog") String gameNoForLog) {
         Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userNo);
@@ -183,7 +187,7 @@ public class GameController {
 
         int isSuccess = gameService.oneMoreGameCnt(map);
         if(isSuccess > 0){
-            gamerPointDeduction(userNo, gameFee);
+            gamerPointDeduction(userNo, gameFee, gameNoForLog);
         }
 
         return gameService.findJoinerList(gameNo);
@@ -201,6 +205,11 @@ public class GameController {
     @PostMapping("/chkInGame")
     public @ResponseBody String chkInGame(@RequestParam("tableNo") String tableNo) {
         return gameService.chkInGame(tableNo);
+    }
+
+    @PostMapping("/CntTodayGame")
+    public @ResponseBody Long CntTodayGame() {
+        return gameService.CntTodayGame();
     }
 
 //    @PostMapping("/gameSet")
@@ -225,7 +234,8 @@ public class GameController {
 //    }
 
     @PostMapping("/gameSet")
-    public @ResponseBody String gameSet(@RequestParam("values") String values, @RequestParam("gameNo") Long gameNo) throws ParseException {
+    public @ResponseBody String gameSet(@RequestParam("values") String values, @RequestParam("gameNo") Long gameNo,
+                                        @RequestParam("joinGameNo") String joinGameNo) throws ParseException {
         JSONParser jsonParser = new JSONParser();
         JSONArray insertParam = (JSONArray) jsonParser.parse(values);
 
@@ -244,8 +254,16 @@ public class GameController {
             userPointMap.put("userNo", userNo);
             userPointMap.put("userPoint", gameReward);
             userPointMap.put("reasonForChange", "1");
+            userPointMap.put("joinGameNo", joinGameNo);
 
             userPointService.insertPointLog(userPointMap);
+
+            Map<String, Object> prizeMoneyMap = new HashMap<>();
+            prizeMoneyMap.put("userNo", userNo);
+            prizeMoneyMap.put("gameNo", gameNo);
+            prizeMoneyMap.put("prizeMoney", gameReward);
+
+            gameService.setPrizeMoney(prizeMoneyMap);
         }
         gameService.allJoinerGameSet(gameNo);
 

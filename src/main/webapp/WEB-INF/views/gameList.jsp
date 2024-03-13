@@ -47,6 +47,7 @@
                 <th>총 게임 비용</th>
                 <th>보상 비율</th>
                 <th>상금</th>
+                <th>오늘의 게임 번호</th>
                 <th>게임 현황</th>
                 <th>게임 시작 날짜</th>
             </tr>
@@ -69,6 +70,7 @@
                     <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.totalGameFee}</td>
                     <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.rewardRate}</td>
                     <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.gameReward}</td>
+                    <td onclick="location.href='/alphaAdmin/game?gameNo=${game.gameNo}&page=${paging.page}'">${game.todayGameNo}</td>
                     <c:choose>
                         <c:when test="${game.isEnd == 0}">
                             <td>

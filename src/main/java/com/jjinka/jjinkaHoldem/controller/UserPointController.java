@@ -25,7 +25,7 @@ public class UserPointController {
                                @RequestParam("userNo") Long userNo) {
         List<UserPointDTO> userPointDTOS = userPointService.userPointLog(page, userNo);
         PageDTO pageDTO = userPointService.pointPagingParam(page, userNo);
-
+        System.out.println(userPointDTOS);
         model.addAttribute("userPointList", userPointDTOS);
         model.addAttribute("paging", pageDTO);
         model.addAttribute("userNo", userNo);

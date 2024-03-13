@@ -19,5 +19,9 @@ public class UserPointDTO {
     private String receiverUserName;
     private Long senderUserNo;
     private String senderUserName;
+    private String joinGameNo;
     private Timestamp date;
+
+    private Long typeNo;
+    private String typeName;
 }

@@ -19,6 +19,8 @@ public class GameDTO {
     //private Long gamePrize;
     private Long isEnd;
     private Long gameType;
+    private Long todayGameNo;
+    private String joinGameNo;
     private Timestamp makeDate;
     private String dateAfter;
     private String dateBefore;

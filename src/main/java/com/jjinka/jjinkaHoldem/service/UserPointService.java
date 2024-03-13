@@ -56,4 +56,5 @@ public class UserPointService {
 
         return pageDTO;
     }
+
 }
