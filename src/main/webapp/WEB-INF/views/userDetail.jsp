@@ -9,10 +9,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <!--          meta 선언          -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>detail</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+<style>
+    /* 모바일 반응형 CSS */
+    @media only screen and (max-width: 1000px) {
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .button {
+            width: 45%;
+            margin: 5px;
+        }
+
+        #etcReason {
+            width: calc(100% - 20px);
+        }
+    }
+</style>
 </head>
 <body>
 <header>

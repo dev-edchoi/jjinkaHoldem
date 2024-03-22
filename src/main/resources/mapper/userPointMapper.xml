@@ -27,7 +27,7 @@
             userNo
              , point
              , isGameReward
-             , (SELECT typeName FROM userPointType WHERE userpoint.reasonForChange = userPointType.typeNo) AS typeName
+             , (SELECT typeName FROM userPointType WHERE userPoint.reasonForChange = userPointType.typeNo) AS typeName
              , etcReason
              , (select userName from user where receiverUserNo = userNo) AS receiverUserName
              , (select userName from user where senderUserNo = userNo) AS senderUserName
@@ -68,7 +68,7 @@
             userNo
              , point
              , isGameReward
-             , (SELECT typeName FROM userPointType WHERE userpoint.reasonForChange = userPointType.typeNo) AS typeName
+             , (SELECT typeName FROM userPointType WHERE userPoint.reasonForChange = userPointType.typeNo) AS typeName
              , etcReason
              , (select userName from user where receiverUserNo = userNo) AS receiverUserName
              , (select userName from user where senderUserNo = userNo) AS senderUserName

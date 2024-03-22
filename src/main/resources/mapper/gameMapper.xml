@@ -88,7 +88,7 @@
     </select>
 
     <select id="CntTodayGame" resultType="Long">
-        SELECT COUNT(*) from gameinfo WHERE DATE_FORMAT(makedate, '%Y-%m-%d' ) = DATE_FORMAT(NOW(), '%Y-%m-%d');
+        SELECT COUNT(*) from gameInfo WHERE DATE_FORMAT(makedate, '%Y-%m-%d' ) = DATE_FORMAT(NOW(), '%Y-%m-%d');
     </select>
 
     <update id="gameSet" parameterType="Long">
