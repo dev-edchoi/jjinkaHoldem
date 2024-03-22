@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 5px 0 5px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    width: 33%; /* 각 열이 동일한 크기로 나눠집니다. */
+    box-sizing: border-box;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 600px) {
+    th, td {
+        width: 100%; /* 모바일 화면에서 각 열이 전체 너비를 차지하도록 설정합니다. */
+    }
+}
+
+#modal.modal-overlay {
+    width: 320px;
+    height: 520px;
+    position: absolute;
+    left: 30px;
+    top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: ghostwhite;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#modal .modal-window {
+    background: whitesmoke;
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 300px;
+    height: 500px;
+    position: relative;
+    padding: 10px;
+}
+
+
+#modal .close-area {
+    display: inline;
+    float: right;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+#modal .content {
+    margin-top: 20px;
+    padding: 0 10px;
+}

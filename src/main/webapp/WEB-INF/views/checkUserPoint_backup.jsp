@@ -12,7 +12,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/paging.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/point/checkUserPoint.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 10px auto;
+            padding: 5px 0 5px 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            width: 33%; /* 각 열이 동일한 크기로 나눠집니다. */
+            box-sizing: border-box;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        @media screen and (max-width: 600px) {
+            th, td {
+                width: 100%; /* 모바일 화면에서 각 열이 전체 너비를 차지하도록 설정합니다. */
+            }
+        }
+    </style>
     <title>포인트 조회</title>
 </head>
 <body>
@@ -31,10 +73,26 @@
         </thead>
         <tbody>
         <c:forEach items="${userPointLog}" var="pointLog">
-            <tr onclick="showPointModal('${pointLog}')">
+            <tr>
                 <td>${pointLog.date}</td>
                 <td>${pointLog.point}</td>
-                <td>${pointLog.typeName}</td>
+                <c:choose>
+                    <c:when test="${pointLog.reasonForChange == 4}">
+                        <td>게임 참여</td>
+                    </c:when>
+                    <c:when test="${pointLog.reasonForChange == 3}">
+                        <td>기타</td>
+                    </c:when>
+                    <c:when test="${pointLog.reasonForChange == 2}">
+                        <td>포인트 선물</td>
+                    </c:when>
+                    <c:when test="${pointLog.reasonForChange == 1}">
+                        <td>게임 우승 상금</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>일반 충전</td>
+                    </c:otherwise>
+                </c:choose>
             </tr>
         </c:forEach>
         </tbody>
@@ -74,45 +132,6 @@
             </c:otherwise>
         </c:choose>
     </div>
-
-    <div id="modal" class="modal-overlay" style="display: none">
-        <div class="modal-window">
-            <div class="content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>변동일자</th>
-                        </tr>
-                        <tr>
-                            <th>변동포인트</th>
-                        </tr>
-                        <tr>
-                            <th>변동이유</th>
-                        </tr>
-                        <tr>
-                            <th>참가게임</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2024-03-22</td>
-                        </tr>
-                        <tr>
-                            <td>20,000</td>
-                        </tr>
-                        <tr>
-                            <td>게임 참가</td>
-                        </tr>
-                        <tr>
-                            <td>2024_3_13 8번째 게임</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="close-area">닫기</div>
-        </div>
-    </div>
-
 </div>
 <script>
     window.onload = function () {
@@ -153,19 +172,6 @@
         document.body.appendChild(form);
         document.tranPageForm.submit();
     }
-
-    const modal = document.getElementById("modal");
-    const closeBtn = modal.querySelector(".close-area");
-    closeBtn.addEventListener("click", e => {
-        modal.style.display = "none"
-    });
-
-    const showPointModal = (userPointLog) => {
-        console.log(userPointLog);
-        modal.style.display = "flex"
-    }
-
-
 
 </script>
 

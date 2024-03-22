@@ -49,4 +49,5 @@ public class PointController {
 
         return "checkUserPoint";
     }
+
 }
