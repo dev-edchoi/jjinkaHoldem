@@ -31,7 +31,7 @@
         </thead>
         <tbody>
         <c:forEach items="${userPointLog}" var="pointLog">
-            <tr onclick="showPointModal('${pointLog}')">
+            <tr onclick="showPointModal('${pointLog.date}','${pointLog.point}','${pointLog.typeName}','${pointLog.joinGameNo}')">
                 <td>${pointLog.date}</td>
                 <td>${pointLog.point}</td>
                 <td>${pointLog.typeName}</td>
@@ -77,38 +77,7 @@
 
     <div id="modal" class="modal-overlay" style="display: none">
         <div class="modal-window">
-            <div class="content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>변동일자</th>
-                        </tr>
-                        <tr>
-                            <th>변동포인트</th>
-                        </tr>
-                        <tr>
-                            <th>변동이유</th>
-                        </tr>
-                        <tr>
-                            <th>참가게임</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2024-03-22</td>
-                        </tr>
-                        <tr>
-                            <td>20,000</td>
-                        </tr>
-                        <tr>
-                            <td>게임 참가</td>
-                        </tr>
-                        <tr>
-                            <td>2024_3_13 8번째 게임</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <div class="content" id="content"></div>
             <div class="close-area">닫기</div>
         </div>
     </div>
@@ -160,14 +129,24 @@
         modal.style.display = "none"
     });
 
-    const showPointModal = (userPointLog) => {
-        console.log(userPointLog);
+    const showPointModal = (date, point, typeName, joinGameNo) => {
+        console.log(date, point, typeName, joinGameNo);
+
+        let pointLogTable = "<table><thead>";
+            pointLogTable += "<tr><th>변동일자</th></tr>";
+            pointLogTable += "<tr><th>변동포인트</th></tr>";
+            pointLogTable += "<tr><th>변동이유</th></tr>";
+            pointLogTable += "<tr><th>참가게임</th></tr></thead>";
+            pointLogTable += "<tbody>";
+            pointLogTable += "<tr><td>" + date + "</td></tr>";
+            pointLogTable += "<tr><td>" + point + "</td></tr>";
+            pointLogTable += "<tr><td>" + typeName + "</td></tr>";
+            pointLogTable += "<tr><td>" + joinGameNo + "</td></tr>";
+            pointLogTable += "</tbody></table>";
+
+        document.getElementById('content').innerHTML = pointLogTable;
         modal.style.display = "flex"
     }
-
-
-
 </script>
-
 </body>
 </html>

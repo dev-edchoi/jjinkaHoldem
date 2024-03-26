@@ -68,6 +68,7 @@
             userNo
              , point
              , isGameReward
+             , reasonForChange
              , (SELECT typeName FROM userPointType WHERE userPoint.reasonForChange = userPointType.typeNo) AS typeName
              , etcReason
              , (select userName from user where receiverUserNo = userNo) AS receiverUserName

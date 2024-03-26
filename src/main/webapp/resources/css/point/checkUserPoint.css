@@ -69,11 +69,20 @@ th {
 #modal .close-area {
     display: inline;
     float: right;
-    padding-right: 10px;
+    margin: 10px 10px;
+    border: 1px solid;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
     cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 #modal .content {
     margin-top: 20px;
     padding: 0 10px;
+}
+
+#content tbody{
+    background: white;
 }
