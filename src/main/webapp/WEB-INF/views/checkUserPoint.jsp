@@ -39,6 +39,7 @@
                 <th>변동일자</th>
                 <th>변동포인트</th>
                 <th>변동이유</th>
+                <th>잔액</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +48,7 @@
                 <td>${pointLog.date}</td>
                 <td>${pointLog.point}</td>
                 <td>${pointLog.typeName}</td>
+                <td>${pointLog.later_balance}</td>
             </tr>
         </c:forEach>
         </tbody>
