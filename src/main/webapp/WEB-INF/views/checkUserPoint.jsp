@@ -13,7 +13,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/paging.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/point/checkUserPoint.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap">
     <title>포인트 조회</title>
+    <style>
+        .header {
+            display: flex;
+            justify-content: center; /* 가로 중앙 정렬 */
+        }
+
+        .logo {
+            max-width: 100%; /* 로고 이미지의 최대 너비를 100%로 설정하여 반응형으로 만듭니다. */
+            height: auto; /* 이미지의 높이를 자동으로 조정하여 비율을 유지합니다. */
+        }
+    </style>
 </head>
 <body>
 <header class="header">
@@ -31,7 +43,7 @@
         </thead>
         <tbody>
         <c:forEach items="${userPointLog}" var="pointLog">
-            <tr onclick="showPointModal('${pointLog.date}','${pointLog.point}','${pointLog.typeName}','${pointLog.joinGameNo}')">
+            <tr onclick="showPointModal('${pointLog.date}','${pointLog.point}','${pointLog.typeName}','${pointLog.joinGameNo}', '${pointLog.previous_balance}', '${pointLog.later_balance}')">
                 <td>${pointLog.date}</td>
                 <td>${pointLog.point}</td>
                 <td>${pointLog.typeName}</td>
@@ -129,20 +141,20 @@
         modal.style.display = "none"
     });
 
-    const showPointModal = (date, point, typeName, joinGameNo) => {
-        console.log(date, point, typeName, joinGameNo);
-
-        let pointLogTable = "<table><thead>";
+    const showPointModal = (date, point, typeName, joinGameNo,previous_balance ,later_balance) => {
+        let pointLogTable = "<table>";
             pointLogTable += "<tr><th>변동일자</th></tr>";
-            pointLogTable += "<tr><th>변동포인트</th></tr>";
-            pointLogTable += "<tr><th>변동이유</th></tr>";
-            pointLogTable += "<tr><th>참가게임</th></tr></thead>";
-            pointLogTable += "<tbody>";
             pointLogTable += "<tr><td>" + date + "</td></tr>";
+            pointLogTable += "<tr><th>변경 전 포인트</th></tr>";
+            pointLogTable += "<tr><td>" + previous_balance + "</td></tr>";
+            pointLogTable += "<tr><th>변동포인트</th></tr>";
             pointLogTable += "<tr><td>" + point + "</td></tr>";
-            pointLogTable += "<tr><td>" + typeName + "</td></tr>";
+            pointLogTable += "<tr><th>변경 후 포인트</th></tr>";
+            pointLogTable += "<tr><td>" + later_balance + "</td></tr>";
+            pointLogTable += "<tr><th>변동이유</th></tr>";pointLogTable += "<tr><td>" + typeName + "</td></tr>";
+            pointLogTable += "<tr><th>참가게임</th></tr>";
             pointLogTable += "<tr><td>" + joinGameNo + "</td></tr>";
-            pointLogTable += "</tbody></table>";
+            pointLogTable += "</table>";
 
         document.getElementById('content').innerHTML = pointLogTable;
         modal.style.display = "flex"

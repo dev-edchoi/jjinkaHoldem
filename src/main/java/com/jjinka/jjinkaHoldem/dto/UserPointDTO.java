@@ -21,7 +21,8 @@ public class UserPointDTO {
     private String senderUserName;
     private String joinGameNo;
     private Timestamp date;
-
     private Long typeNo;
     private String typeName;
+    private Long previous_balance;
+    private Long later_balance;
 }

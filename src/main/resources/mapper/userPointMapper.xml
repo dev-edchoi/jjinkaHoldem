@@ -62,27 +62,57 @@
             values (#{userNo}, #{userPoint}, 0)
         </if>
     </insert>
+    <!--
+        <select id="userPointList" parameterType="java.util.HashMap" resultType="userPoint">
+            select
+                userNo
+                 , point
+                 , isGameReward
+                 , reasonForChange
+                 , (SELECT typeName FROM userPointType WHERE userPoint.reasonForChange = userPointType.typeNo) AS typeName
+                 , etcReason
+                 , (select userName from user where receiverUserNo = userNo) AS receiverUserName
+                 , (select userName from user where senderUserNo = userNo) AS senderUserName
+                 , DATE
+                 , joinGameNo
+            from userPoint WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
+        </select>
 
+
+        <select id="userPointList" parameterType="java.util.HashMap" resultType="userPoint">
+            select * from userPoint WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
+        </select>
+        -->
     <select id="userPointList" parameterType="java.util.HashMap" resultType="userPoint">
         select
             userNo
-             , point
-             , isGameReward
-             , reasonForChange
-             , (SELECT typeName FROM userPointType WHERE userPoint.reasonForChange = userPointType.typeNo) AS typeName
-             , etcReason
-             , (select userName from user where receiverUserNo = userNo) AS receiverUserName
-             , (select userName from user where senderUserNo = userNo) AS senderUserName
-             , DATE
-             , joinGameNo
-        from userPoint WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
+            , point
+            , isGameReward
+            , reasonForChange
+            , (SELECT typeName FROM userPointType WHERE up1.reasonForChange = userPointType.typeNo) AS typeName
+            , etcReason
+            , (select userName from user where receiverUserNo = userNo) AS receiverUserName
+            , (select userName from user where senderUserNo = userNo) AS senderUserName
+            , DATE
+            , joinGameNo
+            , COALESCE((
+                SELECT
+                    SUM(up2.point)
+                FROM
+                    userPoint up2
+                WHERE
+                    up2.userNO = up1.userNO AND up2.date <![CDATA[<]]> up1.date
+                ), 0) AS previous_balance
+            ,COALESCE((
+                SELECT
+                    SUM(up2.point)
+                FROM
+                    userPoint up2
+                WHERE
+                    up2.userNO = up1.userNO AND up2.date <![CDATA[<=]]> up1.date
+            ), 0) AS later_balance
+        from userPoint up1 WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
     </select>
-
-    <!--
-    <select id="userPointList" parameterType="java.util.HashMap" resultType="userPoint">
-        select * from userPoint WHERE userNo = #{userNo} order by date desc LIMIT #{limit} OFFSET #{start}
-    </select>
-    -->
 
     <select id="pointLogCount" parameterType="Long" resultType="Integer" >
         select count(userNo) from userPoint where userNo=#{userNo}
