@@ -35,6 +35,7 @@
             width: calc(100% - 20px);
         }
     }
+
 </style>
 </head>
 <body>
@@ -118,6 +119,7 @@
             <th>Etc.</th>
             <th>포인트 받은 사람</th>
             <th>포인트 준 사람</th>
+            <th>변동 후 금액</th>
             <th>변동 일자</th>
         </tr>
         </thead>
@@ -129,6 +131,7 @@
                 <td>${userPoint.etcReason}</td>
                 <td>${userPoint.receiverUserName}</td>
                 <td>${userPoint.senderUserName}</td>
+                <td>${userPoint.later_balance}</td>
                 <td>${userPoint.date}</td>
             </tr>
         </c:forEach>

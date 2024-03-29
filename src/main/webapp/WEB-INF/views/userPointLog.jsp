@@ -34,6 +34,8 @@
                 <th>Etc.</th>
                 <th>포인트 받은 사람</th>
                 <th>포인트 준 사람</th>
+                <th>변동 전 금액</th>
+                <th>변동 후 금액</th>
                 <th>변동 일자</th>
             </tr>
             </thead>
@@ -46,6 +48,8 @@
                     <td>${userPointList.etcReason}</td>
                     <td>${userPointList.receiverUserName}</td>
                     <td>${userPointList.senderUserName}</td>
+                    <td>${userPointList.previous_balance}</td>
+                    <td>${userPointList.later_balance}</td>
                     <td>${userPointList.date}</td>
                 </tr>
             </c:forEach>

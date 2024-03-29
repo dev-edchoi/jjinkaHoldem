@@ -27,13 +27,27 @@
             userNo
              , point
              , isGameReward
-             , (SELECT typeName FROM userPointType WHERE userPoint.reasonForChange = userPointType.typeNo) AS typeName
+             , (SELECT typeName FROM userPointType WHERE up1.reasonForChange = userPointType.typeNo) AS typeName
              , etcReason
              , (select userName from user where receiverUserNo = userNo) AS receiverUserName
              , (select userName from user where senderUserNo = userNo) AS senderUserName
              , DATE
              , joinGameNo
-        FROM userPoint where userNo=#{userNo} ORDER BY DATE DESC LIMIT 10 OFFSET 0;
+             , COALESCE((
+                SELECT
+                    SUM(up2.point)
+                FROM
+                    userPoint up2
+                WHERE
+                up2.userNO = up1.userNO AND up2.date <![CDATA[<]]> up1.date), 0) AS previous_balance
+             ,COALESCE((
+                SELECT
+                    SUM(up2.point)
+                FROM
+                    userPoint up2
+                WHERE
+                    up2.userNO = up1.userNO AND up2.date <![CDATA[<=]]> up1.date), 0) AS later_balance
+        FROM userPoint up1 where userNo=#{userNo} ORDER BY DATE DESC LIMIT 10 OFFSET 0;
     </select>
 
     <insert id="insertPointLog" parameterType="map">
