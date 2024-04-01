@@ -61,8 +61,11 @@
         SELECT * FROM user WHERE userNo in (SELECT userNo FROM gameJoiner WHERE gameNo=#{gameNo})
     </select>
 
-    <!---->
     <select id="checkPoint" parameterType="java.util.HashMap" resultType="user">
         SELECT * FROM user WHERE userName = #{userName} AND phoneNumber = #{phoneNumber}
+    </select>
+
+    <select id="cntMembers" resultType="user">
+        SELECT COUNT(*) AS cntMember, SUM(userpoint) AS cntUserPoint FROM user;
     </select>
 </mapper>

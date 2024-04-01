@@ -60,4 +60,7 @@ public class UserRepository {
         return sqlSessionTemplate.selectList("User.userPopUp", gameNo);
     }
 
+    public UserDTO cntMembers() {
+        return sqlSessionTemplate.selectOne("User.cntMembers");
+    }
 }

@@ -97,4 +97,7 @@ public class UserService {
     }
 
 
+    public UserDTO cntMembers() {
+        return userRepository.cntMembers();
+    }
 }

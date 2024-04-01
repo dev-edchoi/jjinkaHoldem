@@ -19,4 +19,6 @@ public class UserDTO {
     private Long visitRoute;
     private Timestamp registDate;
     private String searchWord;
+    private Long cntMember;
+    private Long cntUserPoint;
 }

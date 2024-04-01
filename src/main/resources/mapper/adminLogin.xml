@@ -6,4 +6,8 @@
     <select id="validateAdmin" parameterType="admin" resultType="admin">
         select * from admin where adminId=#{adminId} and adminPwd=#{adminPwd}
     </select>
+
+    <select id="validateJin" parameterType="com.jjinka.jjinkaHoldem.dto.JinLoginDTO" resultType="com.jjinka.jjinkaHoldem.dto.JinLoginDTO">
+        select * from isJin where jinId=#{jinId} and jinPwd=#{jinPwd}
+    </select>
 </mapper>
