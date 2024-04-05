@@ -30,6 +30,14 @@ public class HomeController {
         return "login";
     }
 
+    @PostMapping("/alphaAdmin/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.removeAttribute("adminId");
+        httpSession.invalidate();
+
+        return "redirect:/alphaAdmin/login";
+    }
+
     @GetMapping("/test")
     public String test() {
         return "test";

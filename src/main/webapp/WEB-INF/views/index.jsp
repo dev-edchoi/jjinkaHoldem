@@ -21,13 +21,35 @@
     <!--          script 선언          -->
     <script src="https://kit.fontawesome.com/e1bd1cb2a5.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
     <title>ALPHA</title>
+    <style>
+        .logout-button {
+            background-color: #e0f0fc; /* Button background color */
+            border-left : 6px solid #2e99eb;
+            border-right : none;
+            border-top : none;
+            border-bottom : none;
+            padding: 8px 16px; /* Button padding */
+            /* border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Cursor style */
+            float: right; /* Align button to the right */
+            margin: 0 10px; /* Margin around the button */
+        }
+
+        .logout-button:hover {
+            background-color: #2e99eb; /* Button background color on hover */
+        }
+    </style>
 </head>
 
 <body>
 <header>
     <jsp:include page="header.jsp"></jsp:include>
+    <!-- Logout button -->
+    <form action="/alphaAdmin/logout" method="post">
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
 </header>
 <div class="main_container">
     <div class="conB">
