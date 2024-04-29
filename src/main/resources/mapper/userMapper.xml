@@ -9,8 +9,8 @@
             values (#{userName}, #{phoneNumber}, '1111', '0', NOW())
         </if>
         <if test="visitRoute != null">
-            insert into user(userName, phoneNumber, userPwd, pwdUpdate, visitRoute, registDate)
-            values (#{userName}, #{phoneNumber}, '1111', '0', #{visitRoute}, NOW())
+            insert into user(userName, phoneNumber, userPwd, pwdUpdate, visitRoute, etcVisitRoute, registDate)
+            values (#{userName}, #{phoneNumber}, '1111', '0', #{visitRoute}, #{etcVisitRoute}, NOW())
         </if>
     </insert>
 

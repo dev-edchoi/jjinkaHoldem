@@ -23,12 +23,16 @@
         <label for="userName">회원 이름:</label>
         <input type="text" id="userName" name="userName" placeholder="회원 이름" >
         <label for="visitRoute">방문 경로:</label>
-        <select id="visitRoute" name="visitRoute">
+        <select id="visitRoute" name="visitRoute" onchange="toggleInputs()">
             <option value="0">=== 선택 ===</option>
             <option value="1">친구 소개</option>
             <option value="2">SNS(인스타그램 등)</option>
             <option value="3">지도 검색</option>
+            <option value="4">기타</option>
         </select>
+        <label for="etcVisitRoute">방문 경로 : </label>
+        <input type="text" id="etcVisitRoute" name="etcVisitRoute" disabled>
+
         <input type="button" value="회원 등록" onclick="userRegist()">
         <input type="button" value="등록 취소" onclick="location.href='/alphaAdmin'">
     </form>
@@ -88,6 +92,17 @@
     function handleOnInput(el, maxlength) {
         if(el.value.length > maxlength)  {
             el.value = el.value.substr(0, maxlength);
+        }
+    }
+
+    const toggleInputs = () => {
+        let visitRoute = document.getElementById('visitRoute');
+        let etcVisitRoute= document.getElementById('etcVisitRoute');
+
+        if(visitRoute.value === '4'){
+            etcVisitRoute.disabled = false;
+        } else if(visitRoute.value !== '4') {
+            etcVisitRoute.disabled = true;
         }
     }
 </script>
