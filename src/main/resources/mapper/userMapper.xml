@@ -35,6 +35,10 @@
         select * from user where userName like '%${userName}%'
     </select>
 
+    <select id="findRecommender" parameterType="String" resultType="user">
+        select * from user where userName like '%${userName}%' OR phoneNumber LIKE '%${userName}%'
+    </select>
+
     <select id="searchUserByNameOrNum" parameterType="String" resultType="user">
         select * from user where userName like '%${searchWord}%' OR phoneNumber like '%${searchWord}%'
     </select>

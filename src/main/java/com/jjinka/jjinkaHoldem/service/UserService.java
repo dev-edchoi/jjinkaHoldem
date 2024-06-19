@@ -35,6 +35,10 @@ public class UserService {
         return userRepository.findByUserName(userName);
     }
 
+    public List<UserDTO> findRecommender(String recommender) {
+        return userRepository.findRecommender(recommender);
+    }
+
     public List<UserDTO> searchUserByNameOrNum(String searchWord) {
         return userRepository.searchUserByNameOrNum(searchWord);
     }
@@ -100,4 +104,6 @@ public class UserService {
     public UserDTO cntMembers() {
         return userRepository.cntMembers();
     }
+
+
 }

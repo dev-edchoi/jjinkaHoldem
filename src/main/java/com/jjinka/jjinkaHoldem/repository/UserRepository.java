@@ -30,6 +30,10 @@ public class UserRepository {
         return sqlSessionTemplate.selectList("User.findByUserName", userName);
     }
 
+    public List<UserDTO> findRecommender(String recommender) {
+        return sqlSessionTemplate.selectList("User.findRecommender", recommender);
+    }
+
     public List<UserDTO> searchUserByNameOrNum(String searchWord) {
         return sqlSessionTemplate.selectList("User.searchUserByNameOrNum", searchWord);
     }
@@ -63,4 +67,6 @@ public class UserRepository {
     public UserDTO cntMembers() {
         return sqlSessionTemplate.selectOne("User.cntMembers");
     }
+
+
 }

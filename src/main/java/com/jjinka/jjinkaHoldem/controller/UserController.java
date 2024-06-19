@@ -187,5 +187,15 @@ public class UserController {
             return "false";
         }
     }
+
+    @GetMapping("/recommenderPopup")
+    public String recommenderPopup(){
+        return "recommenderPopup";
+    }
+
+    @PostMapping("/findRecommender")
+    public @ResponseBody List<UserDTO> findRecommender(@RequestParam("recommender") String recommender){
+        return userService.findRecommender(recommender);
+    }
 }
 

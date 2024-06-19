@@ -32,6 +32,8 @@
         </select>
         <label for="etcVisitRoute">방문 경로 : </label>
         <input type="text" id="etcVisitRoute" name="etcVisitRoute" disabled>
+        <label for="recommender">추천인 : </label>
+        <input type="text" id="recommender" name="recommender" onkeyup="fnEnterKeyUp()">
 
         <input type="button" value="회원 등록" onclick="userRegist()">
         <input type="button" value="등록 취소" onclick="location.href='/alphaAdmin'">
@@ -103,6 +105,33 @@
             etcVisitRoute.disabled = false;
         } else if(visitRoute.value !== '4') {
             etcVisitRoute.disabled = true;
+        }
+    }
+
+    const userSearch = () => {
+        const recommender = document.getElementById("recommender").value;
+
+        let url = "/alphaAdmin/user/recommenderPopup?recommender=" + recommender;
+
+        window.open(url, "PopupWindow", "width=600,height=400,scrollbars=yes");
+        // $.ajax({
+        //     type: "post",
+        //     url: "/alphaAdmin/user/findRecommender",
+        //     data: {
+        //         "recommender": recommender
+        //     },
+        //     success: function (res) {
+        //         console.log(res);
+        //     },
+        //     error: function (err) {
+        //         console.log("에러 발생", err);
+        //     }
+        // });
+    }
+
+    const fnEnterKeyUp = () =>{
+        if (window.event.keyCode === 13) {
+            userSearch()
         }
     }
 </script>

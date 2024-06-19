@@ -150,7 +150,7 @@
 
     function disableElementsByClass(className) {
         let elements = document.getElementsByClassName(className);
-        console.log("elements.length : " + elements.length);
+
         for (let i = 0; i < elements.length; i++) {
             elements[i].disabled = true;
         }
@@ -168,7 +168,6 @@
                 if(res === "1"){
                     document.getElementById("gameSet").disabled = true;
                     isGameEnd = 1;
-                    console.log("isGameEnd : " + isGameEnd);
                 }
             },
             error: function (err) {
@@ -335,8 +334,6 @@
     }
 
     const reloadGamerList = (res) => {
-        console.log("reloadGamerList 이벤트 발생 : " +  isGameEnd);
-
         let gamerList = "<table id='gamerTable'>";
             gamerList += "<tr><th>참여 번호</th>";
             gamerList += "<th>회원 번호</th>";
