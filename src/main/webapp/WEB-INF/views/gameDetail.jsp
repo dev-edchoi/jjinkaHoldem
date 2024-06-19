@@ -125,6 +125,7 @@
 </body>
 <script>
     let gameNoForLog;
+    let isGameEnd;
 
     window.onload = function () {
         let today = new Date();
@@ -136,8 +137,23 @@
         let todayGameNo = ${gameList.todayGameNo};
 
         gameNoForLog = year + "_" + month + "_" + date + "-" + todayGameNo;
-        console.log(gameNoForLog);
+
+        isGameEnd = ${gameList.isEnd};
+
+        if(isGameEnd === 1) {
+            disableElementsByClass('table-button');
+            document.getElementById('searchUser').disabled = true;
+        }
+
         fnChkGaming();
+    }
+
+    function disableElementsByClass(className) {
+        let elements = document.getElementsByClassName(className);
+        console.log("elements.length : " + elements.length);
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].disabled = true;
+        }
     }
 
     const fnChkGaming = () =>{
@@ -151,6 +167,8 @@
             success: function (res) {
                 if(res === "1"){
                     document.getElementById("gameSet").disabled = true;
+                    isGameEnd = 1;
+                    console.log("isGameEnd : " + isGameEnd);
                 }
             },
             error: function (err) {
@@ -317,6 +335,8 @@
     }
 
     const reloadGamerList = (res) => {
+        console.log("reloadGamerList 이벤트 발생 : " +  isGameEnd);
+
         let gamerList = "<table id='gamerTable'>";
             gamerList += "<tr><th>참여 번호</th>";
             gamerList += "<th>회원 번호</th>";
@@ -335,13 +355,15 @@
             gamerList += "<td>" + res[i].userName + "</td>";
             gamerList += "<td class='gameTimeCnt'>" + res[i].gameTime + "</td>";
             gamerList += "<td class='gameTimeCnt'>" + res[i].joinUserPoint + "</td>";
-            if(parseInt(res[i].inGame) === 0){
+            if(isGameEnd === 1) {
+                gamerList += "<td>게임 종료.</td>";
+                gamerList += "<td>게임 종료.</td>";
+            } else if(isGameEnd !== 1 &&parseInt(res[i].inGame) === 0){
                 gamerList += "<td><button class='table-button' onclick='oneMoreGameCnt(" + res[i].userNo + "," + res[i].gameJoinNo + ")'>" + "추가 참여" + "</button></td>";
                 gamerList += "<td><button class='table-button' onclick='gameSet(" + res[i].userNo + "," + res[i].gameJoinNo + ")'>" + "게임 종료" + "</button></td>";
             } else {
                 gamerList += "<td><button class='table-button' onclick='reGameIn(" + res[i].userNo + "," + res[i].gameJoinNo + ")'>" + "다시 참여하기" + "</button></td>";
                 gamerList += "<td>참여 종료 됐습니다.</td>";
-
             }
             gamerList += "<td class='gameTimeCnt'>" + res[i].prizeMoney + "</td>";
             gamerList += "<td>" + res[i].joinTime + "</td>";
