@@ -23,4 +23,6 @@ public class UserDTO {
     private Long cntMember;
     private Long cntUserPoint;
     private Long recommenderNo;
+    private Long recPoint;
+    private Long memLevel;
 }

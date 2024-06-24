@@ -17,12 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.sound.midi.SysexMessage;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/alphaAdmin/game")
@@ -153,6 +151,11 @@ public class GameController {
         int isSuccess = gameService.gamerJoin(map);
         if(isSuccess > 0){
             gamerPointDeduction(userDTO.getUserNo(), gameFee, gameNoForLog);
+
+            Long recommenderNo = userDTO.getRecommenderNo();
+            if(recommenderNo != null) {
+                recommendPoint(recommenderNo, gameFee);
+            }
         }
         return gameService.findJoinerList(gameNo);
     }
@@ -171,6 +174,11 @@ public class GameController {
         int isSuccess = gameService.reGameIn(map);
         if(isSuccess > 0){
             gamerPointDeduction(userNo, gameFee, gameNoForLog);
+
+            Long recommenderNo = userDTO.getRecommenderNo();
+            if(recommenderNo != null) {
+                recommendPoint(recommenderNo, gameFee);
+            }
         }
 
         return gameService.findJoinerList(gameNo);
@@ -180,6 +188,8 @@ public class GameController {
     public @ResponseBody List<GameJoinerDTO> oneMoreGameCnt(@RequestParam("userNo") Long userNo, @RequestParam("gameNo") Long gameNo,
                                                             @RequestParam("gameFee") Long gameFee, @RequestParam("gameJoinNo") Long gameJoinNo,
                                                             @RequestParam("gameNoForLog") String gameNoForLog) {
+        UserDTO userDTO = userService.findByUserNo(userNo);
+
         Map<String, Object> map = new HashMap<>();
         map.put("gameNo", gameNo);
         map.put("userNo", userNo);
@@ -188,9 +198,30 @@ public class GameController {
         int isSuccess = gameService.oneMoreGameCnt(map);
         if(isSuccess > 0){
             gamerPointDeduction(userNo, gameFee, gameNoForLog);
+
+            Long recommenderNo = userDTO.getRecommenderNo();
+            if(recommenderNo != null) {
+                recommendPoint(recommenderNo, gameFee);
+            }
         }
 
         return gameService.findJoinerList(gameNo);
+    }
+
+    public void recommendPoint(Long recommenderNo, Long gameFee) {
+        UserDTO userDTO = userService.findByUserNo(recommenderNo);
+        long memLevel = userDTO.getMemLevel();
+        double feePercent = 0.01;
+
+        if(memLevel > 1){ feePercent = (double) memLevel / 100;}
+        long recPoint = 0;
+             recPoint = (long) (gameFee * feePercent);
+
+        Map<String, Object> recMap = new HashMap<>();
+        recMap.put("recommenderNo", recommenderNo);
+        recMap.put("recPoint", recPoint);
+
+        gameService.accRecPoint(recMap);
     }
 
     @PostMapping("/chkJoiner")

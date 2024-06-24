@@ -99,4 +99,8 @@ public class GameRepository {
     public Long CntTodayGame() {
         return sqlSessionTemplate.selectOne("Game.CntTodayGame");
     }
+
+    public void accRecPoint(Map<String, Object> recMap) {
+        sqlSessionTemplate.update("Game.accRecPoint", recMap);
+    }
 }

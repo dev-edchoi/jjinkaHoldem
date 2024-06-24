@@ -236,6 +236,7 @@
     const gamerJoin = (userNo) => {
         let gameNumber = '${gameList.gameNo}';
         let gameFee = ${gameList.gameFee};
+
         $.ajax({
             type: "post",
             url: "/alphaAdmin/game/gamerJoin",

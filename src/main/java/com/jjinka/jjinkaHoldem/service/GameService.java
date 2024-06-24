@@ -155,4 +155,8 @@ public class GameService {
     public Long CntTodayGame() {
         return gameRepository.CntTodayGame();
     }
+
+    public void accRecPoint(Map<String, Object> recMap) {
+        gameRepository.accRecPoint(recMap);
+    }
 }

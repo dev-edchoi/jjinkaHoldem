@@ -133,4 +133,7 @@
         UPDATE gameJoiner SET prizeMoney = #{prizeMoney} WHERE userNo = #{userNo} AND gameNo = #{gameNo}
     </update>
 
+    <update id="accRecPoint" parameterType="map">
+        UPDATE user SET recPoint = recPoint + #{recPoint} WHERE userNo = #{recommenderNo};
+    </update>
 </mapper>
