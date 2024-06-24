@@ -34,6 +34,10 @@ public class UserRepository {
         return sqlSessionTemplate.selectList("User.findRecommender", recommender);
     }
 
+//    public Long addRecommender(Long recommenderNo) {
+//        return sqlSessionTemplate.selectOne("User.addRecommender", recommenderNo);
+//    }
+
     public List<UserDTO> searchUserByNameOrNum(String searchWord) {
         return sqlSessionTemplate.selectList("User.searchUserByNameOrNum", searchWord);
     }

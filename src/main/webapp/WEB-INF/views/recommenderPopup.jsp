@@ -19,8 +19,11 @@
 </head>
 <body>
 <div style="margin-top: 20px">
-    <div class="popup-header">
+    <div class="popup-header" style="margin: 0 20px 0 20px">
         <span class="user-info" id="user-info"></span>
+        <!-- Add input field and search button -->
+        <input type="text" id="searchWord" placeholder="검색어 입력" onkeyup="fnEnterKeyUp()" style="margin-left: 20px;">
+        <button id="searchButton" onclick="popRecommenderSearch()">검색</button>
     </div>
     <div>
         <table class="brown-table" id="userTable">
@@ -37,21 +40,31 @@
 </div>
 <script>
     window.onload = function() {
-        let recommender = getParameterByName('recommender');
+        // let recommender = getParameterByName('recommender');
+        //
+        // if(recommender){                                                                    // 파라미터 값이 있는 경우에만 검색 진행.
+        //     document.getElementById("user-info").innerHTML = "검색어 : " + recommender;
+        //     recommenderSearch(recommender);
+        // } else {
+        //     document.getElementById("user-info").innerHTML = "검색어 : ";
+        // }
 
-        document.getElementById("user-info").innerHTML = "검색어 : " + recommender;
-
-        recommenderSearch(recommender);
+        document.getElementById("user-info").innerHTML = "검색어 : ";
     };
 
-    function getParameterByName(name) {
-        name = name.replace(/[\[\]]/g, '\\$&');
-        let url = window.location.href;
-        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-        let results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    // function getParameterByName(name) {
+    //     name = name.replace(/[\[\]]/g, '\\$&');
+    //     let url = window.location.href;
+    //     let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    //     let results = regex.exec(url);
+    //     if (!results) return null;
+    //     if (!results[2]) return '';
+    //     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    // }
+
+    const popRecommenderSearch = () => {                                                    // 팝업창에서 검색을 진행하는 경우.
+        let searchParam = document.getElementById("searchWord").value;
+        recommenderSearch(searchParam);
     }
 
     const recommenderSearch = (recommender) => {
@@ -62,7 +75,6 @@
                 "recommender": recommender
             },
             success: function (res) {
-                console.log(res);
                 let recommenderList = "<table id='gamerTable'>";
                     recommenderList += "<th>회원 번호</th>";
                     recommenderList += "<th>참가자 이름</th>";
@@ -73,8 +85,7 @@
                     recommenderList += "<td>" + res[i].userNo + "</td>";
                     recommenderList += "<td>" + res[i].userName + "</td>";
                     recommenderList += "<td>" + res[i].phoneNumber + "</td>";
-                    recommenderList += "<td>" + "test" + "</td>";
-
+                    recommenderList += "<td><button class='table-button' onclick='closePopup(" + res[i].userNo + ")'>" + "선택" + "</button></td>";
                     recommenderList += "</tr>";
                 }
                     recommenderList += "</table>";
@@ -86,7 +97,19 @@
         });
     }
 
+    const closePopup = (recommenderNo) => {
+        if (confirm(recommenderNo + " 번을 추천인으로 등록 합니다.")) {
+            opener.document.getElementById("recommenderNo").value = recommenderNo;
+            opener.document.getElementById("recommenderNo").readOnly = true
+            window.close();
+        }
+    }
 
+    const fnEnterKeyUp = () =>{
+        if (window.event.keyCode === 13) {
+            popRecommenderSearch();
+        }
+    }
 </script>
 </body>
 </html>

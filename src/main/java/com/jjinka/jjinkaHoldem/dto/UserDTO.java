@@ -22,4 +22,5 @@ public class UserDTO {
     private String searchWord;
     private Long cntMember;
     private Long cntUserPoint;
+    private Long recommenderNo;
 }

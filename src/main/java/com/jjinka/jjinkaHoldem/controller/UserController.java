@@ -197,5 +197,10 @@ public class UserController {
     public @ResponseBody List<UserDTO> findRecommender(@RequestParam("recommender") String recommender){
         return userService.findRecommender(recommender);
     }
+
+//    @PostMapping("/addRecommender")
+//    public @ResponseBody Long addRecommender(@RequestParam("recommenderNo") Long recommenderNo){
+//        return userService.addRecommender(recommenderNo);
+//    }
 }
 

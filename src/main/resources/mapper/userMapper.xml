@@ -5,12 +5,12 @@
 <mapper namespace="User">
     <insert id="save" parameterType="user">
         <if test="visitRoute == null">
-            insert into user(userName, phoneNumber, userPwd, pwdUpdate, registDate)
-            values (#{userName}, #{phoneNumber}, '1111', '0', NOW())
+            insert into user(userName, phoneNumber, userPwd, pwdUpdate, recommenderNo, registDate)
+            values (#{userName}, #{phoneNumber}, '1111', '0', #{recommenderNo}, NOW())
         </if>
         <if test="visitRoute != null">
-            insert into user(userName, phoneNumber, userPwd, pwdUpdate, visitRoute, etcVisitRoute, registDate)
-            values (#{userName}, #{phoneNumber}, '1111', '0', #{visitRoute}, #{etcVisitRoute}, NOW())
+            insert into user(userName, phoneNumber, userPwd, pwdUpdate, visitRoute, etcVisitRoute, recommenderNo, registDate)
+            values (#{userName}, #{phoneNumber}, '1111', '0', #{visitRoute}, #{etcVisitRoute}, #{recommenderNo}, NOW())
         </if>
     </insert>
 
@@ -38,7 +38,11 @@
     <select id="findRecommender" parameterType="String" resultType="user">
         select * from user where userName like '%${userName}%' OR phoneNumber LIKE '%${userName}%'
     </select>
-
+    <!--
+    <select id="addRecommender" parameterType="Long" resultType="Long">
+        select * from user where userName like '%${userName}%' OR phoneNumber LIKE '%${userName}%'
+    </select>
+    -->
     <select id="searchUserByNameOrNum" parameterType="String" resultType="user">
         select * from user where userName like '%${searchWord}%' OR phoneNumber like '%${searchWord}%'
     </select>

@@ -39,6 +39,14 @@ public class UserService {
         return userRepository.findRecommender(recommender);
     }
 
+//    public Long addRecommender(Long recommenderNo) {
+//        Long result = userRepository.addRecommender(recommenderNo);
+//
+//
+//
+//        return result;
+//    }
+
     public List<UserDTO> searchUserByNameOrNum(String searchWord) {
         return userRepository.searchUserByNameOrNum(searchWord);
     }
@@ -104,6 +112,7 @@ public class UserService {
     public UserDTO cntMembers() {
         return userRepository.cntMembers();
     }
+
 
 
 }
