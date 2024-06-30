@@ -37,6 +37,7 @@
                 <th>회원 전화번호</th>
                 <th>회원 이름</th>
                 <th>잔여 포인트</th>
+                <th>추천 포인트</th>
                 <th>가입 일자</th>
                 <th>조회</th>
             </tr>
@@ -49,6 +50,7 @@
                     </td>
                     <td>${user.userName}</td>
                     <td><c:out value="${user.userPoint}">0</c:out></td>
+                    <td><c:out value="${user.recPoint}">0</c:out></td>
                     <td>${user.registDate}</td>
                     <td>
                         <button class="table-button" onclick="fnUserDetail('${user.userNo}','${paging.page}')">조회

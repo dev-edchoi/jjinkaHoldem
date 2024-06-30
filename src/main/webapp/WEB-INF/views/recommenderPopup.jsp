@@ -101,6 +101,7 @@
         if (confirm(recommenderNo + " 번을 추천인으로 등록 합니다.")) {
             opener.document.getElementById("recommenderNo").value = recommenderNo;
             opener.document.getElementById("recommenderNo").readOnly = true
+            opener.document.getElementById("btnConfirm").focus();
             window.close();
         }
     }

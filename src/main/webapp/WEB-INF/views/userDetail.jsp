@@ -68,6 +68,10 @@
                 <td>${userList.userPoint}</td>
             </tr>
             <tr>
+                <th>추천 포인트</th>
+                <td>${userList.recPoint}</td>
+            </tr>
+            <tr>
                 <th>방문 경로</th>
                 <c:choose>
                     <c:when test="${userList.visitRoute == 1}">

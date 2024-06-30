@@ -76,7 +76,12 @@
         <label for="phoneNumber">Phone Number:</label>
         <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}">
 
-        <button onclick="editUserInfo()">수정</button>
+        <label for="recommenderNo">추천인 :</label>
+        <input type="number" id="recommenderNo" name="recommenderNo" value="${user.recommenderNo}" onfocus="userSearch()">
+        <input type="button" value="추천인 재검색" onclick="userSearch()">
+        <br><br>
+
+        <button id="btnConfirm" onclick="editUserInfo()">수정</button>
         <button onclick="location.href='/'">취소</button>
     </form>
     <button onclick="delUser('${user.userNo}')">회원 삭제</button>
@@ -96,6 +101,12 @@
         } else {
             return false;
         }
+    }
+
+    const userSearch = () => {
+        let url = "/alphaAdmin/user/recommenderPopup";
+
+        window.open(url, "PopupWindow", "width=600,height=400,scrollbars=yes");
     }
 </script>
 </body>
