@@ -72,6 +72,10 @@
                 <td>${userList.recPoint}</td>
             </tr>
             <tr>
+                <th>회원 레벨</th>
+                <td>${userList.memLevel}</td>
+            </tr>
+            <tr>
                 <th>방문 경로</th>
                 <c:choose>
                     <c:when test="${userList.visitRoute == 1}">

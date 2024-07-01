@@ -76,6 +76,9 @@
         <label for="phoneNumber">Phone Number:</label>
         <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}">
 
+        <label for="memLevel">Member Level:</label>
+        <input type="text" id="memLevel" name="memLevel" value="${user.memLevel}">
+
         <label for="recommenderNo">추천인 :</label>
         <input type="number" id="recommenderNo" name="recommenderNo" value="${user.recommenderNo}" onfocus="userSearch()">
         <input type="button" value="추천인 재검색" onclick="userSearch()">
