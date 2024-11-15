@@ -68,6 +68,14 @@
                 <td>${userList.userPoint}</td>
             </tr>
             <tr>
+                <th>추천 포인트</th>
+                <td>${userList.recPoint}</td>
+            </tr>
+            <tr>
+                <th>회원 레벨</th>
+                <td>${userList.memLevel}</td>
+            </tr>
+            <tr>
                 <th>방문 경로</th>
                 <c:choose>
                     <c:when test="${userList.visitRoute == 1}">
@@ -78,6 +86,9 @@
                     </c:when>
                     <c:when test="${userList.visitRoute == 3}">
                         <td>지도 검색</td>
+                    </c:when>
+                    <c:when test="${userList.visitRoute == 4}">
+                        <td>${userList.etcVisitRoute}</td>
                     </c:when>
                     <c:otherwise>
                         <td>방문 경로 없음</td>
