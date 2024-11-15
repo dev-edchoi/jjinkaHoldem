@@ -132,7 +132,8 @@
                 if (res || res === 0) {
                     bChkPoint = true;
                     console.log(res);
-                    document.getElementById('result').innerHTML = '<p class="success">잔여 포인트: ' + res.userPoint + '</p>';
+                    document.getElementById('result').innerHTML = '<p class="success">잔여 포인트: ' + res.userPoint + '</p><p class="success">추천인 포인트: ' + res.recPoint + '</p>';
+                    //document.getElementById('result').innerHTML = '<p class="success">추천인 포인트: ' + res.recPoint + '</p>';
                     document.getElementById('userNo').value = res.userNo;
                 } else {
                     document.getElementById('result').innerHTML = '<p class="error">닉네임 혹은 전화번호를 확인해주세요.</p>';

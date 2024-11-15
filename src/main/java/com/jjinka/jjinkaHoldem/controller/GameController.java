@@ -210,18 +210,22 @@ public class GameController {
 
     public void recommendPoint(Long recommenderNo, Long gameFee) {
         UserDTO userDTO = userService.findByUserNo(recommenderNo);
-        long memLevel = userDTO.getMemLevel();
-        double feePercent = 0.01;
 
-        if(memLevel > 1){ feePercent = (double) memLevel / 100;}
-        long recPoint = 0;
-             recPoint = (long) (gameFee * feePercent);
+        if(userDTO != null){                                                        // 추천인 번호가 오입력 된 경우를 고려해 null 체크
+            long memLevel = userDTO.getMemLevel();
 
-        Map<String, Object> recMap = new HashMap<>();
-        recMap.put("recommenderNo", recommenderNo);
-        recMap.put("recPoint", recPoint);
+            double feePercent = 0.01;
 
-        gameService.accRecPoint(recMap);
+            if(memLevel > 1){ feePercent = (double) memLevel / 100;}
+            long recPoint = 0;
+            recPoint = (long) (gameFee * feePercent);
+
+            Map<String, Object> recMap = new HashMap<>();
+            recMap.put("recommenderNo", recommenderNo);
+            recMap.put("recPoint", recPoint);
+
+            gameService.accRecPoint(recMap);
+        }
     }
 
     @PostMapping("/chkJoiner")

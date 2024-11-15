@@ -34,10 +34,10 @@
         <input type="text" id="etcVisitRoute" name="etcVisitRoute" disabled>
         <label for="recommenderNo">추천인 : </label>
         <!--<input type="text" id="recommender" name="recommender" onkeyup="fnEnterKeyUp()">-->
-        <input type="text" id="recommenderNo" name="recommenderNo" onfocus="userSearch()">
+        <input type="number" id="recommenderNo" name="recommenderNo" onfocus="userSearch()">
         <input type="button" value="추천인 재검색" onclick="userSearch()">
         <br><br>
-        <input type="button" value="회원 등록" onclick="userRegist()">
+        <input type="button" id="btnConfirm" value="회원 등록" onclick="userRegist()">
         <input type="button" value="등록 취소" onclick="location.href='/alphaAdmin'">
     </form>
 </div>
