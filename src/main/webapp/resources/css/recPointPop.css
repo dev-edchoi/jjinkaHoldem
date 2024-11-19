@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.popup-container {
+    background-color: #f8efd4;
+    border: 1px solid #d1c4b8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.popup-header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    align-items: center;    /* 텍스트 중앙 정렬 */
+    gap: 5px;               /* 항목 간격 */
+}
+
+.referral-points,
+.remaining-points {
+    font-weight: bold;
+    color: #6f4e37;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.popup-body {
+    margin-top: 20px;
+}
+
+.input-label {
+    font-size: 0.9em;
+    color: #6f4e37;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input::-webkit-inner-spin-button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+#convPoint {
+    width: 100%;
+    padding: 12px; /* 높이를 키우기 위해 패딩 증가 */
+    font-size: 1.1em; /* 글씨 크기 증가 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Message Box */
+.message {
+    margin: 10px 0;
+    padding: 15px; /* 메시지 박스 내부 여백 증가 */
+    background-color: #fce4ec;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    color: #721c24;
+    /* display: none; /* 기본적으로 숨김 상태 */
+    display: block;
+    font-size: 1em; /* 글씨 크기 증가 */
+    min-height: 60px; /* 메시지 박스 높이 증가 */
+    text-align: center; /* 메시지를 중앙 정렬 */
+    line-height: 1.4; /* 줄 간격 조정 */
+}
+
+/* Button Styles */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-button,
+.cancel-button {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-button {
+    background-color: #6f4e37;
+    color: #fff;
+}
+
+.confirm-button:hover {
+    background-color: #8b5e3c;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: #333;
+}
+
+.cancel-button:hover {
+    background-color: #bbb;
+}

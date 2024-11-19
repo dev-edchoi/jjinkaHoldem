@@ -43,6 +43,7 @@
     <jsp:include page="header.jsp"></jsp:include>
 </header>
 <div class="buttons-container">
+    <button class="button" onclick="recPointConversion()">포인트 전환</button>
     <button class="button" onclick="userPointSend()">포인트 선물</button>
     <button class="button" onclick="updateFn()">유정 정보 수정</button>
     <button class="button" onclick="userPointLog()">전체 포인트 목록</button>
@@ -211,6 +212,18 @@
         let userNo = ${userList.userNo};
 
         location.href = "/alphaAdmin/userPoint/userPointLog?userNo=" + userNo
+    }
+
+    const recPointConversion = () => {
+        let userNo = '${userList.userNo}';
+        //let userPoint = '${userList.userPoint}';
+
+        let _width = '650';
+        let _height = '600';
+        let _left = Math.ceil((window.screen.width - _width) / 2);
+        let _top = Math.ceil((window.screen.height - _height) / 2);
+
+        window.open('/alphaAdmin/userPoint/recPointConversion?userNo=' + userNo, 'childForm', 'width=' + _width + ',height=' + _height + ',left=' + _left + ',top=' + _top);
     }
 </script>
 </html>

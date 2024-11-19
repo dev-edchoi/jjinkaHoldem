@@ -1,6 +1,5 @@
 package com.jjinka.jjinkaHoldem.repository;
 
-import com.jjinka.jjinkaHoldem.dto.UserDTO;
 import com.jjinka.jjinkaHoldem.dto.UserPointDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -29,6 +28,7 @@ public class UserPointRepository {
     public List<UserPointDTO> userPointList(Map<String, Object> pagingParams) {
         return sqlSessionTemplate.selectList("UserPoint.userPointList", pagingParams);
     }
-
-
+    public int recPointConv(Map<String, Object> recPointMap) {
+        return sqlSessionTemplate.update("UserPoint.recPointConv", recPointMap);
+    }
 }

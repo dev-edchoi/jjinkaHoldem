@@ -57,4 +57,7 @@ public class UserPointService {
         return pageDTO;
     }
 
+    public int recPointConv(Map<String, Object> recPointMap) {
+        return userPointRepository.recPointConv(recPointMap);
+    }
 }

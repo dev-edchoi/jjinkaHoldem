@@ -71,7 +71,11 @@
             insert into userPoint(userNo, point, reasonForChange, joinGameNo)
             values (#{userNo}, (#{gameFee}), 4, #{joinGameNo})
         </if>
-        <if test="reasonForChange != 1 and reasonForChange != 2 and reasonForChange != 3 and reasonForChange != 4">
+        <if test="reasonForChange == 5">
+            insert into userPoint(userNo, point, reasonForChange)
+            values (#{userNo}, #{convPoint}, 5)
+        </if>
+        <if test="reasonForChange != 1 and reasonForChange != 2 and reasonForChange != 3 and reasonForChange != 4 and reasonForChange != 5">
             insert into userPoint(userNo, point, reasonForChange)
             values (#{userNo}, #{userPoint}, 0)
         </if>
@@ -136,4 +140,12 @@
         select * from userPoint where userNo=#{userNo} order by date desc
     </select>
 -->
+
+    <update id="recPointConv" parameterType="map">
+        UPDATE user
+            SET
+                userPoint = #{userPoint}
+                , recPoint = #{recPoint}
+        WHERE userNo = #{userNo}
+    </update>
 </mapper>
