@@ -51,7 +51,7 @@
 </div>
 <div class="container">
     <div class="game-info">
-        <table class="brown-table">
+        <table class="blue-table">
             <tr>
                 <th>유저 번호</th>
                 <td>${userList.userNo}</td>
@@ -122,7 +122,7 @@
     </div>
 </form>
 <div>
-    <table class="brown-table">
+    <table class="blue-table">
         <thead>
         <tr>
             <th>변동 금액</th>

@@ -1,5 +1,5 @@
 .wrap {
-    text-align:center;
+    text-align: center;
 }
 
 .pagination {
@@ -8,49 +8,43 @@
 }
 
 .pagination a {
-    color: black;
+    color: #28527a; /* 기본 텍스트 색상 */
     float: left;
     padding: 8px 16px;
     text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid #e0f0fc; /* 테두리 색상 */
+    background-color: #f3f7f9; /* 기본 배경색 */
     margin: 0 4px;
+    border-radius: 4px; /* 약간 둥근 모서리 */
 }
 
 .pagination span {
-    color: black;
+    color: #28527a;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid #e0f0fc;
+    background-color: #f3f7f9;
     margin: 0 4px;
+    border-radius: 4px;
 }
-/*
+
 .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
+    background-color: #82caff; /* 활성 상태 배경색 */
+    color: #ffffff; /* 활성 상태 텍스트 색상 */
+    border: 1px solid #82caff; /* 활성 상태 테두리 */
 }
 
 .pagination span.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-}
-*/
-
-.pagination a.active {
-    background-color: rgba(235, 223, 200, 1);
-    color: black;
-    border: 1px solid rgba(235, 223, 200, 1);
+    background-color: #82caff;
+    color: #ffffff;
+    border: 1px solid #82caff;
 }
 
-.pagination span.active {
-    background-color: rgba(235, 223, 200, 1);
-    color: black;
-    border: 1px solid rgba(235, 223, 200, 1);
+.pagination a:hover:not(.active) {
+    background-color: #e0f0fc; /* 호버 시 배경색 */
+    color: #28527a; /* 호버 시 텍스트 색상 */
+    border: 1px solid #2e99eb; /* 호버 시 테두리 */
 }
-
-
-.pagination a:hover:not(.active) {background-color: #ddd;}

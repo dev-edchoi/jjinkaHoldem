@@ -30,7 +30,7 @@
         <button onclick="fnSearchUser()" class="button">회원 검색</button>
     </div>
     <div style="margin-top: 20px">
-        <table class="brown-table">
+        <table class="blue-table">
             <thead>
             <tr>
                 <th>No.</th>

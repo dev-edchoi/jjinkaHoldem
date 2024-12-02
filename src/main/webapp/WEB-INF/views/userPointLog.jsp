@@ -24,7 +24,7 @@
         <button onclick="fnBackToUserDetail()" class="button">유저 상세</button>
     </div>
     <div style="margin-top: 20px">
-        <table class="brown-table">
+        <table class="blue-table">
             <thead>
             <tr>
                 <th>No.</th>

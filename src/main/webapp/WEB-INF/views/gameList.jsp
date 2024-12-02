@@ -38,7 +38,7 @@
         <button type="button" class="button" onclick="fnSearchByDate()">검색</button>
     </div>
     <div style="margin-top: 20px">
-        <table class="brown-table">
+        <table class="blue-table">
             <tr>
                 <th>Game No.</th>
                 <th>테이블 번호</th>

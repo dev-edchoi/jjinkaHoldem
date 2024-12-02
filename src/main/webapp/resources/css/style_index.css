@@ -3,7 +3,8 @@
 .conB {
     padding-top: 100px;
     padding-bottom: 150px;
-    background-color: rgba(242, 242, 242, 1);
+    /*background-color: rgba(242, 242, 242, 1);*/
+    background-color: #f3f7f9;
 }
 
 .conB_title {

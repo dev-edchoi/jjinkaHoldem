@@ -8,11 +8,64 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userUpdate.css">
-    <title>회원 정보 수정</title>
+    <title>Title</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e8d8c3; /* 배경색상 설정 */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .user-info {
+            background-color: #d4a373; /* 박스 배경색상 설정 */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #503c2c; /* 제목 글자색 설정 */
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #503c2c; /* 라벨 글자색 설정 */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #503c2c; /* 입력창 테두리색상 설정 */
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #503c2c; /* 버튼 배경색상 설정 */
+            color: #fff; /* 버튼 글자색 설정 */
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #7f5e4a; /* 호버시 버튼 배경색상 변경 */
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+<div class="user-info">
     <form action="/alphaAdmin/user/userUpdate" method="post" name="updateForm">
         <input type="hidden" name="userNo" value="${user.userNo}" readonly>
         <h1>User Information</h1>

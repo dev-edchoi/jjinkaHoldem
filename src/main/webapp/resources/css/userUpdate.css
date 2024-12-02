@@ -1,0 +1,100 @@
+body {
+    background-color: #e0f0fc; /* 밝은 블루 배경 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #28527a; /* 텍스트 기본 색상 */
+}
+
+.container {
+    background-color: #ffffff; /* 흰색 컨테이너 */
+    border: 1px solid #82caff; /* 테두리 블루 */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #2e99eb; /* 헤더 텍스트 포인트 블루 */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #28527a; /* 텍스트 짙은 블루 */
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #82caff; /* 입력 필드 테두리 */
+    border-radius: 5px;
+    background-color: #ffffff; /* 흰색 배경 */
+    color: #28527a; /* 입력 필드 텍스트 */
+    box-sizing: border-box;
+}
+
+input[type="submit"], button {
+    background-color: #2e99eb; /* 버튼 기본 블루 */
+    color: #ffffff; /* 버튼 텍스트 흰색 */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover, button:hover {
+    background-color: #82caff; /* 버튼 호버 상태 밝은 블루 */
+}
+
+input[disabled], textarea[disabled] {
+    background-color: #f0f4f9; /* 비활성화된 필드의 밝은 회색-블루 */
+    color: #a0b3c4; /* 비활성화된 텍스트 색상 */
+}
+
+a {
+    color: #2e99eb; /* 링크 기본 색상 */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #82caff; /* 링크 호버 색상 */
+}
+
+/* 모바일 반응형 스타일 */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        max-width: 100%; /* 컨테이너가 화면 너비에 맞게 확장 */
+        box-shadow: none; /* 작은 화면에서 그림자 제거 */
+        border-radius: 5px; /* 모서리 반경 축소 */
+    }
+
+    input, select, textarea {
+        padding: 8px; /* 입력 필드 패딩 축소 */
+        font-size: 14px; /* 텍스트 크기 축소 */
+    }
+
+    input[type="submit"], button {
+        padding: 8px 10px; /* 버튼 크기 조정 */
+        font-size: 14px; /* 버튼 텍스트 크기 축소 */
+    }
+
+    h1, h2, h3 {
+        font-size: 18px; /* 헤더 크기 축소 */
+        margin-bottom: 10px;
+    }
+
+    label {
+        font-size: 14px; /* 라벨 크기 축소 */
+    }
+}

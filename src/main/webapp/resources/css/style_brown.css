@@ -5,7 +5,7 @@
 form input::-webkit-outer-spin-button,
 form input::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    margin: 0;
+    margin : 0;
 }
 /* Firefox */
 form input[type="number"] {
@@ -13,7 +13,7 @@ form input[type="number"] {
 }
 
 body {
-    background-color: #f3f7f9;
+    background-color: #f5f5f5;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 1.5em;
@@ -24,80 +24,74 @@ body {
     margin: 10px auto;
 }
 
-.blue-table {
+.brown-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.blue-table th,
-.blue-table td {
+.brown-table th,
+.brown-table td {
     padding: 8px;
-    border: 1px solid #82caff;
-    background-color: white; /* 테이블 배경색 */
-    color: #28527a;
-    text-align: left;
+    border: 1px solid #cda45e;
+    background-color: #e2c8a6;
+    color: #5a3a20;
 }
 
-.blue-table th {
+.brown-table th {
     font-weight: bold;
-    border-left: 6px solid #2e99eb; /* 강조된 왼쪽 테두리 */
-    background-color: #FFFFFF; /* 헤더 배경색 */
-    color: #28527a;
+    text-align: left;
+    background-color: #795548;
+    color: #fff;
+    width: 240px;
 }
 
-.blue-table td {
-    border-left: 6px solid transparent; /* 데이터 셀은 기본적으로 투명 */
-}
-
-.blue-table td:first-child {
-    border-left: 6px solid #2e99eb; /* 첫 번째 셀은 강조된 왼쪽 테두리 */
+.brown-table td {
+    text-align: left;
 }
 
 .table-button {
-    background-color: #e0f0fc; /* 버튼 배경색 */
-    color: #28527a; /* 버튼 텍스트 색상 */
+    background-color: #795548; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
     padding: 8px 12px;
     border: none;
-    border-left: 6px solid #2e99eb; /* 왼쪽 테두리 강조 */
     border-radius: 5px;
     cursor: pointer;
-    text-align: left;
 }
 
 .table-button:hover {
-    background-color: #d0e8fa; /* 호버 시 배경색 */
+    background-color: #4e342e; /* 버튼에 호버 효과 시 배경색 변경 */
 }
 
 .table-button:disabled {
-    background-color: #c0d6e8; /* 비활성화된 버튼 배경색 */
+    background-color: dimgrey; /* 버튼에 호버 효과 시 배경색 변경 */
 }
 
 .game-info,
 .member-search {
     flex: 1;
     padding: 15px;
-    background-color: #cde8fb;
+    background-color: #d2b48c;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 0 10px;
 }
 
 h2 {
-    color: #2e99eb;
+    color: #795548;
     margin-top: 0px;
 }
 
 .member-search label {
     display: block;
     margin: 10px 0 5px;
-    color: #1a567c;
+    color: #3e2723;
 }
 
 .member-search input {
     width: 70%;
     padding: 8px;
     margin-bottom: 20px;
-    border: 1px solid #2e99eb;
+    border: 1px solid #795548;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -106,11 +100,12 @@ h2 {
     width: 10%;
 }
 
+
 /* Optional: Style for displaying search results */
 .search-results {
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #2e99eb;
+    border: 1px solid #795548;
     border-radius: 5px;
     background-color: #fff;
     max-height: 200px;
@@ -128,7 +123,7 @@ h2 {
 }
 
 .button {
-    background-color: #2e99eb;
+    background-color: #795548;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -138,7 +133,7 @@ h2 {
 }
 
 .button:hover {
-    background-color: #1a73b8;
+    background-color: #4e342e;
 }
 
 .button:disabled {
@@ -147,17 +142,17 @@ h2 {
 
 label {
     margin-bottom: 8px;
-    color: #1a567c;
+    color: #4e342e; /* 브라운 계통 글자색 */
 }
 
 input {
     width: 50px;
     padding: 8px;
     box-sizing: border-box;
-    border: 1px solid #82caff;
+    border: 1px solid #a1887f; /* 브라운 계통 테두리 색상 */
     border-radius: 4px;
-    background-color: #f0f9ff;
-    color: #1a567c;
+    background-color: #f5f5f5;
+    color: #4e342e; /* 브라운 계통 글자색 */
 }
 
 input[disabled] {
@@ -167,8 +162,8 @@ input[disabled] {
 select {
     padding: 8px;
     margin: 0 15px 0 15px;
-    border: 1px solid #82caff;
+    border: 1px solid #a1887f; /* 브라운 계통 테두리 색상 */
     border-radius: 4px;
-    background-color: #fff;
-    color: #1a567c;
+    background-color: #fff; /* 백그라운드 색상 */
+    color: #4e342e; /* 브라운 계통 글자색 */
 }

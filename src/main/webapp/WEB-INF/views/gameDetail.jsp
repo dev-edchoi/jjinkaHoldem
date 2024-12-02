@@ -28,7 +28,7 @@
 <div class="container">
     <div class="game-info">
         <h2>Game Information</h2>
-        <table class="brown-table">
+        <table class="blue-table">
             <tr>
                 <th>게임 번호</th>
                 <td>${gameList.gameNo}</td>
@@ -79,7 +79,7 @@
     <input type="number" id="totalGamerCnt" readonly>
 </div>
 <div>
-    <table id='gamerTable' class="brown-table">
+    <table id='gamerTable' class="blue-table">
         <tr>
             <th>참여 번호</th>
             <th>회원 번호</th>
@@ -186,7 +186,7 @@
                 "userName": userName
             },
             success: function (res) {
-                let output = "<table class='brown-table'>";
+                let output = "<table class='blue-table'>";
                     output += "<tr><th>번호</th>";
                     output += "<th>이름</th>";
                     output += "<th>전화번호</th>";
